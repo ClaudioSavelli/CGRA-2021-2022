@@ -1,6 +1,6 @@
 # CGRA 2021/2022
 
-## Group T0xG0y
+## Group T07G01
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
 | Pedro Silva         | 201907523 | up201907523@edu.fe.up.pt                |
