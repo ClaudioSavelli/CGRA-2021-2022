@@ -1,5 +1,9 @@
 import { CGFscene, CGFcamera, CGFaxis } from "../lib/CGF.js";
 import { MyDiamond } from "./MyDiamond.js";
+import { MyParallelogram } from "./MyParallelogram.js";
+import { MyTriangle } from "./MyTriangle.js";
+import { MyTriangleBig } from "./MyTriangleBig.js";
+import { MyTriangleSmall } from "./MyTriangleSmall.js";
 
 /**
  * MyScene
@@ -9,6 +13,7 @@ export class MyScene extends CGFscene {
   constructor() {
     super();
   }
+  
   init(application) {
     super.init(application);
     
@@ -26,9 +31,18 @@ export class MyScene extends CGFscene {
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.diamond = new MyDiamond(this);
+    this.triangle = new MyTriangle(this);
+    this.para = new MyParallelogram(this);
+    this.triangleSmall = new MyTriangleSmall(this);
+    this.triangleBig = new MyTriangleBig(this);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
+    this.displayTriangle = true;
+    this.displayDiamond = true;
+    this.displayPara = true;
+    this.displayTriangleSmall = true;
+    this.displayTriangleBig = true;
     this.scaleFactor = 1;
   }
   initLights() {
@@ -52,6 +66,21 @@ export class MyScene extends CGFscene {
     this.setSpecular(0.2, 0.4, 0.8, 1.0);
     this.setShininess(10.0);
   }
+
+  setColorHotPink() {
+    this.setAmbient(1, 0.41, 0.71, 1.0);
+    this.setDiffuse(1, 0.41, 0.71, 1.0);
+    this.setSpecular(1, 0.41, 0.71, 1.0);
+    this.setShininess(10.0);
+  }
+  setColorYellow() {
+    this.setAmbient(1, 1, 0.05, 1.0);
+    this.setDiffuse(1, 1, 0.05, 1.0);
+    this.setSpecular(1, 1, 0.05, 1.0);
+    this.setShininess(10.0);
+  }
+
+
   display() {
     // ---- BEGIN Background, camera and axis setup
     // Clear image and depth buffer everytime we update the scene
@@ -68,7 +97,7 @@ export class MyScene extends CGFscene {
 
     this.setDefaultAppearance();
 
-    var sca = [
+    const sca = [
       this.scaleFactor,
       0.0,
       0.0,
@@ -91,8 +120,16 @@ export class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
 
-    this.diamond.display();
+    if (this.displayDiamond) this.diamond.display();
+    this.setColorHotPink();
+    if (this.displayTriangle) this.triangle.display();
+    this.setColorYellow();
+    if (this.displayPara) this.para.display();
 
+    this.setColorHotPink();
+    if (this.displayTriangleSmall) this.triangleSmall.display();
+    this.setColorYellow();
+    if (this.displayTriangleBig) this.triangleBig.display();
     // ---- END Primitive drawing section
   }
 }
