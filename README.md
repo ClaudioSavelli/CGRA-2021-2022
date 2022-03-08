@@ -3,7 +3,7 @@
 ## Group T0xG0y
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
-| John Doe         | 201901010 | ...                |
+| Pedro Silva         | 201907523 | up201907523@edu.fe.up.pt                |
 | Jane Doe         | 201901011 | ...                |
 
 ----
