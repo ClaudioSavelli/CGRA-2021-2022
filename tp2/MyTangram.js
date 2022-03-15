@@ -1,40 +1,60 @@
 import {CGFobject} from '../lib/CGF.js';
+import { MyDiamond } from "./MyDiamond.js";
+import { MyParallelogram } from "./MyParallelogram.js";
+import { MyTriangle } from "./MyTriangle.js";
+import { MyTriangleBig } from "./MyTriangleBig.js";
+import { MyTriangleSmall } from "./MyTriangleSmall.js";
 /**
  * MyTriangle
  * @constructor
  * @param scene - Reference to MyScene object
  */
-export class MyParallelogram extends CGFobject {
+export class MyTangram extends CGFobject {
 	constructor(scene) {
 		super(scene);
-		this.initBuffers();
 	}
-	
-	initBuffers() {
-		this.vertices = [
-			1, 0, 0,	//0
-			0, 1, 0,	//1
-			-1, 0, 0,	//2
-            0, -1, 0,	//0
-		];
-
-		//Counter-clockwise reference of vertices
-		this.indices = [
-            0,1,2,
-            0,2,3,
-
-            2,1,0,
-            3,2,0,
-        ];
-
-		//The defined indices (and corresponding vertices)
-		//will be read in groups of three to draw triangles
-		this.primitiveType = this.scene.gl.TRIANGLES;
-
-		this.initGLBuffers();
+	display(scene){
+		const diamondRotation = [
+			Math.cos(Math.PI/9), -Math.sin(Math.PI/9), 0, 0,
+			Math.sin(Math.PI/9), Math.cos(Math.PI/9), 0, 0,
+			0, 0, 1, 0,
+			0, 0, 0, 1
+		  ];
+	  
+		this.pushMatrix();
+		this.multMatrix(diamondRotation);
+	  
+		this.diamond2.display();
+		this.popMatrix();
+		this.pushMatrix();
+		this.translate(0.7, -2.45, 0);
+		this.triangleBig.display();
+		this.popMatrix();
+		this.pushMatrix();
+		this.translate(2, -2.45, 0);
+		this.scale(-1, 1, 1);
+		this.rotate(-Math.PI/4, 0, 0, 1);
+		this.para.display();
+		this.popMatrix();
+		this.pushMatrix();
+		this.translate(2.9,-0.67,0);
+		this.rotate(Math.PI/2, 0, 0, 1);
+		this.triangleBig2.display();
+		this.popMatrix();
+		this.pushMatrix();
+		this.translate(1.5,1.35,0)
+		this.rotate(-5/4*Math.PI, 0, 0, 1);
+		this.triangle.display();
+		this.popMatrix();
+		this.pushMatrix();
+		this.translate(1.5,3.5,0);
+		this.rotate(Math.PI/2, 0, 0, 1);
+		this.triangleSmall.display();
+		this.popMatrix();
+		this.pushMatrix();
+		this.translate(0.62,2.85,0);
+		this.rotate(Math.PI*3.4/4, 0, 0, 1);
+		this.triangleSmall.display();
+		this.popMatrix();
 	}
-
-    initDiamond() {
-        
-    }
 }
