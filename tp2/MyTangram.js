@@ -14,7 +14,16 @@ export class MyTangram extends CGFobject {
 		super(scene);
 	}
 	display(scene){
-		const diamondRotation = [
+		const diamondRotation = 
+		this.diamond = new MyDiamond(this);
+    	this.triangle = new MyTriangle(this);
+    	this.para = new MyParallelogram(this);
+    	this.triangleSmall = new MyTriangleSmall(this);
+    	this.triangleBig = new MyTriangleBig(this);
+    	this.triangleBig2 = new MyTriangleBig(this);
+    	this.diamond2 = new MyDiamond(this);
+		
+		[
 			Math.cos(Math.PI/9), -Math.sin(Math.PI/9), 0, 0,
 			Math.sin(Math.PI/9), Math.cos(Math.PI/9), 0, 0,
 			0, 0, 1, 0,
