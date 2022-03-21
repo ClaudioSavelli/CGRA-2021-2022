@@ -5,6 +5,8 @@ import { MyTriangle } from "./MyTriangle.js";
 import { MyTriangleBig } from "./MyTriangleBig.js";
 import { MyTriangleSmall } from "./MyTriangleSmall.js";
 import { MyTangram } from "./MyTangram.js";
+import { MyUnitCube } from "./MyUnitCube.js";
+import { MyQuad } from "./MyQuad.js";
 
 /**
  * MyScene
@@ -40,6 +42,14 @@ export class MyScene extends CGFscene {
     this.triangleBig2 = new MyTriangleBig(this);
     this.diamond2 = new MyDiamond(this);
     this.tangram = new MyTangram(this);
+    this.cube = new MyUnitCube(this); 
+    this.quad1 = new MyQuad(this); 
+    this.quad2 = new MyQuad(this);
+    this.quad3 = new MyQuad(this);
+    this.quad4 = new MyQuad(this);
+    this.quad5 = new MyQuad(this);
+    this.quad6 = new MyQuad(this);
+
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -135,17 +145,22 @@ export class MyScene extends CGFscene {
     if (this.displayTriangleSmall) this.triangleSmall.display();
     this.setColorYellow();
     if (this.displayTriangleBig) this.triangleBig.display();*/
-
+  
+  
     const diamondRotation = [
       Math.cos(Math.PI/9), -Math.sin(Math.PI/9), 0, 0,
       Math.sin(Math.PI/9), Math.cos(Math.PI/9), 0, 0,
       0, 0, 1, 0,
       0, 0, 0, 1
     ];
+  
+  this.pushMatrix();  //Generate the matrix to move all the tangram
+  this.translate(1.65,3.9,-1.75); //For moving all the tangram
 
+  //Start of the MyTangram function 
   this.pushMatrix();
   this.multMatrix(diamondRotation);
-
+  
   this.diamond2.display();
   this.popMatrix();
   this.pushMatrix();
@@ -178,8 +193,35 @@ export class MyScene extends CGFscene {
   this.rotate(Math.PI*3.4/4, 0, 0, 1);
   this.triangleSmall.display();
   this.popMatrix();
+  //End of MyTangramFunction 
+  
+  this.popMatrix() //Pop the matrix that move all the tangram 
+  
 
-   
+  
+  //3.
+  /*
+  this.pushMatrix(); 
+  this.translate(1.75,-1.75,-1.75);
+  this.scale(3.5,3.5,3.5); 
+  this.cube.display(); 
+  this.popMatrix(); 
+  */
+
+  //4.
+
+  this.pushMatrix(); 
+  this.translate(1.75,-1.75,0);
+  this.scale(3.5,3.5,3.5); 
+  this.quad1.display(); 
+  this.popMatrix();
+
+  this.pushMatrix(); 
+  this.quad2.display();
+  this.rotate(Math.PI/2, 0, 1, 0)
+  this.scale(3.5,3.5,3.5);  
+  this.popMatrix();
+
    // ---- END Primitive drawing section
   }
 }
