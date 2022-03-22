@@ -155,9 +155,13 @@ export class MyScene extends CGFscene {
       0, 0, 1, 0,
       0, 0, 0, 1
     ];
+
+  this.pushMatrix(); 
+  this.translate(0,0,8.5);
+  this.rotate(-Math.PI/2,1,0,0);
   
   this.pushMatrix();  //Generate the matrix to move all the tangram
-  this.translate(1.65,3.9,-1.75); //For moving all the tangram
+  this.translate(1.65,3.9,0); //For moving all the tangram
 
   //Start of the MyTangram function
   /*
@@ -208,20 +212,20 @@ export class MyScene extends CGFscene {
   //3.
   /*
   this.pushMatrix(); 
-  this.translate(1.75,-1.75,-1.75);
-  this.scale(3.5,3.5,3.5); 
+  this.translate(2.5,4.25,-0.26);
+  this.scale(5,8.5,0.5); 
   this.cube.display(); 
   this.popMatrix(); 
-*/  
+  */
 
   //4.
     this.pushMatrix(); 
-    this.translate(1.75,-1.75,-1.75);
-    this.scale(3.5,3.5,3.5); 
+    this.translate(2.5,4.25,-0.26);
+    this.scale(5,8.5,0.5); 
     this.cube2.display();
     this.popMatrix(); 
 
-
+  this.popMatrix(); 
 
    // ---- END Primitive drawing section
   }
