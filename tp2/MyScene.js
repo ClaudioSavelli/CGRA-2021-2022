@@ -7,6 +7,7 @@ import { MyTriangleSmall } from "./MyTriangleSmall.js";
 import { MyTangram } from "./MyTangram.js";
 import { MyUnitCube } from "./MyUnitCube.js";
 import { MyQuad } from "./MyQuad.js";
+import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 
 /**
  * MyScene
@@ -49,7 +50,8 @@ export class MyScene extends CGFscene {
     this.quad4 = new MyQuad(this);
     this.quad5 = new MyQuad(this);
     this.quad6 = new MyQuad(this);
-
+    this.tangram = new MyTangram(this);
+    this.cube2 = new MyUnitCubeQuad(this);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -157,7 +159,8 @@ export class MyScene extends CGFscene {
   this.pushMatrix();  //Generate the matrix to move all the tangram
   this.translate(1.65,3.9,-1.75); //For moving all the tangram
 
-  //Start of the MyTangram function 
+  //Start of the MyTangram function
+  /*
   this.pushMatrix();
   this.multMatrix(diamondRotation);
   
@@ -192,10 +195,13 @@ export class MyScene extends CGFscene {
   this.translate(0.62,2.85,0);
   this.rotate(Math.PI*3.4/4, 0, 0, 1);
   this.triangleSmall.display();
-  this.popMatrix();
+  this.popMatrix();*/
+    this.tangram.display();
+    this.popMatrix();
+    this.setColorHotPink();
   //End of MyTangramFunction 
   
-  this.popMatrix() //Pop the matrix that move all the tangram 
+  //this.popMatrix() //Pop the matrix that move all the tangram 
   
 
   
@@ -206,21 +212,16 @@ export class MyScene extends CGFscene {
   this.scale(3.5,3.5,3.5); 
   this.cube.display(); 
   this.popMatrix(); 
-  */
+*/  
 
   //4.
+    this.pushMatrix(); 
+    this.translate(1.75,-1.75,-1.75);
+    this.scale(3.5,3.5,3.5); 
+    this.cube2.display();
+    this.popMatrix(); 
 
-  this.pushMatrix(); 
-  this.translate(1.75,-1.75,0);
-  this.scale(3.5,3.5,3.5); 
-  this.quad1.display(); 
-  this.popMatrix();
 
-  this.pushMatrix(); 
-  this.quad2.display();
-  this.rotate(Math.PI/2, 0, 1, 0)
-  this.scale(3.5,3.5,3.5);  
-  this.popMatrix();
 
    // ---- END Primitive drawing section
   }
