@@ -4,7 +4,7 @@
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
 | Pedro Silva         | 201907523 | up201907523@edu.fe.up.pt                |
-| Jane Doe         | 201901011 | ...                |
+| Claudio Savelli         | 202111375 |up202111375@edu.fe.up.pt|
 
 ----
 
