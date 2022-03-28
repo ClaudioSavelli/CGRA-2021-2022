@@ -219,13 +219,15 @@ export class MyScene extends CGFscene {
   */
 
   //4.
+
+  /*
     this.pushMatrix(); 
     this.translate(2.5,4.25,-0.26);
     this.scale(5,8.5,0.5); 
     this.cube2.display();
     this.popMatrix(); 
 
-  this.popMatrix(); 
+  this.popMatrix(); */
 
    // ---- END Primitive drawing section
   }
