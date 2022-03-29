@@ -47,6 +47,8 @@ export class MyScene extends CGFscene {
         this.displayNormals = false;
         this.objectComplexity = 0.5;
         this.scaleFactor = 2.0;
+        this.AmLight = 0.1;
+
 
     }
     initLights() {
@@ -152,6 +154,7 @@ export class MyScene extends CGFscene {
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
         // Initialize Model-View matrix as identity (no transformation
+        this.setGlobalAmbientLight(this.AmLight, this.AmLight, this.AmLight, 1);
         this.updateProjectionMatrix();
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
