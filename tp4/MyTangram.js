@@ -12,20 +12,28 @@ import { MyTriangleSmall } from "./MyTriangleSmall.js";
 export class MyTangram extends CGFobject {
 	constructor(scene) {
 		super(scene);
-
 		this.scene = scene;
+
 		this.init(scene);
 	}
 
 	init(scene) {
+		this.tangramTex = new CGFappearance(this.scene);
+        this.tangramTex.setAmbient(0.1, 0.1, 0.1, 1);
+        this.tangramTex.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.tangramTex.setSpecular(0.1, 0.1, 0.1, 1);
+        this.tangramTex.setShininess(10.0);
+        this.tangramTex.loadTexture('images/tangram.png');
+        this.tangramTex.setTextureWrap('REPEAT', 'REPEAT');
+
 		this.diamond = new MyDiamond(scene);
     	this.triangle = new MyTriangle(scene);
     	this.para = new MyParallelogram(scene);
-    	this.triangleSmall = new MyTriangleSmall(scene);
-    	this.triangleBig = new MyTriangleBig(scene);
-    	this.triangleBig2 = new MyTriangleBig(scene);
-		
-	
+    	this.triangleSmallCobalt = new MyTriangleSmall(scene, 'cobalt');
+		this.triangleSmallRed = new MyTriangleSmall(scene, 'red'); 
+    	this.triangleBigBlue = new MyTriangleBig(scene, 'blue');
+    	this.triangleBigOrange = new MyTriangleBig(scene, 'orange');
+
 		this.diamondRotation =  [
 			Math.cos(Math.PI/9), -Math.sin(Math.PI/9), 0, 0,
 			Math.sin(Math.PI/9), Math.cos(Math.PI/9), 0, 0,
@@ -33,11 +41,14 @@ export class MyTangram extends CGFobject {
 			0, 0, 0, 1
 		  ];
 
+		 /* 
 		  this.materialR = new CGFappearance(this.scene);
 		  this.materialR.setAmbient(0.5, 0, 0, 1.0);
 		  this.materialR.setDiffuse(0.6, 0, 0, 1.0);
 		  this.materialR.setSpecular(1, 0, 0, 1.0);
 		  this.materialR.setShininess(10.0);
+		  this.tangramTex.loadTexture('images/tangram.png');
+          this.tangramTex.setTextureWrap('REPEAT', 'REPEAT');
   
 		  this.materialPurple = new CGFappearance(this.scene);
 		  this.materialPurple.setAmbient(0.47, 0.32, 0.66, 1.0);
@@ -63,16 +74,16 @@ export class MyTangram extends CGFobject {
 		  this.materialYellow.setSpecular(1, 1, 0, 1.0);
 		  this.materialYellow.setShininess(10.0);
 
-//		  this.setAmbient(1, 1, 0.05, 1.0);
-//		  this.setDiffuse(1, 1, 0.05, 1.0);
-//		  this.setSpecular(1, 1, 0.05, 1.0);
-//		  this.setShininess(10.0);
+		  this.setAmbient(1, 1, 0.05, 1.0);
+		  this.setDiffuse(1, 1, 0.05, 1.0);
+		  this.setSpecular(1, 1, 0.05, 1.0);
+		  this.setShininess(10.0);
   
 		  this.materialHotPink = new CGFappearance(this.scene);
 		  this.materialHotPink.setAmbient(0.5, 0.2, 0.35, 1.0);
 		  this.materialHotPink.setDiffuse(0.5, 0.2, 0.35, 1.0);
 		  this.materialHotPink.setSpecular(1, 0.41, 0.71, 1.0);
-		  this.materialHotPink.setShininess(10.0);
+		  this.materialHotPink.setShininess(10.0); */
 	
 	}
 
@@ -149,13 +160,11 @@ export class MyTangram extends CGFobject {
 
 		this.scene.pushMatrix();
 		this.scene.multMatrix(this.diamondRotation);
-		this.scene.customMaterial.apply();
 		this.diamond.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.translate(0.7, -2.45, 0);
-		this.materialB.apply();
 		this.triangleBig.display();
 		this.scene.popMatrix();
 
@@ -163,43 +172,38 @@ export class MyTangram extends CGFobject {
 		this.scene.translate(2, -2.45, 0);
 		this.scene.scale(-1, 1, 1);
 		this.scene.rotate(-Math.PI/4, 0, 0, 1);
-		this.materialYellow.apply();
 		this.para.display();
 		this.scene.popMatrix();
 		
 		this.scene.pushMatrix();
 		this.scene.translate(2.9,-0.67,0);
 		this.scene.rotate(Math.PI/2, 0, 0, 1);
-		//this.materialPurple.apply();
-		this.materialOrange.apply();
 		this.triangleBig2.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.translate(1.5,1.35,0)
 		this.scene.rotate(-5/4*Math.PI, 0, 0, 1);
-		this.materialHotPink.apply();
 		this.triangle.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.translate(1.5,3.5,0);
 		this.scene.rotate(Math.PI/2, 0, 0, 1);
-		this.materialR.apply();
 		this.triangleSmall.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.translate(0.62,2.85,0);
 		this.scene.rotate(Math.PI*3.4/4, 0, 0, 1);
-		this.materialPurple.apply();
 		this.triangleSmall.display();
 		this.scene.popMatrix();
 
 	}
 
 	updateBuffers() {
-		
+		this.initBuffers();
+        this.initNormalVizBuffers();
 	}
 
 }

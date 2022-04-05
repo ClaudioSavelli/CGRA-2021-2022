@@ -18,7 +18,6 @@ export class MyTangram extends CGFobject {
     	this.triangleSmall = new MyTriangleSmall(scene);
     	this.triangleBig = new MyTriangleBig(scene);
     	this.triangleBig2 = new MyTriangleBig(scene);
-    	this.diamond2 = new MyDiamond(scene);
 		
 		this.diamondRotation =  [
 			Math.cos(Math.PI/9), -Math.sin(Math.PI/9), 0, 0,
@@ -31,7 +30,7 @@ export class MyTangram extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.multMatrix(this.diamondRotation);
 	  
-		this.diamond2.display();
+		this.diamond.display();
 		this.scene.popMatrix();
 		this.scene.pushMatrix();
 		this.scene.translate(0.7, -2.45, 0);
