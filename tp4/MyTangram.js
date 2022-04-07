@@ -13,11 +13,6 @@ export class MyTangram extends CGFobject {
 	constructor(scene) {
 		super(scene);
 		this.scene = scene;
-
-		this.init(scene);
-	}
-
-	init(scene) {
 		this.tangramTex = new CGFappearance(this.scene);
         this.tangramTex.setAmbient(0.1, 0.1, 0.1, 1);
         this.tangramTex.setDiffuse(0.9, 0.9, 0.9, 1);
@@ -26,6 +21,10 @@ export class MyTangram extends CGFobject {
         this.tangramTex.loadTexture('images/tangram.png');
         this.tangramTex.setTextureWrap('REPEAT', 'REPEAT');
 
+		this.init(scene);
+	}
+
+	init(scene) {
 		this.diamond = new MyDiamond(scene);
     	this.triangle = new MyTriangle(scene);
     	this.para = new MyParallelogram(scene);
@@ -158,27 +157,33 @@ export class MyTangram extends CGFobject {
 		this.scene.popMatrix();
 		*/
 
+		this.scene.pushMatrix(); 
+		this.tangramTex.apply();
+		this.scene.scale(0.25,0.25,1); 
+		
 		this.scene.pushMatrix();
 		this.scene.multMatrix(this.diamondRotation);
 		this.diamond.display();
 		this.scene.popMatrix();
 
+
 		this.scene.pushMatrix();
 		this.scene.translate(0.7, -2.45, 0);
-		this.triangleBig.display();
+		this.triangleBigBlue.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.translate(2, -2.45, 0);
 		this.scene.scale(-1, 1, 1);
 		this.scene.rotate(-Math.PI/4, 0, 0, 1);
+		this.tangramTex.apply();
 		this.para.display();
 		this.scene.popMatrix();
 		
 		this.scene.pushMatrix();
 		this.scene.translate(2.9,-0.67,0);
 		this.scene.rotate(Math.PI/2, 0, 0, 1);
-		this.triangleBig2.display();
+		this.triangleBigOrange.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
@@ -190,13 +195,15 @@ export class MyTangram extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.translate(1.5,3.5,0);
 		this.scene.rotate(Math.PI/2, 0, 0, 1);
-		this.triangleSmall.display();
+		this.triangleSmallRed.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.translate(0.62,2.85,0);
 		this.scene.rotate(Math.PI*3.4/4, 0, 0, 1);
-		this.triangleSmall.display();
+		this.triangleSmallCobalt.display();
+		this.scene.popMatrix();
+
 		this.scene.popMatrix();
 
 	}
