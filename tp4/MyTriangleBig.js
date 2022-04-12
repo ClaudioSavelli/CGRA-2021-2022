@@ -33,14 +33,14 @@ export class MyTriangleBig extends CGFobject {
 			this.texCoords=[
 			0, 0,
 			0.5, 0.5,
-			0, 1,
+			1, 0,
 			];
 		}
 
 		//Orange Triangle 
 		if (color == 'orange'){
 			this.texCoords=[
-				0, 1,
+				1, 0,
 				0.5, 0.5,
 				1, 1,
 			]; 

@@ -90,9 +90,9 @@ export class MyTangram extends CGFobject {
 		this.diamond.enableNormalViz();
     	this.triangle.enableNormalViz();
     	this.para.enableNormalViz();
-    	this.triangleSmall.enableNormalViz();
-    	this.triangleBig.enableNormalViz();
-    	this.triangleBig2.enableNormalViz();
+    	this.triangleSmallCobalt.enableNormalViz();
+    	this.triangleBigBlue.enableNormalViz();
+    	this.triangleBigOrange.enableNormalViz();
 	}
 
 
@@ -100,9 +100,9 @@ export class MyTangram extends CGFobject {
 		this.diamond.disableNormalViz();
     	this.triangle.disableNormalViz();
     	this.para.disableNormalViz();
-    	this.triangleSmall.disableNormalViz();
-    	this.triangleBig.disableNormalViz();
-    	this.triangleBig2.disableNormalViz();
+    	this.triangleSmallCobalt.disableNormalViz();
+    	this.triangleBigBlue.disableNormalViz();
+    	this.triangleBigOrange.disableNormalViz();
 	}
 
 	display(){	  
@@ -159,7 +159,7 @@ export class MyTangram extends CGFobject {
 
 		this.scene.pushMatrix(); 
 		this.tangramTex.apply();
-		this.scene.scale(0.25,0.25,1); 
+		this.scene.scale(0.20,0.20,1); 
 		
 		this.scene.pushMatrix();
 		this.scene.multMatrix(this.diamondRotation);
@@ -176,7 +176,6 @@ export class MyTangram extends CGFobject {
 		this.scene.translate(2, -2.45, 0);
 		this.scene.scale(-1, 1, 1);
 		this.scene.rotate(-Math.PI/4, 0, 0, 1);
-		this.tangramTex.apply();
 		this.para.display();
 		this.scene.popMatrix();
 		
