@@ -141,11 +141,11 @@ export class MyScene extends CGFscene {
             this.tangram.display();
         }
         
-
+/*
         if (this.displayCube){
             this.cube.display();
         }
-        
+        */
 
         // ---- END Primitive drawing section
     }
