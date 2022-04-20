@@ -145,7 +145,7 @@ export class MyScene extends CGFscene {
         if (this.displayCube){
             this.cube.display();
         }
-        
+
 
         // ---- END Primitive drawing section
     }
