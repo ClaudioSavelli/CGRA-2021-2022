@@ -195,7 +195,6 @@ export class MyTangram extends CGFobject {
 		this.materialPurple.apply();
 		this.triangleSmall.display();
 		this.scene.popMatrix();
-
 	}
 
 	updateBuffers() {
