@@ -28,10 +28,17 @@ export class MyScene extends CGFscene {
         
         this.enableTextures(true);
 
+        this.setOfPoints = [
+            {x: -5, z: 10, type: 'simple'},
+            {x: 0, z: 0, type: 'station'},
+            {x: 10, z: 0, type: 'simple'},
+            {x: 15, z: 10, type: 'station'}
+          ]
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new MyPlane(this, 20, 0,1,0,1);
-        this.track = new MyTrack(this); 
+        this.track = new MyTrack(this, this.setOfPoints); 
 
         //Objects connected to MyInterface
         this.displayAxis = true;

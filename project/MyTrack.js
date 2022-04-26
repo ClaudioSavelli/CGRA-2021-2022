@@ -2,25 +2,13 @@ import {CGFobject, CGFappearance} from '../lib/CGF.js';
 import { MyQuad } from "./MyQuad.js";
 
 export class MyTrack extends CGFobject{
-    constructor(scene) {
+    constructor(scene, setOfPoints) {
         super(scene);
         this.trackWidth = 4; 
 
 		this.scene = scene;
-
-       this.init(scene); 
-    }
-    
-
-    init(scene){
-        this.setOfPoints = [
-            {x: 3, z: 3, type: 'simple'},
-            {x: 4, z: 2, type: 'station'},
-            {x: 6, z: 2, type: 'simple'},
-            {x: 7, z: 3, type: 'station'}
-          ]
-    
-          this.quad = new MyQuad(scene); 
+        this.setOfPoints = setOfPoints; 
+        this.quad = new MyQuad(scene); 
     }
 
     display(){
@@ -40,7 +28,7 @@ export class MyTrack extends CGFobject{
             this.scene.pushMatrix(); 
             this.scene.translate(this.midpointEvaluation(x1,x2),0,this.midpointEvaluation(z1,z2)); 
             this.scene.rotate(-this.angleBetweenTwoPoints(x1,z1,x2,z2),0,1,0); 
-            this.scene.scale(this.distanceBetweenTwoPoints(x1, z1, x2, z2),1,1); 
+            this.scene.scale(this.distanceBetweenTwoPoints(x1, z1, x2, z2),1,this.trackWidth); 
             this.quad.display(); 
             this.scene.popMatrix(); 
 
@@ -55,7 +43,7 @@ export class MyTrack extends CGFobject{
         this.scene.pushMatrix(); 
         this.scene.translate(this.midpointEvaluation(x1,x2),0,this.midpointEvaluation(z1,z2)); 
         this.scene.rotate(-this.angleBetweenTwoPoints(x1,z1,x2,z2),0,1,0); 
-        this.scene.scale(this.distanceBetweenTwoPoints(x1, z1, x2, z2),1,1); 
+        this.scene.scale(this.distanceBetweenTwoPoints(x1, z1, x2, z2),1,this.trackWidth); 
         this.quad.display(); 
         this.scene.popMatrix(); 
         
