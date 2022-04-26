@@ -8,21 +8,21 @@ export class MyCircle extends CGFobject {
 	}
 	
 	init(N) {
-		angle = 360/N; 
-		initialAngle = 0; 
-		x1 = 1; 
-		z1 = 0; 
-		for(let i=0; i<N; i++){
-			
+		this.vertices = []; 
+		this.indices = []; 
+		this.normals = []; 
 
-
-			//save as last vertex
-			x1 = x2; 
-			z1 = z2; 
+		this.vertices.push(0,0,0); 
+		this.normals.push(0,1,0); 
+		var angle = 2*Math.PI/N; 
+		var actualAngle = 0; 
+		
+		for(let i=0; i<=N; i++){
+			this.vertices.push(Math.cos(actualAngle), 0, -Math.sin(actualAngle));
+            this.indices.push(0, i+1, i+2); 
+			this.normals.push(0,1,0); 
+			actualAngle += angle; 
 		}
-		//generate the last triangle 
-		x2 = 1; 
-		z1 = 0; 
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();

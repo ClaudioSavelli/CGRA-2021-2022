@@ -2,6 +2,8 @@ import { CGFscene, CGFaxis, CGFappearance } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
 import { CGFcamera2 } from "../lib/CGFcamera2.js";
 import { MyTrack } from "./MyTrack.js";
+import { MyCircle } from "./MyCircle.js";
+import { MyCilinder } from "./MyCilinder.js";
 
 /**
 * MyScene
@@ -39,6 +41,8 @@ export class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.plane = new MyPlane(this, 20, 0,1,0,1);
         this.track = new MyTrack(this, this.setOfPoints); 
+        this.circle = new MyCircle(this, 10); 
+        this.cilinder = new MyCilinder(this, 10); 
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -89,7 +93,10 @@ export class MyScene extends CGFscene {
         this.rotate(-Math.PI*0.5, 1,0,0);
         this.plane.display();
         this.popMatrix();
-        this.track.display(); 
+
+        //this.track.display(); 
+        //this.circle.display();
+        this.cilinder.display();  
         // ---- END Primitive drawing section
     }
 }
