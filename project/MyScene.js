@@ -11,6 +11,7 @@ export class MyScene extends CGFscene {
     constructor() {
         super();
     }
+
     init(application) {
         super.init(application);
         this.initCameras();
@@ -28,12 +29,45 @@ export class MyScene extends CGFscene {
         
         this.enableTextures(true);
 
+        this.defaultAppearance = new CGFappearance(this)
+        this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0)
+        this.defaultAppearance.setDiffuse(0.2, 0.4, 0.8, 1.0)
+        this.defaultAppearance.setSpecular(0.2, 0.4, 0.8, 1.0)
+        this.defaultAppearance.setEmission(0, 0, 0, 1)
+        this.defaultAppearance.setShininess(120)
+
+        /*
         this.setOfPoints = [
             {x: -5, z: 10, type: 'simple'},
             {x: 0, z: 0, type: 'station'},
             {x: 10, z: 0, type: 'simple'},
             {x: 15, z: 10, type: 'station'}
+          ]*/
+
+          this.setOfPoints = [
+            {x: -10, z: 10, type: 'simple'},
+            {x: -5, z: 0, type: 'station'},
+            {x: 10, z: 0, type: 'simple'},
+            {x: 15, z: 10, type: 'station'}
           ]
+/*
+          this.setOfPoints = [
+            {x: -20, z: 20, type: 'simple'},
+            {x: -10, z: 0, type: 'station'},
+            {x: 20, z: 0, type: 'simple'},
+            {x: 30, z: 20, type: 'station'}
+  
+          ]*/
+          this.linear = true;
+          this.scaleFactor = 1.2;
+          this.selectedTexture = -1;   
+          this.wrapS = 0;
+          this.wrapT = 0;
+          this.textures = [this.texture1, this.texture2, this.texture3];
+        this.texCoords = [0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0];
+        this.wrappingMethods = ['REPEAT', 'CLAMP_TO_EDGE', 'MIRRORED_REPEAT'];
+        this.wrappingS = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
+        this.wrappingT = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -43,14 +77,36 @@ export class MyScene extends CGFscene {
         //Objects connected to MyInterface
         this.displayAxis = true;
     }
+
+    loadTextures() {
+        this.tracksTexture = new CGFtexture(this, 'images/tracks.png');
+    }
+
+    setColorHotPink() {
+        this.setAmbient(1, 0.41, 0.71, 1.0);
+        this.setDiffuse(1, 0.41, 0.71, 1.0);
+        this.setSpecular(1, 0.41, 0.71, 1.0);
+        this.setShininess(10.0);
+      }
+
     initLights() {
-        this.lights[0].setPosition(15, 2, 5, 1);
+        /*this.lights[0].setPosition(15, 2, 5, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
+        this.lights[0].update();*/
+
+        this.lights[0].setPosition(5, 1, 3, 1);
+        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setVisible(true);
+        this.lights[0].enable();
         this.lights[0].update();
+    
     }
+
     initCameras() {
-        this.camera = new CGFcamera2(0.4, 0.1, 500, vec3.fromValues(30,30,30), vec3.fromValues(0, 0, 0));
+        //this.camera = new CGFcamera2(0.4, 0.1, 500, vec3.fromValues(30,30,30), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera2(0.5, 0.1, 500, vec3.fromValues(2,50,2), vec3.fromValues(0, 2, 0));
+    
     }
 
     setDefaultAppearance() {
@@ -64,6 +120,20 @@ export class MyScene extends CGFscene {
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
         //To be done...
+    }
+
+    updateTexCoords() {
+        this.track.quad.updateTexCoords(this.texCoords);
+    }
+
+    //Function that resets selected texture in quadMaterial
+    updateAppliedTexture() {
+        this.track.appearance.setTexture(this.textures[this.selectedTexture]);
+    }
+
+    //Function that updates wrapping mode in quadMaterial
+    updateTextureWrapping() {
+        this.track.appearance.setTextureWrap(this.wrappingMethods[this.wrapS], this.wrappingMethods[this.wrapT]);
     }
 
     display() {
@@ -82,6 +152,8 @@ export class MyScene extends CGFscene {
             this.axis.display();
 
         this.setDefaultAppearance();
+
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
         // ---- BEGIN Primitive drawing section
         this.pushMatrix();
