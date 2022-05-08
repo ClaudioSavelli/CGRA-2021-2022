@@ -4,6 +4,10 @@ import { CGFcamera2 } from "../lib/CGFcamera2.js";
 import { MyTrack } from "./MyTrack.js";
 import { MyCircle } from "./MyCircle.js";
 import { MyCilinder } from "./MyCilinder.js";
+import { MySphere } from "./MySphere.js"; 
+import { MyUnitCube } from "./MyUnitCube.js"; 
+import { MyWheel } from "./MyWheel.js";
+import { MyTrain } from "./MyTrain.js";
 
 /**
 * MyScene
@@ -17,6 +21,7 @@ export class MyScene extends CGFscene {
         super.init(application);
         this.initCameras();
         this.initLights();
+        var N = 10; 
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -41,8 +46,12 @@ export class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.plane = new MyPlane(this, 20, 0,1,0,1);
         this.track = new MyTrack(this, this.setOfPoints); 
-        this.circle = new MyCircle(this, 10); 
-        this.cilinder = new MyCilinder(this, 10); 
+        this.circle = new MyCircle(this, N); 
+        this.cilinder = new MyCilinder(this, N); 
+        this.sphere = new MySphere(this, N, N); 
+        this.cube = new MyUnitCube(this); 
+        this.wheel = new MyWheel(this, N); 
+        this.train = new MyTrain(this, N); 
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -94,9 +103,12 @@ export class MyScene extends CGFscene {
         this.plane.display();
         this.popMatrix();
 
+        this.train.display(); 
+
+        
         //this.track.display(); 
         //this.circle.display();
-        this.cilinder.display();  
+        //this.cilinder.display();  
         // ---- END Primitive drawing section
     }
 }
