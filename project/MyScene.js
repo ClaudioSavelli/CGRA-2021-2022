@@ -1,8 +1,9 @@
-import { CGFscene, CGFaxis, CGFappearance } from "../lib/CGF.js";
+import { CGFscene, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
 import { CGFcamera2 } from "../lib/CGFcamera2.js";
 import { MyTrack } from "./MyTrack.js";
-
+import { MySphere } from "./MySphere.js";
+import { MyEarth } from "./MyEarth.js";
 /**
 * MyScene
 * @constructor
@@ -73,6 +74,7 @@ export class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.plane = new MyPlane(this, 20, 0,1,0,1);
         this.track = new MyTrack(this, this.setOfPoints); 
+        this.earth = new MyEarth(this);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -162,6 +164,10 @@ export class MyScene extends CGFscene {
         this.plane.display();
         this.popMatrix();
         this.track.display(); 
+        this.pushMatrix();
+        this.translate(0, 5, 0);
+        this.earth.display();
+        this.popMatrix();
         // ---- END Primitive drawing section
     }
 }

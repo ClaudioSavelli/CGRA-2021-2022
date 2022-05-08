@@ -22,8 +22,6 @@ export class MyTrack extends CGFobject{
         this.texture = new CGFtexture(this.scene, "./images/tracks.png");
         this.appearance.setTexture(this.texture);
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
-
-        //CLAMP_TO_EDGE
     }
 
     display(){
@@ -51,7 +49,7 @@ export class MyTrack extends CGFobject{
                 console.log(this.quad.texCoords);
             this.appearance.apply();
             this.quad.display(); 
-            this.scene.popMatrix(); 
+            this.scene.popMatrix();
             //this.scene.defaultAppearance.apply()
 
 
@@ -73,10 +71,7 @@ export class MyTrack extends CGFobject{
             1, 0]);
         this.appearance.apply(); 
         this.quad.display(); 
-        this.scene.popMatrix(); 
-        //this.scene.defaultAppearance.apply()
-
-        
+        this.scene.popMatrix();         
     }
 
     distanceBetweenTwoPoints(x1, z1, x2, z2){
