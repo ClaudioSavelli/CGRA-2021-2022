@@ -37,15 +37,17 @@ export class MyTrack extends CGFobject{
             var x2 = this.setOfPoints[i].x; 
             var z2 = this.setOfPoints[i].z; 
 
+            var distance = this.distanceBetweenTwoPoints(x1, z1, x2, z2); 
+
             this.scene.pushMatrix(); 
             this.scene.translate(this.midpointEvaluation(x1,x2),0.1,this.midpointEvaluation(z1,z2)); 
             this.scene.rotate(-this.angleBetweenTwoPoints(x1,z1,x2,z2),0,1,0); 
-            this.scene.scale(this.distanceBetweenTwoPoints(x1, z1, x2, z2),1,this.trackWidth);
+            this.scene.scale(distance,1,this.trackWidth);
             console.log(this.textureFactor(x1, z1, x2, z2))
-            this.quad.updateTexCoords([-5*(1-this.textureFactor(x1, z1, x2, z2)), 1,
-                1, 1,
-                -5*(1-this.textureFactor(x1, z1, x2, z2)), 0,
-                1, 0]);
+            this.quad.updateTexCoords([0, 1,
+                distance/3, 1,
+                0, 0,
+                distance/3, 0]);
                 console.log(this.quad.texCoords);
             this.appearance.apply();
             this.quad.display(); 
@@ -61,14 +63,16 @@ export class MyTrack extends CGFobject{
         //For the last one, I put as p2 the initial point again
         x2 = this.setOfPoints[0].x; 
         z2 = this.setOfPoints[0].z; 
+        var distance = this.distanceBetweenTwoPoints(x1, z1, x2, z2); 
+
         this.scene.pushMatrix(); 
         this.scene.translate(this.midpointEvaluation(x1,x2),0.1,this.midpointEvaluation(z1,z2)); 
         this.scene.rotate(-this.angleBetweenTwoPoints(x1,z1,x2,z2),0,1,0); 
         this.scene.scale(this.distanceBetweenTwoPoints(x1, z1, x2, z2),1,this.trackWidth);
-        this.quad.updateTexCoords([-5*(1-this.textureFactor(x1, z1, x2, z2)), 1,
-            1, 1,
-            -5*(1-this.textureFactor(x1, z1, x2, z2)), 0,
-            1, 0]);
+        this.quad.updateTexCoords([0, 1,
+            distance/3, 1,
+            0, 0,
+            distance/3, 0]);
         this.appearance.apply(); 
         this.quad.display(); 
         this.scene.popMatrix();         

@@ -1,4 +1,4 @@
-import {CGFobject, CGFappearance} from '../lib/CGF.js';
+import {CGFobject, CGFappearance, CGFtexture} from '../lib/CGF.js';
 import { MyCilinder } from './MyCilinder.js';
 import { MyCircle } from './MyCircle.js';
 import { MySphere } from "./MySphere.js"; 
@@ -21,7 +21,21 @@ export class MyTrain extends CGFobject {
 		this.circle = new MyCircle(scene, N);
 		this.sphere = new MySphere(scene, N, N); 
 		this.wheel = new MyWheel(scene, N); 
+
+                this.createTextures(); 
 	}
+
+        createTextures() {
+                this.appearance = new CGFappearance(this.scene);
+                this.appearance.setAmbient(1, 1, 1, 1);
+                this.appearance.setDiffuse(1, 1, 1, 1);
+                this.appearance.setSpecular(0, 0, 0, 1);
+                this.appearance.setShininess(120);
+        
+                //this.texture = new CGFtexture(this.scene, "./images/tracks.png");
+                //this.appearance.setTexture(this.texture);
+                //this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+            }
 
 	display(){
 
@@ -84,6 +98,7 @@ export class MyTrain extends CGFobject {
         this.cilinder.display();
         this.scene.popMatrix(); 
 	 
+        this.appearance.apply(); 
 	}
 
 	updateBuffers() {

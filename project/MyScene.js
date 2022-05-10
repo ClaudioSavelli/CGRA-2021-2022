@@ -178,14 +178,9 @@ export class MyScene extends CGFscene {
         this.popMatrix();
 
         this.track.display(); 
-        this.pushMatrix();
-        this.translate(0, 5, 0);
-        this.earth.display();
-        this.popMatrix();
 
         this.train.display(); 
-
-        
+                
         //this.track.display(); 
         //this.circle.display();
         //this.cilinder.display();  
