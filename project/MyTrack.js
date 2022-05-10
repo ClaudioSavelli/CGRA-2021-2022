@@ -1,15 +1,16 @@
 import {CGFobject, CGFappearance, CGFtexture} from '../lib/CGF.js';
-import { MyQuad } from "./MyQuad.js";
+import { MyTrackSegment } from './MyTrackSegment.js';
 
 export class MyTrack extends CGFobject{
     constructor(scene, setOfPoints) {
         super(scene);
         this.trackWidth = 4; 
+        this.trackSegmentArray = []; 
 
 		this.scene = scene;
         this.setOfPoints = setOfPoints; 
-        this.quad = new MyQuad(scene);
         this.createTextures();
+        this.init(scene); 
     }
 
     createTextures() {
@@ -24,58 +25,38 @@ export class MyTrack extends CGFobject{
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
     }
 
+    init(scene){
+         //Coordinates of the first previous point
+         var x1 = this.setOfPoints[0].x;
+         var z1 = this.setOfPoints[0].z;
+ 
+         for(let i = 1; i < this.setOfPoints.length; i++){
+             //Every square is generated with the centre in (0,0,0), so the aim is to 
+             //resize it, then rotate it and in the end traslate it in the right spot 
+ 
+             //Coordinates of the actual point
+             var x2 = this.setOfPoints[i].x; 
+             var z2 = this.setOfPoints[i].z; 
+ 
+             this.trackSegmentArray.push(new MyTrackSegment(scene, x1, z1, x2, z2)); 
+ 
+ 
+             //Coordinates of the next previous point
+             x1 = x2; 
+             z1 = z2; 
+         }
+ 
+         //For the last one, I put as p2 the initial point again
+         x2 = this.setOfPoints[0].x; 
+         z2 = this.setOfPoints[0].z; 
+         this.trackSegmentArray.push(new MyTrackSegment(scene, x1, z1, x2, z2)); 
+    }
+
     display(){
-        //Coordinates of the first previous point
-        var x1 = this.setOfPoints[0].x;
-        var z1 = this.setOfPoints[0].z;
-
-        for(let i = 1; i < this.setOfPoints.length; i++){
-            //Every square is generated with the centre in (0,0,0), so the aim is to 
-            //resize it, then rotate it and in the end traslate it in the right spot 
-
-            //Coordinates of the actual point
-            var x2 = this.setOfPoints[i].x; 
-            var z2 = this.setOfPoints[i].z; 
-
-            var distance = this.distanceBetweenTwoPoints(x1, z1, x2, z2); 
-
-            this.scene.pushMatrix(); 
-            this.scene.translate(this.midpointEvaluation(x1,x2),0.1,this.midpointEvaluation(z1,z2)); 
-            this.scene.rotate(-this.angleBetweenTwoPoints(x1,z1,x2,z2),0,1,0); 
-            this.scene.scale(distance,1,this.trackWidth);
-            console.log(this.textureFactor(x1, z1, x2, z2))
-            this.quad.updateTexCoords([0, 1,
-                distance/3, 1,
-                0, 0,
-                distance/3, 0]);
-                console.log(this.quad.texCoords);
-            this.appearance.apply();
-            this.quad.display(); 
-            this.scene.popMatrix();
-            //this.scene.defaultAppearance.apply()
-
-
-            //Coordinates of the next previous point
-            x1 = x2; 
-            z1 = z2; 
+    
+        for(let i = 0; i < this.trackSegmentArray.length; i++){
+            this.trackSegmentArray[i].display(); 
         }
-
-        //For the last one, I put as p2 the initial point again
-        x2 = this.setOfPoints[0].x; 
-        z2 = this.setOfPoints[0].z; 
-        var distance = this.distanceBetweenTwoPoints(x1, z1, x2, z2); 
-
-        this.scene.pushMatrix(); 
-        this.scene.translate(this.midpointEvaluation(x1,x2),0.1,this.midpointEvaluation(z1,z2)); 
-        this.scene.rotate(-this.angleBetweenTwoPoints(x1,z1,x2,z2),0,1,0); 
-        this.scene.scale(this.distanceBetweenTwoPoints(x1, z1, x2, z2),1,this.trackWidth);
-        this.quad.updateTexCoords([0, 1,
-            distance/3, 1,
-            0, 0,
-            distance/3, 0]);
-        this.appearance.apply(); 
-        this.quad.display(); 
-        this.scene.popMatrix();         
     }
 
     distanceBetweenTwoPoints(x1, z1, x2, z2){
