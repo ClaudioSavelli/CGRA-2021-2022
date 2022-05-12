@@ -12,6 +12,7 @@ export class MyTrain extends CGFobject {
 		//N is the number of triangles/sides/points 
 		super(scene);
 		this.scene = scene; 
+                this.createTextures(); 
 		this.init(scene, N);
 	}
 	
@@ -23,7 +24,22 @@ export class MyTrain extends CGFobject {
 		this.wheel = new MyWheel(scene, N); 
 	}
 
+        createTextures() {
+                this.defaultAppearance = new CGFappearance(this.scene);
+                this.defaultAppearance.setAmbient(1, 1, 1, 1);
+                this.defaultAppearance.setDiffuse(1, 1, 1, 1);
+                this.defaultAppearance.setSpecular(0, 0, 0, 1);
+                this.defaultAppearance.setShininess(120);
+        
+                this.texture = new CGFtexture(this.scene, "./images/default.png");
+                this.defaultAppearance.setTexture(this.texture);
+                this.defaultAppearance.setTextureWrap('REPEAT', 'REPEAT');
+            }
+
 	display(){
+
+        this.defaultAppearance.apply();
+
 
         //base parallelepiped
         this.scene.pushMatrix(); 

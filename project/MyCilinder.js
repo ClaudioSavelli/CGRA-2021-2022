@@ -11,6 +11,7 @@ export class MyCilinder extends CGFobject {
 		this.vertices = []; 
 		this.indices = []; 
 		this.normals = []; 
+		this.texCoords = []; 
 
 		//bottom part 
 		var angle = 2*Math.PI/N; 
@@ -19,6 +20,7 @@ export class MyCilinder extends CGFobject {
 		for(let i=0; i<=N; i++){
 			this.vertices.push(Math.cos(actualAngle), 0, -Math.sin(actualAngle));
 			this.normals.push(Math.cos(actualAngle), 0, -Math.sin(actualAngle));
+			this.texCoords.push(Math.cos(actualAngle), -Math.sin(actualAngle));
 			actualAngle += angle; 
 		}
 
@@ -28,6 +30,7 @@ export class MyCilinder extends CGFobject {
 		for(let i=0; i<=N; i++){
 			this.vertices.push(Math.cos(actualAngle), 1, -Math.sin(actualAngle));
 			this.normals.push(Math.cos(actualAngle), 0, -Math.sin(actualAngle));
+			this.texCoords.push(Math.cos(actualAngle), -Math.sin(actualAngle));
 			actualAngle += angle; 
 		}
 
