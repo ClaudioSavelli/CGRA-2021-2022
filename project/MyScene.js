@@ -3,12 +3,12 @@ import { MyPlane } from "./MyPlane.js";
 import { CGFcamera2 } from "../lib/CGFcamera2.js";
 import { MyTrack } from "./MyTrack.js";
 import { MySphere } from "./MySphere.js";
-import { MyEarth } from "./MyEarth.js";
+//import { MyEarth } from "./MyEarth.js";
 import { MyCircle } from "./MyCircle.js";
 import { MyCilinder } from "./MyCilinder.js";
 import { MyUnitCube } from "./MyUnitCube.js"; 
 import { MyWheel } from "./MyWheel.js";
-import { MyTrain } from "./MyTrain.js";
+//import { MyTrain } from "./MyTrain.js";
 
 /**
 * MyScene
@@ -81,13 +81,13 @@ export class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.plane = new MyPlane(this, 20, 0,1,0,1);
         this.track = new MyTrack(this, this.setOfPoints); 
-        this.earth = new MyEarth(this);
+        //this.earth = new MyEarth(this);
         this.circle = new MyCircle(this, N); 
         this.cilinder = new MyCilinder(this, N); 
         this.sphere = new MySphere(this, N, N); 
         this.cube = new MyUnitCube(this); 
         this.wheel = new MyWheel(this, N); 
-        this.train = new MyTrain(this, N); 
+        //this.train = new MyTrain(this, N); 
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -179,7 +179,7 @@ export class MyScene extends CGFscene {
 
         this.track.display(); 
 
-        this.train.display(); 
+        //this.train.display(); 
                 
         //this.track.display(); 
         //this.circle.display();
