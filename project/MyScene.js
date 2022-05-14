@@ -8,7 +8,7 @@ import { MyCircle } from "./MyCircle.js";
 import { MyCilinder } from "./MyCilinder.js";
 import { MyUnitCube } from "./MyUnitCube.js"; 
 import { MyWheel } from "./MyWheel.js";
-//import { MyTrain } from "./MyTrain.js";
+import { MyTrain } from "./MyTrain.js";
 
 /**
 * MyScene
@@ -23,7 +23,7 @@ export class MyScene extends CGFscene {
         super.init(application);
         this.initCameras();
         this.initLights();
-        var N = 10; 
+        const complexity = 30; 
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -82,12 +82,12 @@ export class MyScene extends CGFscene {
         this.plane = new MyPlane(this, 20, 0,1,0,1);
         this.track = new MyTrack(this, this.setOfPoints); 
         //this.earth = new MyEarth(this);
-        this.circle = new MyCircle(this, N); 
-        this.cilinder = new MyCilinder(this, N); 
-        this.sphere = new MySphere(this, N, N); 
+        this.circle = new MyCircle(this, complexity); 
+        this.cilinder = new MyCilinder(this, complexity); 
+        this.sphere = new MySphere(this, complexity, complexity); 
         this.cube = new MyUnitCube(this); 
-        this.wheel = new MyWheel(this, N); 
-        //this.train = new MyTrain(this, N); 
+        this.wheel = new MyWheel(this, complexity); 
+        this.train = new MyTrain(this, complexity); 
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -179,7 +179,7 @@ export class MyScene extends CGFscene {
 
         this.track.display(); 
 
-        //this.train.display(); 
+        this.train.display(); 
                 
         //this.track.display(); 
         //this.circle.display();
