@@ -9,6 +9,7 @@ import { MyCilinder } from "./MyCilinder.js";
 import { MyUnitCube } from "./MyUnitCube.js"; 
 import { MyWheel } from "./MyWheel.js";
 import { MyTrain } from "./MyTrain.js";
+import { MyCubeMap } from "./MyCubeMap.js";
 
 /**
 * MyScene
@@ -43,7 +44,7 @@ export class MyScene extends CGFscene {
         this.defaultAppearance.setSpecular(0.2, 0.4, 0.8, 1.0)
         this.defaultAppearance.setEmission(0, 0, 0, 1)
         this.defaultAppearance.setShininess(120)
-
+        this.loadTextures();
         /*
         this.setOfPoints = [
             {x: -5, z: 10, type: 'simple'},
@@ -67,7 +68,7 @@ export class MyScene extends CGFscene {
   
           ]*/
           this.linear = true;
-          this.scaleFactor = 1.2;
+          this.scaleFactor = 0.1;
           this.selectedTexture = -1;   
           this.wrapS = 0;
           this.wrapT = 0;
@@ -86,15 +87,23 @@ export class MyScene extends CGFscene {
         this.cilinder = new MyCilinder(this, complexity); 
         this.sphere = new MySphere(this, complexity, complexity); 
         this.cube = new MyUnitCube(this); 
-        this.wheel = new MyWheel(this, complexity); 
-        this.train = new MyTrain(this, complexity); 
-
+        this.wheel = new MyWheel(this, complexity);
+        this.train = new MyTrain(this, complexity);
+        this.cubeMap = new MyCubeMap(this)
+        //this.cubeMap.setTexture(top, front, right, back, left, bottom);
+        this.cubeMap.setTexture(this.top, this.front, this.right,this.back, this.left, this.bottom);
         //Objects connected to MyInterface
         this.displayAxis = true;
     }
 
     loadTextures() {
         this.tracksTexture = new CGFtexture(this, 'images/tracks.png');
+        this.top = new CGFtexture(this, "./images/demo_cubemap/top.png");
+        this.front = new CGFtexture(this, "./images/demo_cubemap/front.png");
+        this.right = new CGFtexture(this, "./images/demo_cubemap/right.png");
+        this.back = new CGFtexture(this, "./images/demo_cubemap/back.png");
+        this.left = new CGFtexture(this, "./images/demo_cubemap/left.png");
+        this.bottom = new CGFtexture(this, "./images/demo_cubemap/bottom.png");
     }
 
     setColorHotPink() {
@@ -120,7 +129,7 @@ export class MyScene extends CGFscene {
 
     initCameras() {
         //this.camera = new CGFcamera2(0.4, 0.1, 500, vec3.fromValues(30,30,30), vec3.fromValues(0, 0, 0));
-        this.camera = new CGFcamera2(0.5, 0.1, 500, vec3.fromValues(2,50,2), vec3.fromValues(0, 2, 0));
+        this.camera = new CGFcamera2(1.5, 0.1, 500, vec3.fromValues(2,2,2), vec3.fromValues(0, 2, 0));
     
     }
 
@@ -178,9 +187,21 @@ export class MyScene extends CGFscene {
         this.popMatrix();
 
         this.track.display(); 
+        this.pushMatrix();
+        this.translate(0, 5, 0);
+        //this.earth.display();
+        this.popMatrix();
 
         this.train.display(); 
-                
+
+        this.pushMatrix();
+        this.translate(0, 17, 0)
+
+        this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
+
+        this.scale(50, 50, 50);
+        this.cubeMap.display();
+        this.popMatrix();
         //this.track.display(); 
         //this.circle.display();
         //this.cilinder.display();  
