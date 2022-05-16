@@ -53,12 +53,12 @@ export class MyScene extends CGFscene {
             {x: 15, z: 10, type: 'station'}
           ]*/
 
-          this.setOfPoints = [
+        this.setOfPoints = [
             {x: -10, z: 10, type: 'simple'},
             {x: -5, z: 0, type: 'station'},
             {x: 10, z: 0, type: 'simple'},
             {x: 15, z: 10, type: 'station'}
-          ]
+        ]
 /*
           this.setOfPoints = [
             {x: -20, z: 20, type: 'simple'},
@@ -67,17 +67,11 @@ export class MyScene extends CGFscene {
             {x: 30, z: 20, type: 'station'}
   
           ]*/
-          this.linear = true;
-          this.scaleFactor = 0.1;
-          this.selectedTexture = -1;   
-          this.wrapS = 0;
-          this.wrapT = 0;
-          this.textures = [this.texture1, this.texture2, this.texture3];
-        this.texCoords = [0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0];
-        this.wrappingMethods = ['REPEAT', 'CLAMP_TO_EDGE', 'MIRRORED_REPEAT'];
-        this.wrappingS = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
-        this.wrappingT = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
-
+        this.linear = true;
+        this.scaleFactor = 0.1;
+        this.selectedCubeMapTexture = -1;
+        this.cubeMapTextureIds = { 'Sunny hills': 0, 'Demo': 1 };
+        this.cubeMapTextures = [this.sunnyHillsCubeMap, this.testCubeMap];
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new MyPlane(this, 20, 0,1,0,1);
@@ -91,19 +85,37 @@ export class MyScene extends CGFscene {
         this.train = new MyTrain(this, complexity);
         this.cubeMap = new MyCubeMap(this)
         //this.cubeMap.setTexture(top, front, right, back, left, bottom);
-        this.cubeMap.setTexture(this.top, this.front, this.right,this.back, this.left, this.bottom);
+        this.cubeMap.setTexture(
+                                this.sunnyHillsCubeMap.top, 
+                                this.sunnyHillsCubeMap.front, 
+                                this.sunnyHillsCubeMap.right,
+                                this.sunnyHillsCubeMap.back, 
+                                this.sunnyHillsCubeMap.left, 
+                                this.sunnyHillsCubeMap.bottom
+                                );
         //Objects connected to MyInterface
         this.displayAxis = true;
     }
 
     loadTextures() {
         this.tracksTexture = new CGFtexture(this, 'images/tracks.png');
-        this.top = new CGFtexture(this, "./images/demo_cubemap/top.png");
-        this.front = new CGFtexture(this, "./images/demo_cubemap/front.png");
-        this.right = new CGFtexture(this, "./images/demo_cubemap/right.png");
-        this.back = new CGFtexture(this, "./images/demo_cubemap/back.png");
-        this.left = new CGFtexture(this, "./images/demo_cubemap/left.png");
-        this.bottom = new CGFtexture(this, "./images/demo_cubemap/bottom.png");
+        this.sunnyHillsCubeMap = {
+            "top":    new CGFtexture(this, "./images/demo_cubemap/top.png"),
+            "front":  new CGFtexture(this, "./images/demo_cubemap/front.png"),
+            "right":  new CGFtexture(this, "./images/demo_cubemap/right.png"),
+            "back":   new CGFtexture(this, "./images/demo_cubemap/back.png"),
+            "left":   new CGFtexture(this, "./images/demo_cubemap/left.png"),
+            "bottom": new CGFtexture(this, "./images/demo_cubemap/bottom.png"),
+        };
+
+        this.testCubeMap = {
+            "top":    new CGFtexture(this, "./images/test_cubemap/pz.png"),
+            "front":  new CGFtexture(this, "./images/test_cubemap/px.png"),
+            "right":  new CGFtexture(this, "./images/test_cubemap/py.png"),
+            "back":   new CGFtexture(this, "./images/test_cubemap/nx.png"),
+            "left":   new CGFtexture(this, "./images/test_cubemap/ny.png"),
+            "bottom": new CGFtexture(this, "./images/test_cubemap/nz.png"),
+        };
     }
 
     setColorHotPink() {
@@ -147,17 +159,18 @@ export class MyScene extends CGFscene {
     }
 
     updateTexCoords() {
-        this.track.quad.updateTexCoords(this.texCoords);
     }
 
     //Function that resets selected texture in quadMaterial
     updateAppliedTexture() {
-        this.track.appearance.setTexture(this.textures[this.selectedTexture]);
-    }
-
-    //Function that updates wrapping mode in quadMaterial
-    updateTextureWrapping() {
-        this.track.appearance.setTextureWrap(this.wrappingMethods[this.wrapS], this.wrappingMethods[this.wrapT]);
+        this.cubeMap.setTexture(                                
+                                this.cubeMapTextures[this.selectedCubeMapTexture].top, 
+                                this.cubeMapTextures[this.selectedCubeMapTexture].front, 
+                                this.cubeMapTextures[this.selectedCubeMapTexture].right,
+                                this.cubeMapTextures[this.selectedCubeMapTexture].back, 
+                                this.cubeMapTextures[this.selectedCubeMapTexture].left, 
+                                this.cubeMapTextures[this.selectedCubeMapTexture].bottom
+                                )
     }
 
     display() {
@@ -180,6 +193,7 @@ export class MyScene extends CGFscene {
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
         // ---- BEGIN Primitive drawing section
+        //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
         this.pushMatrix();
         this.scale(50,1,50);
         this.rotate(-Math.PI*0.5, 1,0,0);
