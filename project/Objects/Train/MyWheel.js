@@ -1,6 +1,6 @@
-import {CGFobject, CGFappearance} from '../lib/CGF.js';
-import { MyCilinder } from '../../3D_Shapes/MyCilinder';
-import { MyCircle } from '../../2D_Shapes/MyCircle';
+import {CGFobject, CGFappearance} from '../../../lib/CGF.js';
+import { MyCilinder } from '../../3D_Shapes/MyCilinder.js';
+import { MyCircle } from '../../2D_Shapes/MyCircle.js';
 
 
 //It is just a closed cilinder 

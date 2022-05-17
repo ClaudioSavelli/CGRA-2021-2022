@@ -1,5 +1,5 @@
-import {CGFobject, CGFappearance, CGFtexture} from '../lib/CGF.js';
-import { MyQuad } from "../../2D_Shapes/MyQuad";
+import {CGFobject, CGFappearance, CGFtexture} from '../../../lib/CGF.js';
+import { MyQuad } from "../../2D_Shapes/MyQuad.js";
 
 export class MyTrackSegment extends CGFobject{
     constructor(scene, x1, z1, x2, z2) {

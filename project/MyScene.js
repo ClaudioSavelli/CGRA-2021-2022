@@ -1,16 +1,17 @@
 import { CGFscene, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
 import { CGFcamera2 } from "../lib/CGFcamera2.js";
-import { MyTrack } from "./Objects/Track/MyTrack";
-import { MySphere } from "./3D_Shapes/MySphere";
-//import { MyEarth } from "./Objects/MyEarth";
-import { MyCircle } from "./2D_Shapes/MyCircle";
-import { MyCilinder } from "./3D_Shapes/MyCilinder";
-import { MyUnitCube } from "./3D_Shapes/MyUnitCube"; 
-import { MyWheel } from "./Objects/Train/MyWheel";
-import { MyTrain } from "./Objects/Train/MyTrain";
-import { MyCubeMap } from "./Objects/MyCubeMap";
-import { MyMovingObject } from "./MovementController/MyMovingTrain";
+import { MyTrack } from "./Objects/Track/MyTrack.js";
+import { MySphere } from "./3D_Shapes/MySphere.js";
+//import { MyEarth } from "./Objects/MyEarth.js";
+import { MyCircle } from "./2D_Shapes/MyCircle.js";
+import { MyCilinder } from "./3D_Shapes/MyCilinder.js";
+import { MyUnitCube } from "./3D_Shapes/MyUnitCube.js"; 
+import { MyWheel } from "./Objects/Train/MyWheel.js";
+import { MyTrain } from "./Objects/Train/MyTrain.js";
+import { MyCubeMap } from "./Objects/MyCubeMap.js";
+import { MyMovingTrain } from "./MovementController/MyMovingTrain.js";
+
 
 /**
 * MyScene
@@ -55,17 +56,19 @@ export class MyScene extends CGFscene {
           ]*/
 
         this.setOfPoints = [
+            {x: -20, z: 15, type: 'simple'},
+            {x: -10, z: -10, type: 'simple'},
+            {x: 0, z: -10, type: 'station'},
+            {x: 10, z: -10, type: 'simple'},
+            {x: 20, z: 15, type: 'simple'}, 
+            {x: 0, z: 15, type: 'station'},
+        ]
+/*
+          this.setOfPoints = [
             {x: -10, z: 10, type: 'simple'},
             {x: -5, z: 0, type: 'station'},
             {x: 10, z: 0, type: 'simple'},
             {x: 15, z: 10, type: 'station'}
-        ]
-/*
-          this.setOfPoints = [
-            {x: -20, z: 20, type: 'simple'},
-            {x: -10, z: 0, type: 'station'},
-            {x: 20, z: 0, type: 'simple'},
-            {x: 30, z: 20, type: 'station'}
   
           ]*/
         this.linear = true;
@@ -85,7 +88,7 @@ export class MyScene extends CGFscene {
         this.wheel = new MyWheel(this, complexity);
         this.train = new MyTrain(this, complexity);
         this.cubeMap = new MyCubeMap(this)
-        this.movingObject = new MyMovingObject(this, this.train, this.setOfPoints); 
+        this.movingTrain = new MyMovingTrain(this, this.train, this.setOfPoints); 
         //this.cubeMap.setTexture(top, front, right, back, left, bottom);
         this.cubeMap.setTexture(
                                 this.sunnyHillsCubeMap.top, 
@@ -97,9 +100,6 @@ export class MyScene extends CGFscene {
                                 );
         //Objects connected to MyInterface
         this.displayAxis = true;
-
-        //28fps more or less 
-        this.setUpdatePeriod(36); 
     }
 
     loadTextures() {
@@ -160,7 +160,7 @@ export class MyScene extends CGFscene {
 
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
-        this.checkKeys(); 
+        //To be done...
     }
 
     updateTexCoords() {
@@ -206,12 +206,15 @@ export class MyScene extends CGFscene {
         this.popMatrix();
 
         this.track.display(); 
+        this.pushMatrix();
+        this.translate(0, 5, 0);
+        //this.earth.display();
+        this.popMatrix();
 
         //this.train.display(); 
 
-        this.movingObject.display(); 
+        this.movingTrain.display(); 
 
-        //CubeMap Display
         this.pushMatrix();
         this.translate(0, 17, 0)
 
@@ -220,29 +223,9 @@ export class MyScene extends CGFscene {
         this.scale(50, 50, 50);
         this.cubeMap.display();
         this.popMatrix();
-        //End of CubeMap Display  
+        //this.track.display(); 
+        //this.circle.display();
+        //this.cilinder.display();  
         // ---- END Primitive drawing section
     }
-
-    checkKeys() {
-
-        var text="Keys pressed: ";
-        var keysPressed=false;
-
-        // Check for key codes eg in https://keycode.info/
-
-        if (this.gui.isKeyPressed("KeyW")) {
-                text+=" W ";
-                keysPressed=true;
-        }
-
-
-        if (this.gui.isKeyPressed("KeyS"))        {
-                text+=" S ";
-                keysPressed=true;
-        }
-
-        if (keysPressed)
-                console.log(text);
-  }
 }

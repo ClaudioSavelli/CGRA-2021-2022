@@ -1,5 +1,5 @@
 import {CGFobject, CGFappearance} from '../../lib/CGF.js';
-import { MyQuad } from '../2D_Shapes/MyQuad';
+import { MyQuad } from '../2D_Shapes/MyQuad.js';
 
 /**
  * MyDiamond
