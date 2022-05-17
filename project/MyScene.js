@@ -55,6 +55,14 @@ export class MyScene extends CGFscene {
             {x: 15, z: 10, type: 'station'}
           ]*/
 
+
+          this.setOfPoints = [
+            {x: -20, z: 15, type: 'simple'},
+            {x: -20, z: -10, type: 'simple'},
+            {x: 20, z: -10, type: 'simple'},
+            {x: 20, z: 15, type: 'simple'}, 
+        ]
+        /* THE FINAL TRACK
         this.setOfPoints = [
             {x: -20, z: 15, type: 'simple'},
             {x: -10, z: -10, type: 'simple'},
@@ -62,7 +70,7 @@ export class MyScene extends CGFscene {
             {x: 10, z: -10, type: 'simple'},
             {x: 20, z: 15, type: 'simple'}, 
             {x: 0, z: 15, type: 'station'},
-        ]
+        ]*/
 /*
           this.setOfPoints = [
             {x: -10, z: 10, type: 'simple'},
@@ -160,7 +168,9 @@ export class MyScene extends CGFscene {
 
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
-        //To be done...
+        //to be done
+        this.checkKeys(); 
+        this.movingTrain.update(t); 
     }
 
     updateTexCoords() {
@@ -221,11 +231,32 @@ export class MyScene extends CGFscene {
         this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
 
         this.scale(50, 50, 50);
-        this.cubeMap.display();
+        //this.cubeMap.display();
         this.popMatrix();
         //this.track.display(); 
         //this.circle.display();
         //this.cilinder.display();  
         // ---- END Primitive drawing section
     }
+    checkKeys() {
+
+        var text="Keys pressed: ";
+        var keysPressed=false;
+
+        // Check for key codes eg in https://keycode.info/
+
+        if (this.gui.isKeyPressed("KeyW")) {
+                text+=" W ";
+                keysPressed=true;
+        }
+
+
+        if (this.gui.isKeyPressed("KeyS"))        {
+                text+=" S ";
+                keysPressed=true;
+        }
+
+        if (keysPressed)
+                console.log(text);
+  }
 }
