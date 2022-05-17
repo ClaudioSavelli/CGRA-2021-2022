@@ -1,5 +1,5 @@
-import {CGFobject, CGFappearance, CGFtexture} from '../lib/CGF.js';
-import { MySphere } from "./MySphere.js";
+import {CGFobject, CGFappearance, CGFtexture} from '../../lib/CGF.js';
+import { MySphere } from "../3D_Shapes/MySphere";
 
 export class MyEarth extends CGFobject{
     constructor(scene) {

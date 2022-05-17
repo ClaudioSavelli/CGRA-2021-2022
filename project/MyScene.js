@@ -1,15 +1,16 @@
 import { CGFscene, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
 import { CGFcamera2 } from "../lib/CGFcamera2.js";
-import { MyTrack } from "./MyTrack.js";
-import { MySphere } from "./MySphere.js";
-//import { MyEarth } from "./MyEarth.js";
-import { MyCircle } from "./MyCircle.js";
-import { MyCilinder } from "./MyCilinder.js";
-import { MyUnitCube } from "./MyUnitCube.js"; 
-import { MyWheel } from "./MyWheel.js";
-import { MyTrain } from "./MyTrain.js";
-import { MyCubeMap } from "./MyCubeMap.js";
+import { MyTrack } from "./Objects/Track/MyTrack";
+import { MySphere } from "./3D_Shapes/MySphere";
+//import { MyEarth } from "./Objects/MyEarth";
+import { MyCircle } from "./2D_Shapes/MyCircle";
+import { MyCilinder } from "./3D_Shapes/MyCilinder";
+import { MyUnitCube } from "./3D_Shapes/MyUnitCube"; 
+import { MyWheel } from "./Objects/Train/MyWheel";
+import { MyTrain } from "./Objects/Train/MyTrain";
+import { MyCubeMap } from "./Objects/MyCubeMap";
+import { MyMovingObject } from "./MovementController/MyMovingTrain";
 
 /**
 * MyScene
@@ -84,6 +85,7 @@ export class MyScene extends CGFscene {
         this.wheel = new MyWheel(this, complexity);
         this.train = new MyTrain(this, complexity);
         this.cubeMap = new MyCubeMap(this)
+        this.movingObject = new MyMovingObject(this, this.train, this.setOfPoints); 
         //this.cubeMap.setTexture(top, front, right, back, left, bottom);
         this.cubeMap.setTexture(
                                 this.sunnyHillsCubeMap.top, 
@@ -95,6 +97,9 @@ export class MyScene extends CGFscene {
                                 );
         //Objects connected to MyInterface
         this.displayAxis = true;
+
+        //28fps more or less 
+        this.setUpdatePeriod(36); 
     }
 
     loadTextures() {
@@ -155,7 +160,7 @@ export class MyScene extends CGFscene {
 
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
-        //To be done...
+        this.checkKeys(); 
     }
 
     updateTexCoords() {
@@ -201,13 +206,12 @@ export class MyScene extends CGFscene {
         this.popMatrix();
 
         this.track.display(); 
-        this.pushMatrix();
-        this.translate(0, 5, 0);
-        //this.earth.display();
-        this.popMatrix();
 
-        this.train.display(); 
+        //this.train.display(); 
 
+        this.movingObject.display(); 
+
+        //CubeMap Display
         this.pushMatrix();
         this.translate(0, 17, 0)
 
@@ -216,9 +220,29 @@ export class MyScene extends CGFscene {
         this.scale(50, 50, 50);
         this.cubeMap.display();
         this.popMatrix();
-        //this.track.display(); 
-        //this.circle.display();
-        //this.cilinder.display();  
+        //End of CubeMap Display  
         // ---- END Primitive drawing section
     }
+
+    checkKeys() {
+
+        var text="Keys pressed: ";
+        var keysPressed=false;
+
+        // Check for key codes eg in https://keycode.info/
+
+        if (this.gui.isKeyPressed("KeyW")) {
+                text+=" W ";
+                keysPressed=true;
+        }
+
+
+        if (this.gui.isKeyPressed("KeyS"))        {
+                text+=" S ";
+                keysPressed=true;
+        }
+
+        if (keysPressed)
+                console.log(text);
+  }
 }

@@ -1,4 +1,4 @@
-import {CGFobject, CGFappearance, CGFtexture} from '../lib/CGF.js';
+import {CGFobject, CGFappearance, CGFtexture} from '../../../lib/CGF.js';
 import { MyTrackSegment } from './MyTrackSegment.js';
 
 export class MyTrack extends CGFobject{

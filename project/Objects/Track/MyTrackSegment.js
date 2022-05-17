@@ -1,5 +1,5 @@
 import {CGFobject, CGFappearance, CGFtexture} from '../lib/CGF.js';
-import { MyQuad } from "./MyQuad.js";
+import { MyQuad } from "../../2D_Shapes/MyQuad";
 
 export class MyTrackSegment extends CGFobject{
     constructor(scene, x1, z1, x2, z2) {
@@ -13,8 +13,8 @@ export class MyTrackSegment extends CGFobject{
 
     createTextures() {
         this.appearance = new CGFappearance(this.scene);
-        this.appearance.setAmbient(1, 1, 1, 1);
-        this.appearance.setDiffuse(1, 1, 1, 1);
+        this.appearance.setAmbient(100, 100, 100, 1);
+        this.appearance.setDiffuse(100, 100, 100, 1);
         this.appearance.setSpecular(0, 0, 0, 1);
         this.appearance.setShininess(120);
 
@@ -29,7 +29,6 @@ export class MyTrackSegment extends CGFobject{
             this.x2 = x2; 
             this.z2 = z2; 
             this.length = this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2); 
-            console.log(this.textureFactor(this.x1, this.z1, this.x2, this.z2))
             this.quad.updateTexCoords([0, 1,
                 this.length/3, 1,
                 0, 0,
@@ -68,11 +67,6 @@ export class MyTrackSegment extends CGFobject{
     // angleDeg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
     }
 
-    
-    textureFactor(x1, z1, x2, z2) {
-        return 1/Math.sqrt(Math.pow(x2-x1, 2)+ Math.pow(z2-z1, 2))
-    }
-    
 }
 
 

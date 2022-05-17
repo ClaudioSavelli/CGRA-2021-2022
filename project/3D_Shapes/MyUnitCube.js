@@ -1,9 +1,5 @@
-import {CGFobject} from '../lib/CGF.js';
-/**
- * MyDiamond
- * @constructor
- * @param scene - Reference to MyScene object
- */
+import {CGFobject} from '../../lib/CGF.js';
+
 export class MyUnitCube extends CGFobject {
 	constructor(scene) {
 		super(scene); 

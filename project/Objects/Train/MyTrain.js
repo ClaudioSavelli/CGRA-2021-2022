@@ -1,9 +1,9 @@
-import {CGFobject, CGFappearance, CGFtexture} from '../lib/CGF.js';
-import { MyCilinder } from './MyCilinder.js';
-import { MyCircle } from './MyCircle.js';
-import { MySphere } from "./MySphere.js"; 
-import { MyUnitCube } from "./MyUnitCube.js"; 
-import { MyWheel } from "./MyWheel.js";
+import {CGFobject, CGFappearance, CGFtexture} from '../../../lib/CGF.js';
+import { MyCilinder } from '../../3D_Shapes/MyCilinder';
+import { MyCircle } from '../../2D_Shapes/MyCircle';
+import { MySphere } from "../../3D_Shapes/MySphere"; 
+import { MyUnitCube } from "../../3D_Shapes/MyUnitCube"; 
+import { MyWheel } from "./MyWheel";
 
 
 //It is just a closed cilinder 
