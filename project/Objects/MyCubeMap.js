@@ -1,11 +1,6 @@
 import {CGFobject, CGFappearance} from '../../lib/CGF.js';
 import { MyQuad } from '../2D_Shapes/MyQuad.js';
 
-/**
- * MyDiamond
- * @constructor
- * @param scene - Reference to MyScene object
- */
 export class MyCubeMap extends CGFobject {
 	constructor(scene) {
 		super(scene);

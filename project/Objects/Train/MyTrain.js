@@ -5,8 +5,6 @@ import { MySphere } from "../../3D_Shapes/MySphere.js";
 import { MyUnitCube } from "../../3D_Shapes/MyUnitCube.js"; 
 import { MyWheel } from "./MyWheel.js";
 
-
-//It is just a closed cilinder 
 export class MyTrain extends CGFobject {
 	constructor(scene, complexity) {
 		//N is the number of triangles/sides/points 

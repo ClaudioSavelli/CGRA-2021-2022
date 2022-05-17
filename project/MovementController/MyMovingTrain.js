@@ -1,10 +1,11 @@
 import {CGFobject} from '../../lib/CGF.js';
 
 export class MyMovingTrain extends CGFobject {
-	constructor(scene, object, setOfPoints) {
+	constructor(scene, train, crane, setOfPoints) {
 		//N is the number of triangles/sides/points 
 		super(scene);
-		this.object = object; 
+		this.train = train; 
+		this.crane = crane; 
 		this.setOfPoints = setOfPoints; 
 		this.init()
 	}
@@ -31,15 +32,15 @@ export class MyMovingTrain extends CGFobject {
 			this.initialTime = t;
 			this.timeToArrive = this.initialTime+(this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2)*this.velocity*1000)*2;  
 			this.flag = 1;
-			console.log(this.initialTime); 
-			console.log(this.timeToArrive); 
-			console.log(this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2)*this.velocity); 
+			//console.log(this.initialTime); 
+			//console.log(this.timeToArrive); 
+			//console.log(this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2)*this.velocity); 
 		}
 		this.x += (this.velocity*(t-this.initialTime))*Math.cos(this.angle); 
 		this.z += (this.velocity*(t-this.initialTime))*Math.sin(this.angle); 
 		 
 		if(t>=this.timeToArrive){
-			console.log("Arrived!"); 
+			//console.log("Arrived!"); 
 			//Evaluate new track informations
 			this.x1 = this.x2; 
 			this.z1 = this.z2;
@@ -60,7 +61,8 @@ export class MyMovingTrain extends CGFobject {
 		this.scene.translate(this.x, 0, this.z);
 		this.scene.rotate(Math.PI/2,0,1,0); 
 		this.scene.rotate(-this.angle,0,1,0); 
-		this.object.display(); 
+		this.train.display(); 
+		this.crane.display(); 
 		this.scene.popMatrix();
 	}
 

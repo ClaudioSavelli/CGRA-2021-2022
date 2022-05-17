@@ -10,7 +10,9 @@ import { MyUnitCube } from "./3D_Shapes/MyUnitCube.js";
 import { MyWheel } from "./Objects/Train/MyWheel.js";
 import { MyTrain } from "./Objects/Train/MyTrain.js";
 import { MyCubeMap } from "./Objects/MyCubeMap.js";
+import { MyCrane } from "./Objects/Train/MyCrane.js";
 import { MyMovingTrain } from "./MovementController/MyMovingTrain.js";
+
 
 
 /**
@@ -95,8 +97,9 @@ export class MyScene extends CGFscene {
         this.cube = new MyUnitCube(this); 
         this.wheel = new MyWheel(this, complexity);
         this.train = new MyTrain(this, complexity);
+        this.crane = new MyCrane(this, 0, -1, complexity); 
         this.cubeMap = new MyCubeMap(this)
-        this.movingTrain = new MyMovingTrain(this, this.train, this.setOfPoints); 
+        this.movingTrain = new MyMovingTrain(this, this.train, this.crane, this.setOfPoints); 
         //this.cubeMap.setTexture(top, front, right, back, left, bottom);
         this.cubeMap.setTexture(
                                 this.sunnyHillsCubeMap.top, 
@@ -216,14 +219,12 @@ export class MyScene extends CGFscene {
         this.popMatrix();
 
         this.track.display(); 
-        this.pushMatrix();
-        this.translate(0, 5, 0);
-        //this.earth.display();
-        this.popMatrix();
 
-        //this.train.display(); 
+        this.train.display(); 
+        this.crane.display(); 
 
-        this.movingTrain.display(); 
+
+        //this.movingTrain.display(); 
 
         this.pushMatrix();
         this.translate(0, 17, 0)
@@ -231,7 +232,7 @@ export class MyScene extends CGFscene {
         this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
 
         this.scale(50, 50, 50);
-        //this.cubeMap.display();
+        this.cubeMap.display();
         this.popMatrix();
         //this.track.display(); 
         //this.circle.display();
@@ -246,17 +247,19 @@ export class MyScene extends CGFscene {
         // Check for key codes eg in https://keycode.info/
 
         if (this.gui.isKeyPressed("KeyW")) {
-                text+=" W ";
-                keysPressed=true;
+                this.crane.updateBeta(0.1); 
         }
-
-
         if (this.gui.isKeyPressed("KeyS"))        {
-                text+=" S ";
-                keysPressed=true;
+                this.crane.updateBeta(-0.1); 
         }
-
-        if (keysPressed)
-                console.log(text);
+        if (this.gui.isKeyPressed("KeyA")) {
+            this.crane.updateAlfa(0.1); 
+    }
+        if (this.gui.isKeyPressed("KeyD"))        {
+                this.crane.updateAlfa(-0.1); 
+        }
+        if (this.gui.isKeyPressed("KeyR"))        {
+                this.crane.reset(); 
+        }
   }
 }
