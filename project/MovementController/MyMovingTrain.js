@@ -39,7 +39,7 @@ export class MyMovingTrain extends CGFobject {
 		this.x += (this.velocity*(t-this.initialTime))*Math.cos(this.angle); 
 		this.z += (this.velocity*(t-this.initialTime))*Math.sin(this.angle); 
 		 
-		if(t>=this.timeToArrive){
+		while(t>=this.timeToArrive){
 			//console.log("Arrived!"); 
 			//Evaluate new track informations
 			this.x1 = this.x2; 
@@ -48,11 +48,12 @@ export class MyMovingTrain extends CGFobject {
 			this.z2 = this.setOfPoints[this.nextEdge].z;
 			this.angle = this.angleBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2);
 			
-			this.flag = 0; 
 			this.nextEdge++; 
 			if(this.nextEdge==this.totalEdges){
 				this.nextEdge = 0; 
 			}
+			this.initialTime = t;
+			this.timeToArrive = this.initialTime+(this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2)*this.velocity*1000)*2;
 		}	
 	}
 

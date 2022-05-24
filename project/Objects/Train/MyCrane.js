@@ -70,7 +70,8 @@ export class MyCrane extends CGFobject {
 
         //cable
         this.scene.pushMatrix(); 
-        this.scene.translate(0, 3, -4.1);
+        //this.scene.translate(0, 5*Math.sin(this.beta-this.defaultBeta)+3, 2*Math.sin(this.beta-this.defaultBeta)-4.1);
+        this.scene.translate(0,5*Math.cos(this.beta)+0.4,5*Math.sin(this.beta)+0.2); 
         this.scene.scale(0.1, 5, 0.1); 
         this.cable.display();
         this.scene.popMatrix();
@@ -79,7 +80,7 @@ export class MyCrane extends CGFobject {
 
 	}
 
-        updateAlfa(value){
+        turn(value){
                 if(this.alfa<=-2.3 && value < 0){
                         return; 
                 } else if (this.alfa>=2.3 && value > 0){
@@ -88,10 +89,10 @@ export class MyCrane extends CGFobject {
                 this.alfa += value; 
         }
 
-        updateBeta(value){
+        tilt(value){
                 if(this.beta<=-1.6 && value<0){
                         return;   
-                } else if (this.beta>=-0.3 && value>0){
+                } else if (this.beta>=-0.7 && value>0){
                         return;
                 }
                 this.beta += value; 
