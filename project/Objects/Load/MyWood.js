@@ -4,10 +4,8 @@ import { MyCircle } from '../../2D_Shapes/MyCircle.js';
 
 
 
-//It is just a closed cilinder 
 export class MyWood extends CGFobject {
 	constructor(scene, N) {
-		//N is the number of triangles/sides/points 
 		super(scene);
 		this.scene = scene; 
 		this.init(scene, N);

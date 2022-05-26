@@ -11,6 +11,7 @@ import { MyWheel } from "./Objects/Train/MyWheel.js";
 import { MyTrain } from "./Objects/Train/MyTrain.js";
 import { MyCubeMap } from "./Objects/MyCubeMap.js";
 import { MyCrane } from "./Objects/Train/MyCrane.js";
+import { MyContainer } from "./Objects/Train/MyContainer.js";
 import { MyMovingTrain } from "./MovementController/MyMovingTrain.js";
 import { MyLoad } from "./Objects/Load/MyLoad.js";
 
@@ -98,8 +99,9 @@ export class MyScene extends CGFscene {
         this.wheel = new MyWheel(this, complexity);
         this.train = new MyTrain(this, complexity);
         this.crane = new MyCrane(this, 0, -1, complexity); 
-        this.cubeMap = new MyCubeMap(this)
-        this.movingTrain = new MyMovingTrain(this, this.train, this.crane, this.setOfPoints); 
+        this.container = new MyContainer(this, complexity); 
+        this.cubeMap = new MyCubeMap(this); 
+        this.movingTrain = new MyMovingTrain(this, this.train, this.crane, this.container, this.setOfPoints); 
         this.load = new MyLoad(this, complexity); 
         //this.cubeMap.setTexture(top, front, right, back, left, bottom);
         this.cubeMap.setTexture(
@@ -216,7 +218,7 @@ export class MyScene extends CGFscene {
         this.pushMatrix();
         this.scale(50,1,50);
         this.rotate(-Math.PI*0.5, 1,0,0);
-        //this.plane.display();
+        this.plane.display();
         this.popMatrix();
 
         this.track.display(); 
@@ -224,7 +226,7 @@ export class MyScene extends CGFscene {
         this.train.display(); 
         this.crane.display(); 
 
-        this.load.display(); 
+        this.container.display(); 
 
         //this.movingTrain.display(); 
 
@@ -234,17 +236,12 @@ export class MyScene extends CGFscene {
         this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
 
         this.scale(50, 50, 50);
-        //this.cubeMap.display();
+        this.cubeMap.display();
         this.popMatrix();
-        //this.track.display(); 
-        //this.circle.display();
-        //this.cilinder.display();  
+
         // ---- END Primitive drawing section
     }
     checkKeys() {
-
-        var text="Keys pressed: ";
-        var keysPressed=false;
 
         // Check for key codes eg in https://keycode.info/
 
