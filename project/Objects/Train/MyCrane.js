@@ -27,20 +27,40 @@ export class MyCrane extends CGFobject {
 	}
 
         createTextures() {
-                this.defaultAppearance = new CGFappearance(this.scene);
-                this.defaultAppearance.setAmbient(1, 1, 1, 1);
-                this.defaultAppearance.setDiffuse(1, 1, 1, 1);
-                this.defaultAppearance.setSpecular(0, 0, 0, 1);
-                this.defaultAppearance.setShininess(120);
+                this.metalTexture = new CGFappearance(this.scene);
+                this.metalTexture.setAmbient(3, 3, 3, 1);
+		this.metalTexture.setDiffuse(6, 6, 6, 1);
+		this.metalTexture.setSpecular(0, 0, 0, 1);
+		this.metalTexture.setShininess(500);
         
-                this.texture = new CGFtexture(this.scene, "./images/default.png");
-                this.defaultAppearance.setTexture(this.texture);
-                this.defaultAppearance.setTextureWrap('REPEAT', 'REPEAT');
+                this.texture = new CGFtexture(this.scene, "./images/steel.jpg");
+                this.metalTexture.setTexture(this.texture);
+                this.metalTexture.setTextureWrap('REPEAT', 'REPEAT');
+
+                this.blackTexture = new CGFappearance(this.scene);
+                this.blackTexture.setAmbient(3, 3, 3, 1);
+		this.blackTexture.setDiffuse(6, 6, 6, 1);
+		this.blackTexture.setSpecular(0, 0, 0, 1);
+		this.blackTexture.setShininess(500);
+        
+                this.texture = new CGFtexture(this.scene, "./images/black.png");
+                this.blackTexture.setTexture(this.texture);
+                this.blackTexture.setTextureWrap('REPEAT', 'REPEAT');
+
+                this.redTexture = new CGFappearance(this.scene);
+                this.redTexture.setAmbient(3, 3, 3, 1);
+		this.redTexture.setDiffuse(6, 6, 6, 1);
+		this.redTexture.setSpecular(0, 0, 0, 1);
+		this.redTexture.setShininess(500);
+        
+                this.texture = new CGFtexture(this.scene, "./images/metallic_red.jpg");
+                this.redTexture.setTexture(this.texture);
+                this.redTexture.setTextureWrap('REPEAT', 'REPEAT');
             }
 
 	display(){
 
-        this.defaultAppearance.apply();
+        this.metalTexture.apply();
 
         this.scene.pushMatrix(); 
         this.scene.translate(0, 0, -1.4); 
@@ -53,13 +73,6 @@ export class MyCrane extends CGFobject {
         this.mainAxis.display();
         this.scene.popMatrix(); 
 
-        //Sphere 
-        this.scene.pushMatrix(); 
-        this.scene.translate(0, 5.5, 0); 
-        this.scene.scale(0.5, 0.5, 0.5); 
-        this.sphere.display();
-        this.scene.popMatrix(); 
-
         //secondaryAxis
         this.scene.pushMatrix(); 
         this.scene.translate(0, 5.5, 0);
@@ -67,6 +80,17 @@ export class MyCrane extends CGFobject {
         this.scene.scale(0.2, 5, 0.2); 
         this.secondaryAxis.display();
         this.scene.popMatrix(); 
+
+        this.redTexture.apply();
+
+        //Sphere 
+        this.scene.pushMatrix(); 
+        this.scene.translate(0, 5.5, 0); 
+        this.scene.scale(0.5, 0.5, 0.5); 
+        this.sphere.display();
+        this.scene.popMatrix(); 
+
+        this.blackTexture.apply();
 
         //cable
         this.scene.pushMatrix(); 
@@ -81,9 +105,9 @@ export class MyCrane extends CGFobject {
 	}
 
         turn(value){
-                if(this.alfa<=-2.3 && value < 0){
+                if(this.alfa<=-1.6 && value < 0){
                         return; 
-                } else if (this.alfa>=2.3 && value > 0){
+                } else if (this.alfa>=1.6 && value > 0){
                         return; 
                 }
                 this.alfa += value; 

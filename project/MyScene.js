@@ -99,7 +99,7 @@ export class MyScene extends CGFscene {
         this.wheel = new MyWheel(this, complexity);
         this.train = new MyTrain(this, complexity);
         this.crane = new MyCrane(this, 0, -1, complexity); 
-        this.container = new MyContainer(this, complexity); 
+        this.container = new MyContainer(this, complexity, false); 
         this.cubeMap = new MyCubeMap(this); 
         this.movingTrain = new MyMovingTrain(this, this.train, this.crane, this.container, this.setOfPoints); 
         this.load = new MyLoad(this, complexity); 
@@ -225,7 +225,6 @@ export class MyScene extends CGFscene {
 
         this.train.display(); 
         this.crane.display(); 
-
         this.container.display(); 
 
         //this.movingTrain.display(); 
