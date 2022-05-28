@@ -58,14 +58,14 @@ export class MyScene extends CGFscene {
             {x: 15, z: 10, type: 'station'}
           ]*/
 
-
+        
           this.setOfPoints = [
             {x: -20, z: 15, type: 'simple'},
             {x: -20, z: -10, type: 'simple'},
             {x: 20, z: -10, type: 'simple'},
             {x: 20, z: 15, type: 'simple'}, 
         ]
-        /* THE FINAL TRACK
+        /*
         this.setOfPoints = [
             {x: -20, z: 15, type: 'simple'},
             {x: -10, z: -10, type: 'simple'},
@@ -227,7 +227,7 @@ export class MyScene extends CGFscene {
         this.crane.display(); 
         this.container.display(); 
 
-        //this.movingTrain.display(); 
+        this.movingTrain.display(); 
 
         this.pushMatrix();
         this.translate(0, 17, 0)

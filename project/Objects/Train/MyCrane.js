@@ -1,9 +1,8 @@
 import {CGFobject, CGFappearance, CGFtexture} from '../../../lib/CGF.js';
 import { MyCilinder } from '../../3D_Shapes/MyCilinder.js';
-import { MyCircle } from '../../2D_Shapes/MyCircle.js';
 import { MySphere } from "../../3D_Shapes/MySphere.js"; 
-import { MyUnitCube } from "../../3D_Shapes/MyUnitCube.js"; 
-import { MyWheel } from "./MyWheel.js";
+import { MyLoad } from '../Load/MyLoad.js';
+
 
 
 export class MyCrane extends CGFobject {
@@ -14,6 +13,7 @@ export class MyCrane extends CGFobject {
                 this.alfa = this.defaultAlfa; 
                 this.beta = this.defaultBeta; 
 		this.scene = scene;
+                this.isEmpty = true; 
                  
                 this.createTextures(); 
 		this.init(scene, complexity);
@@ -24,6 +24,7 @@ export class MyCrane extends CGFobject {
 		this.secondaryAxis = new MyCilinder(scene, complexity); 
                 this.cable = new MyCilinder(scene, complexity); 
                 this.sphere = new MySphere(scene, complexity, complexity); 
+                this.load = new MyLoad(scene, complexity); 
 	}
 
         createTextures() {
@@ -100,6 +101,14 @@ export class MyCrane extends CGFobject {
         this.cable.display();
         this.scene.popMatrix();
 
+         
+        //load 
+	if(!this.isEmpty){
+		this.scene.pushMatrix();  
+                this.scene.translate(0,5*Math.cos(this.beta),5*Math.sin(this.beta));		this.load.display(); 
+		this.scene.popMatrix();		 
+	}
+
         this.scene.popMatrix(); 
 
 	}
@@ -114,7 +123,7 @@ export class MyCrane extends CGFobject {
         }
 
         tilt(value){
-                if(this.beta<=-1.6 && value<0){
+                if(this.beta<=-1.4 && value<0){
                         return;   
                 } else if (this.beta>=-0.5 && value>0){
                         return;
