@@ -5,7 +5,7 @@ import { MySphere } from "../../3D_Shapes/MySphere.js";
 import { MyUnitCube } from "../../3D_Shapes/MyUnitCube.js"; 
 import { MyWheel } from "./MyWheel.js";
 
-export class MyTrain extends CGFobject {
+export class MyTrainModel extends CGFobject {
 	constructor(scene, complexity) {
 		//N is the number of triangles/sides/points 
 		super(scene);
@@ -23,43 +23,26 @@ export class MyTrain extends CGFobject {
 	}
 
         createTextures() {
-                this.redTexture = new CGFappearance(this.scene);
-                this.redTexture.setAmbient(3, 3, 3, 1);
-		this.redTexture.setDiffuse(6, 6, 6, 1);
-		this.redTexture.setSpecular(0, 0, 0, 1);
-		this.redTexture.setShininess(500);
-        
-                this.texture = new CGFtexture(this.scene, "./images/metallic_red.jpg");
-                this.redTexture.setTexture(this.texture);
-                this.redTexture.setTextureWrap('REPEAT', 'REPEAT');
-
-                this.defaultTexture = new CGFappearance(this.scene);
-                this.defaultTexture.setAmbient(3, 3, 3, 1);
-		this.defaultTexture.setDiffuse(6, 6, 6, 1);
-		this.defaultTexture.setSpecular(0, 0, 0, 1);
-		this.defaultTexture.setShininess(500);
+                this.defaultAppearance = new CGFappearance(this.scene);
+                this.defaultAppearance.setAmbient(1, 1, 1, 1);
+                this.defaultAppearance.setDiffuse(1, 1, 1, 1);
+                this.defaultAppearance.setSpecular(0, 0, 0, 1);
+                this.defaultAppearance.setShininess(120);
         
                 this.texture = new CGFtexture(this.scene, "./images/default.png");
-                this.defaultTexture.setTexture(this.texture);
-                this.defaultTexture.setTextureWrap('REPEAT', 'REPEAT');
+                this.defaultAppearance.setTexture(this.texture);
+                this.defaultAppearance.setTextureWrap('REPEAT', 'REPEAT');
             }
 
 	display(){
 
-        this.redTexture.apply();
+        this.defaultAppearance.apply();
 
 
         //base parallelepiped
         this.scene.pushMatrix(); 
         this.scene.translate(0, 1.5, 0); 
         this.scene.scale(2.5, 1, 7.5); 
-        this.cube.display();
-        this.scene.popMatrix(); 
-
-        //cabin 
-        this.scene.pushMatrix(); 
-        this.scene.translate(0, 3, -1.4); 
-        this.scene.scale(2, 2.5, 1.8); 
         this.cube.display();
         this.scene.popMatrix(); 
 
@@ -85,6 +68,13 @@ export class MyTrain extends CGFobject {
         this.scene.pushMatrix(); 
         this.scene.translate(-1.35, 0.75, 3); 
         this.wheel.display();
+        this.scene.popMatrix(); 
+
+        //cabin 
+        this.scene.pushMatrix(); 
+        this.scene.translate(0, 3, -1.4); 
+        this.scene.scale(2, 2.5, 1.8); 
+        this.cube.display();
         this.scene.popMatrix(); 
 
         //cylindrical body 

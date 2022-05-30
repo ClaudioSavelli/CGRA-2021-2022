@@ -8,12 +8,14 @@ import { MyCircle } from "./2D_Shapes/MyCircle.js";
 import { MyCilinder } from "./3D_Shapes/MyCilinder.js";
 import { MyUnitCube } from "./3D_Shapes/MyUnitCube.js"; 
 import { MyWheel } from "./Objects/Train/MyWheel.js";
-import { MyTrain } from "./Objects/Train/MyTrain.js";
+import { MyTrainModel } from "./Objects/Train/MyTrainModel.js";
 import { MyCubeMap } from "./Objects/MyCubeMap.js";
 import { MyCrane } from "./Objects/Train/MyCrane.js";
 import { MyContainer } from "./Objects/Train/MyContainer.js";
 import { MyMovingTrain } from "./MovementController/MyMovingTrain.js";
 import { MyLoad } from "./Objects/Load/MyLoad.js";
+import { MyStationModel } from "./Objects/Station/MyStationModel.js";
+
 
 
 /**
@@ -60,10 +62,10 @@ export class MyScene extends CGFscene {
 
         
           this.setOfPoints = [
-            {x: -20, z: 15, type: 'simple'},
-            {x: -20, z: -10, type: 'simple'},
-            {x: 20, z: -10, type: 'simple'},
-            {x: 20, z: 15, type: 'simple'}, 
+            {x: -20, z: 15, type: 'simple', side: null},
+            {x: -20, z: -10, type: 'station', side:null},
+            {x: 20, z: -10, type: 'simple', side:null},
+            {x: 20, z: 15, type: 'station', side:null}, 
         ]
         /*
         this.setOfPoints = [
@@ -97,12 +99,14 @@ export class MyScene extends CGFscene {
         this.sphere = new MySphere(this, complexity, complexity); 
         this.cube = new MyUnitCube(this); 
         this.wheel = new MyWheel(this, complexity);
-        this.train = new MyTrain(this, complexity);
+        this.train = new MyTrainModel(this, complexity);
         this.crane = new MyCrane(this, 0, -1, complexity); 
         this.container = new MyContainer(this, complexity, false); 
         this.cubeMap = new MyCubeMap(this); 
         this.movingTrain = new MyMovingTrain(this, this.train, this.crane, this.container, this.setOfPoints); 
         this.load = new MyLoad(this, complexity); 
+        this.model = new MyStationModel(this);
+
         //this.cubeMap.setTexture(top, front, right, back, left, bottom);
         this.cubeMap.setTexture(
                                 this.sunnyHillsCubeMap.top, 
@@ -113,7 +117,7 @@ export class MyScene extends CGFscene {
                                 this.sunnyHillsCubeMap.bottom
                                 );
         //Objects connected to MyInterface
-        this.displayAxis = false;
+        this.displayAxis = true;
     }
 
     loadTextures() {
@@ -213,6 +217,32 @@ export class MyScene extends CGFscene {
 
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
+         /*this.pushMatrix();
+        this.scale(50,1,50);
+        this.rotate(-Math.PI*0.5, 1,0,0);
+        this.plane.display();
+        this.popMatrix();
+
+        this.track.display(); 
+        //this.train.display(); 
+        //this.crane.display(); 
+        //this.container.display(); 
+
+        //this.movingTrain.display(); 
+
+        this.pushMatrix();
+        this.translate(0, 17, 0)
+
+        this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
+
+        this.scale(50, 50, 50);
+        this.cubeMap.display();
+        this.popMatrix();*/
+
+        this.setDefaultAppearance();
+
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+
         // ---- BEGIN Primitive drawing section
         //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
         this.pushMatrix();
@@ -223,21 +253,25 @@ export class MyScene extends CGFscene {
 
         this.track.display(); 
 
-        this.train.display(); 
-        this.crane.display(); 
-        this.container.display(); 
-
+        //this.train.display();
+        //this.crane.display(); 
+        //this.container.display();
         this.movingTrain.display(); 
-
         this.pushMatrix();
         this.translate(0, 17, 0)
-
         this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
-
         this.scale(50, 50, 50);
         this.cubeMap.display();
         this.popMatrix();
 
+        this.pushMatrix();
+        this.scale(0.2, 0.2, 0.2);
+        this.model.display();
+        this.popMatrix();
+
+        //this.track.display(); 
+        //this.circle.display();
+        //this.cilinder.display();  
         // ---- END Primitive drawing section
     }
     checkKeys() {

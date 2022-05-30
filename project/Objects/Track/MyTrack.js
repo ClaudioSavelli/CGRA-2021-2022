@@ -57,6 +57,7 @@ export class MyTrack extends CGFobject{
         for(let i = 0; i < this.trackSegmentArray.length; i++){
             this.trackSegmentArray[i].display(); 
         }
+        this.scene.setDefaultAppearance();
     }
 
     distanceBetweenTwoPoints(x1, z1, x2, z2){
