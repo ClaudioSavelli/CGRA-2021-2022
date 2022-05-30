@@ -29,8 +29,7 @@ export class MyMovingTrain extends CGFobject {
 
 	update(t){
 		if(t>=this.timeToArrive){
-			//console.log("Arrived!"); 
-			//Evaluate new track informations
+			
 			this.x1 = this.x2; 
 			this.z1 = this.z2;
 			this.x2 = this.setOfPoints[this.nextEdge].x; 
@@ -52,6 +51,7 @@ export class MyMovingTrain extends CGFobject {
 		this.z += (this.velocity*(t-this.initialTime))*Math.sin(this.angle); 
 
 		this.initialTime = t; 
+        this.train.wheel.rotation(this.velocity*100); 
 	}
 
 	display(){
