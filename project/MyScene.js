@@ -2,16 +2,10 @@ import { CGFscene, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
 import { CGFcamera2 } from "../lib/CGFcamera2.js";
 import { MyTrack } from "./Objects/Track/MyTrack.js";
-import { MySphere } from "./3D_Shapes/MySphere.js";
 //import { MyEarth } from "./Objects/MyEarth.js";
-import { MyCircle } from "./2D_Shapes/MyCircle.js";
-import { MyCilinder } from "./3D_Shapes/MyCilinder.js";
-import { MyUnitCube } from "./3D_Shapes/MyUnitCube.js"; 
-import { MyWheel } from "./Objects/Train/MyWheel.js";
 import { MyTrain } from "./Objects/Train/MyTrain.js";
 import { MyCubeMap } from "./Objects/MyCubeMap.js";
 import { MyMovingTrain } from "./MovementController/MyMovingTrain.js";
-import { MyLoad } from "./Objects/Load/MyLoad.js";
 
 
 /**
@@ -89,15 +83,9 @@ export class MyScene extends CGFscene {
         this.plane = new MyPlane(this, 20, 0,1,0,1);
         this.track = new MyTrack(this, this.setOfPoints); 
         //this.earth = new MyEarth(this);
-        this.circle = new MyCircle(this, complexity); 
-        this.cilinder = new MyCilinder(this, complexity); 
-        this.sphere = new MySphere(this, complexity, complexity); 
-        this.cube = new MyUnitCube(this); 
-        this.wheel = new MyWheel(this, complexity);
-        this.train = new MyTrain(this, complexity);
+        this.train = new MyTrain(this, complexity, false);
         this.cubeMap = new MyCubeMap(this); 
         this.movingTrain = new MyMovingTrain(this, this.train, this.setOfPoints); 
-        this.load = new MyLoad(this, complexity); 
         //this.cubeMap.setTexture(top, front, right, back, left, bottom);
         this.cubeMap.setTexture(
                                 this.sunnyHillsCubeMap.top, 
@@ -252,9 +240,15 @@ export class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR"))        {
                 this.train.crane.reset(); 
         }
+        if (this.gui.isKeyPressed("KeyP"))  {
+            this.movingTrain.interact(); 
+        }
         if (this.gui.isKeyPressed("KeyC"))          {
-                console.log("Pressed C"); 
-                this.movingTrain.Departure(); 
+                this.movingTrain.departure(); 
+        }
+        if  (this.gui.isKeyPressed("KeyI")){
+            console.log("alfa = " + this.movingTrain.train.crane.alfa); 
+            console.log("beta = " + this.movingTrain.train.crane.beta); 
         }
   }
 }

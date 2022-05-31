@@ -8,22 +8,22 @@ import { MyCrane } from './MyCrane.js';
 import { MyContainer } from './MyContainer.js';
 
 export class MyTrain extends CGFobject {
-	constructor(scene, complexity) {
+	constructor(scene, complexity, isEmpty) {
 		//N is the number of triangles/sides/points 
 		super(scene);
 		this.scene = scene; 
                 this.createTextures(); 
-		this.init(scene, complexity);
+		this.init(scene, complexity, isEmpty);
 	}
 	
-	init(scene, complexity) {
+	init(scene, complexity, isEmpty) {
 		this.cube = new MyUnitCube(scene); 
 		this.cilinder = new MyCilinder(scene, complexity); 
 		this.circle = new MyCircle(scene, complexity);
 		this.sphere = new MySphere(scene, complexity, complexity); 
 		this.wheel = new MyWheel(scene, complexity); 
                 this.crane = new MyCrane(scene, 0, -1, complexity); 
-                this.container = new MyContainer(scene, complexity, true); 
+                this.container = new MyContainer(scene, complexity, isEmpty); 
 	}
 
         createTextures() {

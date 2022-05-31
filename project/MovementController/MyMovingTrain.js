@@ -98,13 +98,33 @@ export class MyMovingTrain extends CGFobject {
 		}
 	}
 
-	Departure(){
+	departure(){
 		if(this.isStopped){
 			this.velocity = 0.01; 
 			this.isStopped = false; 
 			this.timeToArrive = 0; 
 			this.isTrainJustStarted = 1; 
 		}
+	}
+
+	interact(){
+		if (this.isStopped){
+			console.log("trying to interact!"); 
+			//Interact with the container in the Train 
+			if(this.train.crane.alfa >= -0.3 && this.train.crane.alfa <= 0.3 && this.train.crane.beta >= -0.6){
+				console.log("catched!"); 
+				if((this.train.crane.isEmpty && !this.train.container.isEmpty) || (!this.train.crane.isEmpty && this.train.container.isEmpty)){
+					console.log("exchanced!"); 
+					this.exchangeLoad(this.train.crane, this.train.container); 
+				} 
+			}
+			//Interact with the container in the station 
+		}
+	}
+
+	exchangeLoad(a,b){
+		a.isEmpty = !a.isEmpty; 
+		b.isEmpty = !b.isEmpty; 
 	}
 }
 
