@@ -1,12 +1,10 @@
 import {CGFobject} from '../../lib/CGF.js';
 
 export class MyMovingTrain extends CGFobject {
-	constructor(scene, train, crane, container, setOfPoints) {
+	constructor(scene, train, setOfPoints) {
 		//N is the number of triangles/sides/points 
 		super(scene);
 		this.train = train; 
-		this.crane = crane; 
-		this.container = container; 
 		this.setOfPoints = setOfPoints; 
 		this.init()
 	}
@@ -63,8 +61,6 @@ export class MyMovingTrain extends CGFobject {
 		this.scene.rotate(Math.PI/2,0,1,0); 
 		this.scene.rotate(-this.angle,0,1,0); 
 		this.train.display(); 
-		this.crane.display(); 
-		this.container.display(); 
 		this.scene.popMatrix();
 	}
 

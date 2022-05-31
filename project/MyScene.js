@@ -10,8 +10,6 @@ import { MyUnitCube } from "./3D_Shapes/MyUnitCube.js";
 import { MyWheel } from "./Objects/Train/MyWheel.js";
 import { MyTrain } from "./Objects/Train/MyTrain.js";
 import { MyCubeMap } from "./Objects/MyCubeMap.js";
-import { MyCrane } from "./Objects/Train/MyCrane.js";
-import { MyContainer } from "./Objects/Train/MyContainer.js";
 import { MyMovingTrain } from "./MovementController/MyMovingTrain.js";
 import { MyLoad } from "./Objects/Load/MyLoad.js";
 
@@ -97,10 +95,8 @@ export class MyScene extends CGFscene {
         this.cube = new MyUnitCube(this); 
         this.wheel = new MyWheel(this, complexity);
         this.train = new MyTrain(this, complexity);
-        this.crane = new MyCrane(this, 0, -1, complexity); 
-        this.container = new MyContainer(this, complexity, false); 
         this.cubeMap = new MyCubeMap(this); 
-        this.movingTrain = new MyMovingTrain(this, this.train, this.crane, this.container, this.setOfPoints); 
+        this.movingTrain = new MyMovingTrain(this, this.train, this.setOfPoints); 
         this.load = new MyLoad(this, complexity); 
         //this.cubeMap.setTexture(top, front, right, back, left, bottom);
         this.cubeMap.setTexture(
@@ -223,8 +219,6 @@ export class MyScene extends CGFscene {
         this.track.display(); 
 
         this.train.display(); 
-        this.crane.display(); 
-        this.container.display(); 
 
         this.movingTrain.display(); 
 
@@ -244,19 +238,19 @@ export class MyScene extends CGFscene {
         // Check for key codes eg in https://keycode.info/
 
         if (this.gui.isKeyPressed("KeyW")) {
-                this.crane.tilt(0.1); 
+                this.train.crane.tilt(0.1); 
         }
         if (this.gui.isKeyPressed("KeyS"))        {
-                this.crane.tilt(-0.1); 
+                this.train.crane.tilt(-0.1); 
         }
         if (this.gui.isKeyPressed("KeyA")) {
-            this.crane.turn(0.1); 
+                this.train.crane.turn(0.1); 
     }
         if (this.gui.isKeyPressed("KeyD"))        {
-                this.crane.turn(-0.1); 
+                this.train.crane.turn(-0.1); 
         }
         if (this.gui.isKeyPressed("KeyR"))        {
-                this.crane.reset(); 
+                this.train.crane.reset(); 
         }
         if (this.gui.isKeyPressed("KeyC"))          {
                 console.log("Pressed C"); 

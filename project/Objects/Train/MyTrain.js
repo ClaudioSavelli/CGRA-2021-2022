@@ -4,6 +4,8 @@ import { MyCircle } from '../../2D_Shapes/MyCircle.js';
 import { MySphere } from "../../3D_Shapes/MySphere.js"; 
 import { MyUnitCube } from "../../3D_Shapes/MyUnitCube.js"; 
 import { MyWheel } from "./MyWheel.js";
+import { MyCrane } from './MyCrane.js';
+import { MyContainer } from './MyContainer.js';
 
 export class MyTrain extends CGFobject {
 	constructor(scene, complexity) {
@@ -20,6 +22,8 @@ export class MyTrain extends CGFobject {
 		this.circle = new MyCircle(scene, complexity);
 		this.sphere = new MySphere(scene, complexity, complexity); 
 		this.wheel = new MyWheel(scene, complexity); 
+                this.crane = new MyCrane(scene, 0, -1, complexity); 
+                this.container = new MyContainer(scene, complexity, true); 
 	}
 
         createTextures() {
@@ -107,6 +111,9 @@ export class MyTrain extends CGFobject {
         this.scene.scale(0.2, 0.7, 0.2); 
         this.cilinder.display();
         this.scene.popMatrix(); 
+
+        this.crane.display(); 
+        this.container.display(); 
 	}
 
 	updateBuffers() {
