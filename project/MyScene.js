@@ -59,13 +59,12 @@ export class MyScene extends CGFscene {
           ]*/
 
         
-          this.setOfPoints = [
+          /*this.setOfPoints = [
             {x: -20, z: 15, type: 'simple'},
             {x: -20, z: -10, type: 'simple'},
             {x: 20, z: -10, type: 'simple'},
             {x: 20, z: 15, type: 'simple'}, 
-        ]
-        /*
+        ]*/
         this.setOfPoints = [
             {x: -20, z: 15, type: 'simple'},
             {x: -10, z: -10, type: 'simple'},
@@ -73,7 +72,7 @@ export class MyScene extends CGFscene {
             {x: 10, z: -10, type: 'simple'},
             {x: 20, z: 15, type: 'simple'}, 
             {x: 0, z: 15, type: 'station'},
-        ]*/
+        ]
 /*
           this.setOfPoints = [
             {x: -10, z: 10, type: 'simple'},

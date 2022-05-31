@@ -15,6 +15,7 @@ export class MyMovingTrain extends CGFobject {
 		this.velocity = 0.01; 
 		this.flag = 0; 
 		this.timeToArrive = 0; 
+		this.isStopped = false; 
 
 		this.x2 = this.setOfPoints[0].x; 
 		this.z2 = this.setOfPoints[0].z;
