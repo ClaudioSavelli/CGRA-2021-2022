@@ -12,41 +12,25 @@ export class MyMovingTrain extends CGFobject {
 	}
 
 	init(){
-		this.velocity = 0.001; 
+		this.velocity = 0.01; 
 		this.flag = 0; 
+		this.timeToArrive = 0; 
+		this.isStopped = false; 
 
-		this.x1 = this.setOfPoints[0].x; 
-		this.z1 = this.setOfPoints[0].z; 
-		this.x2 = this.setOfPoints[1].x; 
-		this.z2 = this.setOfPoints[1].z;
+		this.x2 = this.setOfPoints[0].x; 
+		this.z2 = this.setOfPoints[0].z;
 		
 		this.angle = this.angleBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2);
 		this.x = this.x1; 
 		this.z = this.z1; 
 
-		this.nextEdge = 2; 
+		this.nextEdge = 1; 
 		this.totalEdges = this.setOfPoints.length; 
 	}
 
 	update(t){
-		if (this.flag == 0){
-			this.initialTime = t;
-			this.timeToArrive = this.initialTime+(this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2)/(this.velocity*15));  
-			this.flag = 1;
-			//console.log(this.initialTime); 
-			//console.log(this.timeToArrive); 
-			//console.log(this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2)*this.velocity); 
-		}
-
-		this.x += (this.velocity*(t-this.initialTime))*Math.cos(this.angle); 
-		this.z += (this.velocity*(t-this.initialTime))*Math.sin(this.angle); 
-		
-		console.log("t = "+t); 
-		console.log("tta = "+this.timeToArrive); 
-
-		while(t>=this.timeToArrive){
-			//console.log("Arrived!"); 
-			//Evaluate new track informations
+		if(t>=this.timeToArrive){
+			
 			this.x1 = this.x2; 
 			this.z1 = this.z2;
 			this.x2 = this.setOfPoints[this.nextEdge].x; 
@@ -61,8 +45,14 @@ export class MyMovingTrain extends CGFobject {
 				this.nextEdge = 0; 
 			}
 			this.initialTime = t;
-			this.timeToArrive = this.initialTime+(this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2)/(this.velocity*15));
+			this.timeToArrive = this.initialTime+(this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2)/(this.velocity));
 		}	
+
+		this.x += (this.velocity*(t-this.initialTime))*Math.cos(this.angle); 
+		this.z += (this.velocity*(t-this.initialTime))*Math.sin(this.angle); 
+
+		this.initialTime = t; 
+        this.train.wheel.rotation(this.velocity*100); 
 	}
 
 	display(){
