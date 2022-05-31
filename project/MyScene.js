@@ -258,5 +258,9 @@ export class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR"))        {
                 this.crane.reset(); 
         }
+        if (this.gui.isKeyPressed("KeyC"))          {
+                console.log("Pressed C"); 
+                this.movingTrain.Departure(); 
+        }
   }
 }
