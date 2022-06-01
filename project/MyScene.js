@@ -68,15 +68,15 @@ export class MyScene extends CGFscene {
             {x: 20, z: 15, type: 'simple'}, 
         ]*/
         this.setOfPoints = [
-            {x: -20, z: 15, type: 'simple'},
-            {x: -10, z: -10, type: 'simple'},
-            {x: 0, z: -10, type: 'station'},
-            {x: 10, z: -10, type: 'simple'},
-            {x: 20, z: 15, type: 'simple'}, 
-            {x: 0, z: 15, type: 'station'},
+            {x: -20, z: 15, type: 'simple', side:null},
+            {x: -10, z: -10, type: 'simple', side:null},
+            {x: 0, z: -10, type: 'station', side:"left", hasLoad:true}, //upper one
+            {x: 10, z: -10, type: 'simple', side:null},
+            {x: 20, z: 15, type: 'simple', side:null}, 
+            {x: 0, z: 15, type: 'station', side:"right", hasLoad:false}, //lower one
         ]
-/*
-          this.setOfPoints = [
+
+          /*this.setOfPoints = [
             {x: -10, z: 10, type: 'simple'},
             {x: -5, z: 0, type: 'station'},
             {x: 10, z: 0, type: 'simple'},
@@ -84,7 +84,7 @@ export class MyScene extends CGFscene {
   
           ]*/
         this.linear = true;
-        this.scaleFactor = 0.1;
+        this.scaleFactor = 0.5;
         this.selectedCubeMapTexture = -1;
         this.cubeMapTextureIds = { 'Sunny hills': 0, 'Demo': 1 };
         this.cubeMapTextures = [this.sunnyHillsCubeMap, this.testCubeMap];
@@ -215,14 +215,13 @@ export class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-
-         /*this.pushMatrix();
+/*
+         this.pushMatrix();
         this.scale(50,1,50);
         this.rotate(-Math.PI*0.5, 1,0,0);
         this.plane.display();
         this.popMatrix();
-
-        this.track.display(); 
+        this.track.display();*/
         //this.train.display(); 
         //this.crane.display(); 
         //this.container.display(); 
@@ -236,7 +235,7 @@ export class MyScene extends CGFscene {
 
         this.scale(50, 50, 50);
         this.cubeMap.display();
-        this.popMatrix();*/
+        this.popMatrix();
 
         this.setDefaultAppearance();
 
@@ -245,7 +244,7 @@ export class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
         this.pushMatrix();
-        this.scale(50,1,50);
+        this.scale(100,1,100); 
         this.rotate(-Math.PI*0.5, 1,0,0);
         this.plane.display();
         this.popMatrix();
@@ -255,18 +254,14 @@ export class MyScene extends CGFscene {
         //this.train.display();
         //this.crane.display(); 
         //this.container.display();
-        this.movingTrain.display(); 
+        //this.movingTrain.display(); 
         this.pushMatrix();
         this.translate(0, 17, 0)
         this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
         this.scale(50, 50, 50);
-        this.cubeMap.display();
+        //this.cubeMap.display();
         this.popMatrix();
 
-        this.pushMatrix();
-        this.scale(0.2, 0.2, 0.2);
-        this.model.display();
-        this.popMatrix();
 
         //this.track.display(); 
         //this.circle.display();
@@ -293,4 +288,6 @@ export class MyScene extends CGFscene {
                 this.crane.reset(); 
         }
   }
+
+
 }

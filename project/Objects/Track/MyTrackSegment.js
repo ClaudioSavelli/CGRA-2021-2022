@@ -2,11 +2,17 @@ import {CGFobject, CGFappearance, CGFtexture} from '../../../lib/CGF.js';
 import { MyQuad } from "../../2D_Shapes/MyQuad.js";
 
 export class MyTrackSegment extends CGFobject{
-    constructor(scene, x1, z1, x2, z2) {
+    constructor(scene, x1, z1, x2, z2, angle, hasStation, middleX, middleZ, side, hasLoad) {
         super(scene);
         this.trackWidth = 4; 
 		this.scene = scene;
-        this.quad = new MyQuad(scene); 
+        this.quad = new MyQuad(scene);
+        this.angle = angle;
+        this.hasStation = hasStation;
+        this.middleX = middleX;
+        this.middleZ = middleZ;
+        this.side = side;
+        this.hasLoad = hasLoad;
         this.init(scene, x1, z1, x2, z2); 
         this.createTextures();
     }
@@ -27,7 +33,7 @@ export class MyTrackSegment extends CGFobject{
             this.x1 = x1; 
             this.z1 = z1; 
             this.x2 = x2; 
-            this.z2 = z2; 
+            this.z2 = z2;
             this.length = this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2); 
             this.quad.updateTexCoords([0, 1,
                 this.length/3, 1,

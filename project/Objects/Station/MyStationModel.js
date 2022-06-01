@@ -1,14 +1,24 @@
 import { MyStationModelPiece } from './MyStationModelPiece.js';
 import {CGFobject, CGFappearance, CGFtexture} from '../../../lib/CGF.js';
 import { MyQuad } from '../../2D_Shapes/MyQuad.js';
+import { MyUnitCube } from '../../3D_Shapes/MyUnitCube.js';
+import { MyLoad } from '../Load/MyLoad.js';
 
 export class MyStationModel extends CGFobject {
-	constructor(scene) {
+	constructor(scene, angle, x, z, hasLoad, side) {
 		super(scene);
 		this.scene = scene;
+        this.angle = angle;
+        this.x = x;
+        this.z = z;
+        this.hasLoad = hasLoad;
+        this.side = side;
         this.modelSide = new MyStationModelPiece(scene, 1.0);
         this.modelCenter = new MyStationModelPiece(scene, 1.5);
         this.window = new MyQuad(scene);
+        this.base = new MyUnitCube(scene);
+        this.load = new MyLoad(scene, 20);
+        this.load.isTaken = false;
 
         this.windowAppearance = new CGFappearance(scene);
         this.windowAppearance.setAmbient(1.0, 1.0, 1.0, 1.0);
@@ -18,12 +28,47 @@ export class MyStationModel extends CGFobject {
         this.windowTexture = new CGFtexture(scene, "./images/window.jpg");
         this.windowAppearance.setTexture(this.windowTexture);
         this.windowAppearance.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.baseAppearance = new CGFappearance(scene);
+        this.baseAppearance.setAmbient(0.3, 0.3, 0.3, 0.5);
+        this.baseAppearance.setDiffuse(0.3, 0.3, 0.3, 0.5);
+        this.baseAppearance.setSpecular(0, 0, 0, 1.0);
+        this.baseAppearance.setEmission(0.2, 0.1, 0.1, 0.2);
+        this.baseTexture = new CGFtexture(scene, "./images/floor.webp");
+        this.baseAppearance.setTexture(this.baseTexture);
+        this.baseAppearance.setTextureWrap('REPEAT', 'REPEAT');
+
     }
     display() {
-        this.displayCenter();
-        this.displaySide(-55);
-        this.displaySide(55);
-        this.scene.setDefaultAppearance();
+        //const zDisplace = this.z + (this.side == "left"? -8 : 8)
+        const trackDistanceCorrection = 8;
+        const zDisplace = this.z + (this.side == "left"? -trackDistanceCorrection : trackDistanceCorrection);
+        const xDisplace = this.x;
+        this.scene.pushMatrix()
+
+        this.scene.translate(xDisplace, 3.5, zDisplace);
+        this.scene.rotate(this.angle, 0, 1, 0);
+        this.scene.scale(0.2, 0.2, 0.2);
+
+            this.scene.pushMatrix();
+            this.scene.translate(0, 3.5, -6.0);
+            this.displayCenter();
+            this.displaySide(-55);
+            this.displaySide(55);
+            this.scene.popMatrix();
+            this.baseAppearance.apply();
+            this.displayBase();
+
+            if (this.hasLoad) {
+                this.scene.pushMatrix();
+                this.scene.translate(0, -11.5, 25)
+                this.scene.scale(2,2,2);
+                this.load.display();
+                this.scene.popMatrix(); 
+            } 
+        
+        this.scene.popMatrix();
+
     }
 
     displayCenter() {
@@ -89,6 +134,14 @@ export class MyStationModel extends CGFobject {
         this.displayWindow(0);
         this.displayWindow(-10);
         this.displayWindow(10);
+    }
+
+    displayBase() {
+        this.scene.pushMatrix();
+        this.scene.translate(0, -14.5, 0);
+        this.scene.scale(170.0, 5.0, 60.0);
+        this.base.display();
+        this.scene.popMatrix();
     }
 }
 
