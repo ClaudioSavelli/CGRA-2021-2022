@@ -2,20 +2,10 @@ import { CGFscene, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
 import { CGFcamera2 } from "../lib/CGFcamera2.js";
 import { MyTrack } from "./Objects/Track/MyTrack.js";
-import { MySphere } from "./3D_Shapes/MySphere.js";
 //import { MyEarth } from "./Objects/MyEarth.js";
-import { MyCircle } from "./2D_Shapes/MyCircle.js";
-import { MyCilinder } from "./3D_Shapes/MyCilinder.js";
-import { MyUnitCube } from "./3D_Shapes/MyUnitCube.js"; 
-import { MyWheel } from "./Objects/Train/MyWheel.js";
-import { MyTrainModel } from "./Objects/Train/MyTrainModel.js";
+import { MyTrain } from "./Objects/Train/MyTrain.js";
 import { MyCubeMap } from "./Objects/MyCubeMap.js";
-import { MyCrane } from "./Objects/Train/MyCrane.js";
-import { MyContainer } from "./Objects/Train/MyContainer.js";
 import { MyMovingTrain } from "./MovementController/MyMovingTrain.js";
-import { MyLoad } from "./Objects/Load/MyLoad.js";
-import { MyStationModel } from "./Objects/Station/MyStationModel.js";
-
 
 
 /**
@@ -93,18 +83,9 @@ export class MyScene extends CGFscene {
         this.plane = new MyPlane(this, 20, 0,1,0,1);
         this.track = new MyTrack(this, this.setOfPoints); 
         //this.earth = new MyEarth(this);
-        this.circle = new MyCircle(this, complexity); 
-        this.cilinder = new MyCilinder(this, complexity); 
-        this.sphere = new MySphere(this, complexity, complexity); 
-        this.cube = new MyUnitCube(this); 
-        this.wheel = new MyWheel(this, complexity);
-        this.train = new MyTrainModel(this, complexity);
-        this.crane = new MyCrane(this, 0, -1, complexity); 
-        this.container = new MyContainer(this, complexity, false); 
+        this.train = new MyTrain(this, complexity, false);
         this.cubeMap = new MyCubeMap(this); 
-        this.movingTrain = new MyMovingTrain(this, this.train, this.crane, this.container, this.setOfPoints); 
-        this.load = new MyLoad(this, complexity); 
-        this.model = new MyStationModel(this);
+        this.movingTrain = new MyMovingTrain(this, this.train, this.setOfPoints); 
 
         //this.cubeMap.setTexture(top, front, right, back, left, bottom);
         this.cubeMap.setTexture(
@@ -251,10 +232,10 @@ export class MyScene extends CGFscene {
 
         this.track.display(); 
 
-        //this.train.display();
-        //this.crane.display(); 
-        //this.container.display();
-        //this.movingTrain.display(); 
+        this.train.display(); 
+
+        this.movingTrain.display(); 
+
         this.pushMatrix();
         this.translate(0, 17, 0)
         this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
@@ -273,19 +254,29 @@ export class MyScene extends CGFscene {
         // Check for key codes eg in https://keycode.info/
 
         if (this.gui.isKeyPressed("KeyW")) {
-                this.crane.tilt(0.1); 
+                this.train.crane.tilt(0.1); 
         }
         if (this.gui.isKeyPressed("KeyS"))        {
-                this.crane.tilt(-0.1); 
+                this.train.crane.tilt(-0.1); 
         }
         if (this.gui.isKeyPressed("KeyA")) {
-            this.crane.turn(0.1); 
+                this.train.crane.turn(0.1); 
     }
         if (this.gui.isKeyPressed("KeyD"))        {
-                this.crane.turn(-0.1); 
+                this.train.crane.turn(-0.1); 
         }
         if (this.gui.isKeyPressed("KeyR"))        {
-                this.crane.reset(); 
+                this.train.crane.reset(); 
+        }
+        if (this.gui.isKeyPressed("KeyP"))  {
+            this.movingTrain.interact(); 
+        }
+        if (this.gui.isKeyPressed("KeyC"))          {
+                this.movingTrain.departure(); 
+        }
+        if  (this.gui.isKeyPressed("KeyI")){
+            console.log("alfa = " + this.movingTrain.train.crane.alfa); 
+            console.log("beta = " + this.movingTrain.train.crane.beta); 
         }
   }
 
