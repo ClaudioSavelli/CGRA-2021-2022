@@ -13,7 +13,7 @@ export class MyCrane extends CGFobject {
                 this.alfa = this.defaultAlfa; 
                 this.beta = this.defaultBeta; 
 		this.scene = scene;
-                this.isEmpty = true; 
+                this.hasLoad = false; 
                  
                 this.createTextures(); 
 		this.init(scene, complexity);
@@ -103,9 +103,10 @@ export class MyCrane extends CGFobject {
 
          
         //load 
-	if(!this.isEmpty){
+	if(this.hasLoad){
 		this.scene.pushMatrix();  
-                this.scene.translate(0,5*Math.cos(this.beta),5*Math.sin(this.beta));		this.load.display(); 
+                this.scene.translate(0,5*Math.cos(this.beta),5*Math.sin(this.beta));		
+                this.load.display(); 
 		this.scene.popMatrix();		 
 	}
 

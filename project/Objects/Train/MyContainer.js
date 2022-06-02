@@ -4,12 +4,12 @@ import { MyLoad } from '../Load/MyLoad.js';
 
 
 export class MyContainer extends CGFobject {
-	constructor(scene, N, isEmpty) {
+	constructor(scene, N, hasLoad) {
 		super(scene);
 		this.scene = scene; 
 		this.init(scene, N);
 		this.createTextures(); 
-		this.isEmpty = isEmpty; 
+		this.hasLoad = hasLoad; 
 	}
 	
 	init(scene, N) {
@@ -72,7 +72,7 @@ export class MyContainer extends CGFobject {
 		this.scene.popMatrix();
 
 		//load 
-		if(!this.isEmpty){
+		if(this.hasLoad){
 			this.scene.pushMatrix();  
 			this.scene.translate(0,0.25,-0.15); 
 			this.load.display(); 

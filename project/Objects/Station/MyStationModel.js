@@ -13,13 +13,19 @@ export class MyStationModel extends CGFobject {
         this.z = z;
         this.hasLoad = hasLoad;
         this.side = side;
+        this.init(scene); 
+        this.createTextures(scene); 
+    }
+
+    init(scene) {
         this.modelSide = new MyStationModelPiece(scene, 1.0);
         this.modelCenter = new MyStationModelPiece(scene, 1.5);
         this.window = new MyQuad(scene);
         this.base = new MyUnitCube(scene);
-        this.load = new MyLoad(scene, 20);
-        this.load.isTaken = false;
+        this.load = new MyLoad(scene, 10);
+    }
 
+    createTextures(scene){
         this.windowAppearance = new CGFappearance(scene);
         this.windowAppearance.setAmbient(1.0, 1.0, 1.0, 1.0);
         this.windowAppearance.setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -37,11 +43,11 @@ export class MyStationModel extends CGFobject {
         this.baseTexture = new CGFtexture(scene, "./images/floor.webp");
         this.baseAppearance.setTexture(this.baseTexture);
         this.baseAppearance.setTextureWrap('REPEAT', 'REPEAT');
-
     }
+
     display() {
         //const zDisplace = this.z + (this.side == "left"? -8 : 8)
-        const trackDistanceCorrection = 8;
+        const trackDistanceCorrection = 9;
         const zDisplace = this.z + (this.side == "left"? -trackDistanceCorrection : trackDistanceCorrection);
         const xDisplace = this.x;
         this.scene.pushMatrix()
@@ -61,8 +67,8 @@ export class MyStationModel extends CGFobject {
 
             if (this.hasLoad) {
                 this.scene.pushMatrix();
-                this.scene.translate(0, -11.5, 25)
-                this.scene.scale(2,2,2);
+                this.scene.translate(-8, -11.5, 20)
+                this.scene.scale(5,5,5);
                 this.load.display();
                 this.scene.popMatrix(); 
             } 

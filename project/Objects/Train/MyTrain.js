@@ -6,24 +6,27 @@ import { MyUnitCube } from "../../3D_Shapes/MyUnitCube.js";
 import { MyWheel } from "./MyWheel.js";
 import { MyCrane } from './MyCrane.js';
 import { MyContainer } from './MyContainer.js';
+import { MySmoke } from './MySmoke.js';
 
 export class MyTrain extends CGFobject {
-	constructor(scene, complexity, isEmpty) {
+	constructor(scene, complexity, hasLoad) {
 		//N is the number of triangles/sides/points 
 		super(scene);
 		this.scene = scene; 
                 this.createTextures(); 
-		this.init(scene, complexity, isEmpty);
+		this.init(scene, complexity, hasLoad);
 	}
 	
-	init(scene, complexity, isEmpty) {
+	init(scene, complexity, hasLoad) {
 		this.cube = new MyUnitCube(scene); 
 		this.cilinder = new MyCilinder(scene, complexity); 
 		this.circle = new MyCircle(scene, complexity);
 		this.sphere = new MySphere(scene, complexity, complexity); 
 		this.wheel = new MyWheel(scene, complexity); 
+
                 this.crane = new MyCrane(scene, 0, -1, complexity); 
-                this.container = new MyContainer(scene, complexity, isEmpty); 
+                this.container = new MyContainer(scene, complexity, hasLoad);
+                this.smoke = new MySmoke(scene, complexity);  
 	}
 
         createTextures() {
@@ -104,6 +107,7 @@ export class MyTrain extends CGFobject {
 
         this.crane.display(); 
         this.container.display(); 
+        this.smoke.display();
 	}
 
 	updateBuffers() {

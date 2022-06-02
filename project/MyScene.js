@@ -60,10 +60,11 @@ export class MyScene extends CGFscene {
         this.setOfPoints = [
             {x: -20, z: 15, type: 'simple', side:null},
             {x: -10, z: -10, type: 'simple', side:null},
-            {x: 0, z: -10, type: 'station', side:"left", hasLoad:true}, //upper one
+            {x: 0, z: -10, type: 'station', side:'left', hasLoad:true}, //upper one
             {x: 10, z: -10, type: 'simple', side:null},
+            {x: 15, z: 2.5, type: 'simple', side:'right', hasLoad:false}, //station supposed to be on the angle 
             {x: 20, z: 15, type: 'simple', side:null}, 
-            {x: 0, z: 15, type: 'station', side:"right", hasLoad:false}, //lower one
+            {x: 0, z: 15, type: 'station', side:'right', hasLoad:false}, //lower one
         ]
 
           /*this.setOfPoints = [
@@ -85,7 +86,7 @@ export class MyScene extends CGFscene {
         //this.earth = new MyEarth(this);
         this.train = new MyTrain(this, complexity, false);
         this.cubeMap = new MyCubeMap(this); 
-        this.movingTrain = new MyMovingTrain(this, this.train, this.setOfPoints); 
+        this.movingTrain = new MyMovingTrain(this, this.train, this.track); 
 
         //this.cubeMap.setTexture(top, front, right, back, left, bottom);
         this.cubeMap.setTexture(
@@ -260,16 +261,17 @@ export class MyScene extends CGFscene {
                 this.train.crane.tilt(-0.1); 
         }
         if (this.gui.isKeyPressed("KeyA")) {
-                this.train.crane.turn(0.1); 
+                this.train.crane.turn(-0.1); 
     }
         if (this.gui.isKeyPressed("KeyD"))        {
-                this.train.crane.turn(-0.1); 
+                this.train.crane.turn(0.1); 
         }
         if (this.gui.isKeyPressed("KeyR"))        {
                 this.train.crane.reset(); 
         }
         if (this.gui.isKeyPressed("KeyP"))  {
             this.movingTrain.interact(); 
+
         }
         if (this.gui.isKeyPressed("KeyC"))          {
                 this.movingTrain.departure(); 

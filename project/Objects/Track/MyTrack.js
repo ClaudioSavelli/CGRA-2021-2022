@@ -8,8 +8,10 @@ export class MyTrack extends CGFobject{
         this.trackWidth = 4; 
         this.trackSegmentArray = []; 
         this.angleArray = [];
+        this.stationArray = [];
 		this.scene = scene;
         this.setOfPoints = setOfPoints; 
+        this.actualStation = 0;
         this.createTextures();
         this.init(scene); 
     }
@@ -58,16 +60,15 @@ export class MyTrack extends CGFobject{
          x2 = this.setOfPoints[0].x; 
          z2 = this.setOfPoints[0].z; 
 
-        const angle  = this.angleBetweenTwoPoints(x1, z1, x2, z2);
+         const angle  = this.angleBetweenTwoPoints(x1, z1, x2, z2);
         const middleX = x2;
         const middleZ = z2;
         this.trackSegmentArray.push(new MyTrackSegment(scene, x1, z1, x2, z2, angle, 
             this.setOfPoints[this.setOfPoints.length-1].type == "station", middleX, middleZ, 
             this.setOfPoints[this.setOfPoints.length-1].side, this.setOfPoints[this.setOfPoints.length-1].hasLoad)); 
 
-        this.stationArray = [];
 
-        console.log(this.trackSegmentArray)
+         //Creation of stationArray
         for (const segment of this.trackSegmentArray) {
             if (segment.hasStation) {
                 this.stationArray.push(new MyStationModel(this.scene, segment.angle,
@@ -88,8 +89,18 @@ export class MyTrack extends CGFobject{
             this.stationArray[i].display(); 
         }
 
-        console.log("size " + this.stationArray.length);
         this.scene.setDefaultAppearance();
+    }
+
+    getActualStation(){
+        return this.stationArray[this.actualStation]; 
+    }
+
+    nextStation(){
+        this.actualStation++; 
+        if(this.actualStation>=this.stationArray.length){
+            this.actualStation = 0; 
+        }
     }
 
     distanceBetweenTwoPoints(x1, z1, x2, z2){
@@ -114,7 +125,6 @@ export class MyTrack extends CGFobject{
     textureFactor(x1, z1, x2, z2) {
         return 1/Math.sqrt(Math.pow(x2-x1, 2)+ Math.pow(z2-z1, 2))
     }
-    
 }
 
 

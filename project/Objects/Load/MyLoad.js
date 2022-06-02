@@ -10,12 +10,11 @@ export class MyLoad extends CGFobject {
 	}
 	
 	init(scene, N) {
-		this.wood = new MyWood(this.scene, N); 
-		this.isTaken = false; 
+		this.wood = new MyWood(scene, N); 
 	}
 
 	display(){
-		if (!this.isTaken){
+		{
 			this.scene.pushMatrix(); 
 			this.wood.display(); 
 			this.scene.popMatrix();	
