@@ -81,7 +81,7 @@ export class MyScene extends CGFscene {
         this.cubeMapTextures = [this.sunnyHillsCubeMap, this.testCubeMap];
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.plane = new MyPlane(this, 20, 0,1,0,1);
+        this.plane = new MyPlane(this, 20, 0,10,0,10);
         this.track = new MyTrack(this, this.setOfPoints); 
         //this.earth = new MyEarth(this);
         this.train = new MyTrain(this, complexity, false);
@@ -130,17 +130,11 @@ export class MyScene extends CGFscene {
       }
 
     initLights() {
-        /*this.lights[0].setPosition(15, 2, 5, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[0].enable();
-        this.lights[0].update();*/
-
         this.lights[0].setPosition(5, 1, 3, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].setVisible(true);
         this.lights[0].enable();
         this.lights[0].update();
-    
     }
 
     initCameras() {
@@ -211,10 +205,7 @@ export class MyScene extends CGFscene {
         //this.movingTrain.display(); 
 
         this.pushMatrix();
-        this.translate(0, 17, 0)
-
-        this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
-
+        this.translate(0, 13, 0)
         this.scale(50, 50, 50);
         this.cubeMap.display();
         this.popMatrix();
@@ -228,6 +219,7 @@ export class MyScene extends CGFscene {
         this.pushMatrix();
         this.scale(100,1,100); 
         this.rotate(-Math.PI*0.5, 1,0,0);
+        this.plane.planeTexture.apply(); 
         this.plane.display();
         this.popMatrix();
 
@@ -235,19 +227,7 @@ export class MyScene extends CGFscene {
 
         this.train.display(); 
 
-        this.movingTrain.display(); 
-
-        this.pushMatrix();
-        this.translate(0, 17, 0)
-        this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
-        this.scale(50, 50, 50);
-        //this.cubeMap.display();
-        this.popMatrix();
-
-
-        //this.track.display(); 
-        //this.circle.display();
-        //this.cilinder.display();  
+        this.movingTrain.display();  
         // ---- END Primitive drawing section
     }
     checkKeys() {

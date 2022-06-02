@@ -23,6 +23,7 @@ export class MyTrain extends CGFobject {
 		this.circle = new MyCircle(scene, complexity);
 		this.sphere = new MySphere(scene, complexity, complexity); 
 		this.wheel = new MyWheel(scene, complexity); 
+                this.light = new MyWheel(scene, complexity); 
 
                 this.crane = new MyCrane(scene, 0, -1, complexity); 
                 this.container = new MyContainer(scene, complexity, hasLoad);
@@ -30,20 +31,20 @@ export class MyTrain extends CGFobject {
 	}
 
         createTextures() {
-                this.defaultAppearance = new CGFappearance(this.scene);
-                this.defaultAppearance.setAmbient(1, 1, 1, 1);
-                this.defaultAppearance.setDiffuse(1, 1, 1, 1);
-                this.defaultAppearance.setSpecular(0, 0, 0, 1);
-                this.defaultAppearance.setShininess(120);
+                this.red = new CGFappearance(this.scene);
+                this.red.setAmbient(1, 1, 1, 1);
+                this.red.setDiffuse(1, 1, 1, 1);
+                this.red.setSpecular(0, 0, 0, 1);
+                this.red.setShininess(120);
         
                 this.texture = new CGFtexture(this.scene, "./images/metallic_red.jpg");
-                this.defaultAppearance.setTexture(this.texture);
-                this.defaultAppearance.setTextureWrap('REPEAT', 'REPEAT');
+                this.red.setTexture(this.texture);
+                this.red.setTextureWrap('REPEAT', 'REPEAT');
             }
 
 	display(){
 
-        this.defaultAppearance.apply();
+        this.red.apply();
 
 
         //base parallelepiped
@@ -105,6 +106,7 @@ export class MyTrain extends CGFobject {
         this.cilinder.display();
         this.scene.popMatrix(); 
 
+        //objects
         this.crane.display(); 
         this.container.display(); 
         this.smoke.display();

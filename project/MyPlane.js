@@ -1,4 +1,4 @@
-import {CGFobject} from '../lib/CGF.js';
+import {CGFobject, CGFappearance, CGFtexture} from '../lib/CGF.js';
 /**
 * MyPlane
 * @constructor
@@ -23,6 +23,7 @@ export class MyPlane extends CGFobject {
 		this.q = (this.maxS - this.minS) / this.nrDivs;
 		this.w = (this.maxT - this.minT) / this.nrDivs;
 		this.initBuffers();
+		this.createPlaneTexture(); 
 	}
 	initBuffers() {
 		// Generate vertices, normals, and texCoords
@@ -58,6 +59,19 @@ export class MyPlane extends CGFobject {
 		this.primitiveType = this.scene.gl.TRIANGLE_STRIP;
 		this.initGLBuffers();
 	}
+
+	createPlaneTexture() {
+            this.planeTexture = new CGFappearance(this.scene);
+            this.planeTexture.setAmbient(10, 10, 10, 1);
+			this.planeTexture.setDiffuse(0, 0, 0, 0);
+			this.planeTexture.setSpecular(0, 0, 0, 1);
+			this.planeTexture.setShininess(0);
+        
+            this.texture = new CGFtexture(this.scene, "./images/ground.jpg");
+            this.planeTexture.setTexture(this.texture);
+            this.planeTexture.setTextureWrap('REPEAT', 'REPEAT');
+			this.planeTexture.apply(); 
+        }
 
 	setFillMode() { 
 		this.primitiveType=this.scene.gl.TRIANGLE_STRIP;
