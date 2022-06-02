@@ -124,7 +124,7 @@ export class MyCrane extends CGFobject {
         }
 
         tilt(value){
-                if(this.beta<=-1.4 && value<0){
+                if(this.beta<=-1.3 && value<0){
                         return;   
                 } else if (this.beta>=-0.5 && value>0){
                         return;

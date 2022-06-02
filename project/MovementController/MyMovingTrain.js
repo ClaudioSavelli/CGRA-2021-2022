@@ -33,12 +33,16 @@ export class MyMovingTrain extends CGFobject {
 		this.smoke.update(t); 
 		if(t>=this.timeToArrive && !this.isStopped){
 
-			if(this.track.setOfPoints[this.actualEdge].type == 'station'){
+			if((this.track.setOfPoints[this.actualEdge].type == 'station')){
 				console.log("I'm on a station!"); 
 				if(this.isTrainJustStarted == 0){
 					console.log("Entered in the if!"); 
 					this.isStopped = true; 
 					this.velocity = 0;
+					if(this.checkStopAtStation() == false){
+						console.log("entered in the checkStopAtStation if!"); 
+						this.departure(); 
+					}
 					return; 
 				}
 				 this.isTrainJustStarted = 0; 
@@ -48,7 +52,6 @@ export class MyMovingTrain extends CGFobject {
 
 			this.initialTime = t;
 			this.timeToArrive = this.initialTime+(this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2)/(this.velocity));
-			
 		}	
 
 		this.x += (this.velocity*(t-this.initialTime))*Math.cos(this.angle); 
@@ -83,6 +86,13 @@ export class MyMovingTrain extends CGFobject {
 		}
 	}
 
+	checkStopAtStation(){
+		let station = this.track.getActualStation(); 
+
+		return ((this.flag == 0 && station.hasLoad) || (this.flag == 1 && !station.hasLoad))
+
+	}
+
 	departure(){
 		if(this.isStopped){
 			this.velocity = 0.01; 
@@ -110,7 +120,7 @@ export class MyMovingTrain extends CGFobject {
 
 
 			//Interact with the container in the station 
-			else if (station.side == "left"){
+			else if (station.side == "left" && this.angle<=0 || station.side == "right" && this.angle > 0){
 				if(this.train.crane.alfa <= -1.5 && this.train.crane.beta <= -1.3){
 				console.log("catched!"); 
 				if((this.train.crane.hasLoad && !station.hasLoad) || (!this.train.crane.hasLoad && station.hasLoad)){
@@ -118,7 +128,7 @@ export class MyMovingTrain extends CGFobject {
 					this.exchangeLoad(this.train.crane, station);
 				}}}
 
-			else if (station.side == "right"){
+			else{
 				if(this.train.crane.alfa >= 1.5 && this.train.crane.beta <= -1.3){
 					console.log("catched!"); 
 					if((this.train.crane.hasLoad && !station.hasLoad) || (!this.train.crane.hasLoad && station.hasLoad)){
@@ -138,18 +148,14 @@ export class MyMovingTrain extends CGFobject {
 	checkIfWeCanGo(station){
 		if(this.flag == 0){
 			//We want the train loaded
-			console.log("test 1 passed!"); 
 			if(this.train.container.hasLoad){
-				console.log("test 2 passed!"); 
 				this.flag = 1; 
 				this.departure(); 
 			}
 		}
 		else {
 			//We want the train empty
-			console.log("test 3 passed!"); 
 			if(station.hasLoad){
-				console.log("test 4 passed!"); 
 				this.flag = 0; 
 				this.departure(); 
 			}

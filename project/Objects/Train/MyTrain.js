@@ -36,7 +36,7 @@ export class MyTrain extends CGFobject {
                 this.defaultAppearance.setSpecular(0, 0, 0, 1);
                 this.defaultAppearance.setShininess(120);
         
-                this.texture = new CGFtexture(this.scene, "./images/default.png");
+                this.texture = new CGFtexture(this.scene, "./images/metallic_red.jpg");
                 this.defaultAppearance.setTexture(this.texture);
                 this.defaultAppearance.setTextureWrap('REPEAT', 'REPEAT');
             }

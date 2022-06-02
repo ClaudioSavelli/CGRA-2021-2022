@@ -12,9 +12,6 @@ export class MySmoke extends CGFobject {
 
 	init(scene, complexity){
 		this.sphere = new MySphere(scene, complexity, complexity); 
-		this.sphere2 = new MySphere(scene, complexity, complexity); 
-		this.sphere3 = new MySphere(scene, complexity, complexity); 
-
 		
 		this.velocity = 0.002;
 		this.maxHeight = 5;
