@@ -76,9 +76,9 @@ export class MyScene extends CGFscene {
           ]*/
         this.linear = true;
         this.scaleFactor = 0.5;
-        this.selectedCubeMapTexture = -1;
-        this.cubeMapTextureIds = { 'Sunny hills': 0, 'Demo': 1 };
-        this.cubeMapTextures = [this.sunnyHillsCubeMap, this.testCubeMap];
+        this.selectedCubeMapTexture = 0;
+        this.cubeMapTextureIds = { 'Yokohama': 0, 'Sunny hills': 1, 'Demo': 2 };
+        this.cubeMapTextures = [this.YokohamaCubeMap, this.sunnyHillsCubeMap, this.testCubeMap];
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new MyPlane(this, 20, 0,10,0,10);
@@ -90,12 +90,12 @@ export class MyScene extends CGFscene {
 
         //this.cubeMap.setTexture(top, front, right, back, left, bottom);
         this.cubeMap.setTexture(
-                                this.sunnyHillsCubeMap.top, 
-                                this.sunnyHillsCubeMap.front, 
-                                this.sunnyHillsCubeMap.right,
-                                this.sunnyHillsCubeMap.back, 
-                                this.sunnyHillsCubeMap.left, 
-                                this.sunnyHillsCubeMap.bottom
+                                this.YokohamaCubeMap.top, 
+                                this.YokohamaCubeMap.front, 
+                                this.YokohamaCubeMap.right,
+                                this.YokohamaCubeMap.back, 
+                                this.YokohamaCubeMap.left, 
+                                this.YokohamaCubeMap.bottom
                                 );
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -103,6 +103,15 @@ export class MyScene extends CGFscene {
 
     loadTextures() {
         this.tracksTexture = new CGFtexture(this, 'images/tracks.png');
+        this.YokohamaCubeMap = {
+            "top":    new CGFtexture(this, "./images/Yokohama/pz.jpg"),
+            "front":  new CGFtexture(this, "./images/Yokohama/px.jpg"),
+            "right":  new CGFtexture(this, "./images/Yokohama/py.jpg"),
+            "back":   new CGFtexture(this, "./images/Yokohama/nx.jpg"),
+            "left":   new CGFtexture(this, "./images/Yokohama/ny.jpg"),
+            "bottom": new CGFtexture(this, "./images/Yokohama/nz.jpg"),
+        };
+
         this.sunnyHillsCubeMap = {
             "top":    new CGFtexture(this, "./images/demo_cubemap/top.png"),
             "front":  new CGFtexture(this, "./images/demo_cubemap/front.png"),
@@ -120,6 +129,7 @@ export class MyScene extends CGFscene {
             "left":   new CGFtexture(this, "./images/test_cubemap/ny.png"),
             "bottom": new CGFtexture(this, "./images/test_cubemap/nz.png"),
         };
+
     }
 
     setColorHotPink() {
