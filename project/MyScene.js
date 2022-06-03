@@ -243,7 +243,7 @@ export class MyScene extends CGFscene {
 
         this.track.display(); 
 
-        //this.train.display(); 
+        this.train.display(); 
    
 
 

@@ -7,6 +7,7 @@ import { MyWheel } from "./MyWheel.js";
 import { MyCrane } from './MyCrane.js';
 import { MyContainer } from './MyContainer.js';
 import { MySmoke } from './MySmoke.js';
+import { MySnowplow } from './MySnowplow.js';
 
 export class MyTrain extends CGFobject {
 	constructor(scene, complexity, hasLoad) {
@@ -27,7 +28,8 @@ export class MyTrain extends CGFobject {
 
                 this.crane = new MyCrane(scene, 0, -1, complexity); 
                 this.container = new MyContainer(scene, complexity, hasLoad);
-                this.smoke = new MySmoke(scene, complexity);  
+                this.smoke = new MySmoke(scene, complexity); 
+                this.snowplow = new MySnowplow(scene); 
 	}
 
         createTextures() {
@@ -121,6 +123,7 @@ export class MyTrain extends CGFobject {
         this.crane.display(); 
         this.container.display(); 
         this.smoke.display();
+        this.snowplow.display(); 
 	}
 
 	updateBuffers() {
