@@ -10,6 +10,7 @@ export class MyStationModelPiece extends CGFobject {
         this.roofHeightScaleFactor = roofHeightScaleFactor;
         this.init(scene); 
         this.createTextures(scene); 
+        this.initBuffers(); 
     }
 
     init(scene){

@@ -8,6 +8,7 @@ import { MyCrane } from './MyCrane.js';
 import { MyContainer } from './MyContainer.js';
 import { MySmoke } from './MySmoke.js';
 import { MySnowplow } from './MySnowplow.js';
+import { MyQuad } from '../../2D_Shapes/MyQuad.js';
 
 export class MyTrain extends CGFobject {
 	constructor(scene, complexity, hasLoad) {
@@ -25,6 +26,7 @@ export class MyTrain extends CGFobject {
 		this.sphere = new MySphere(scene, complexity, complexity); 
 		this.wheel = new MyWheel(scene, complexity); 
                 this.light = new MyWheel(scene, complexity); 
+                this.quad = new MyQuad(scene); 
 
                 this.crane = new MyCrane(scene, 0, -1, complexity); 
                 this.container = new MyContainer(scene, complexity, hasLoad);
@@ -34,7 +36,7 @@ export class MyTrain extends CGFobject {
 
         createTextures() {
                 this.black = new CGFappearance(this.scene);
-                this.black.setAmbient(1, 1, 1, 1);
+                this.black.setAmbient(0.5, 0.5, 0.5, 1);
                 this.black.setDiffuse(1, 1, 1, 1);
                 this.black.setSpecular(0, 0, 0, 1);
                 this.black.setShininess(120);
@@ -44,14 +46,24 @@ export class MyTrain extends CGFobject {
                 this.black.setTextureWrap('REPEAT', 'REPEAT');
 
                 this.red = new CGFappearance(this.scene);
-                this.red.setAmbient(1, 1, 1, 1);
+                this.red.setAmbient(0.5, 0.5, 0.5, 1);
                 this.red.setDiffuse(1, 1, 1, 1);
-                this.red.setSpecular(0, 0, 0, 1);
+                this.red.setSpecular(1, 1, 1, 1);
                 this.red.setShininess(120);
         
                 this.texture = new CGFtexture(this.scene, "./images/metallic_red.jpg");
                 this.red.setTexture(this.texture);
                 this.red.setTextureWrap('REPEAT', 'REPEAT');
+
+                this.glass = new CGFappearance(this.scene);
+                this.glass.setAmbient(2, 2, 2, 1);
+                this.glass.setDiffuse(1, 1, 1, 1);
+                this.glass.setSpecular(0, 0, 0, 0);
+                this.glass.setShininess(120);
+        
+                this.texture = new CGFtexture(this.scene, "./images/window_train.png");
+                this.glass.setTexture(this.texture);
+                this.glass.setTextureWrap('REPEAT', 'REPEAT');
             }
 
 	display(){
@@ -118,6 +130,24 @@ export class MyTrain extends CGFobject {
         this.scene.scale(0.2, 0.7, 0.2); 
         this.cilinder.display();
         this.scene.popMatrix(); 
+
+        this.glass.apply(); 
+
+        //Windows 
+        this.scene.pushMatrix(); 
+        this.scene.translate(-1.001, 3.3, -1.4); 
+        this.scene.rotate(Math.PI/2, 0, 0, 1); 
+        this.scene.scale(1, 1.5, 1); 
+        this.quad.display();
+        this.scene.popMatrix(); 
+
+        this.scene.pushMatrix(); 
+        this.scene.translate(1.001, 3.3, -1.4); 
+        this.scene.rotate(-Math.PI/2, 0, 0, 1); 
+        this.scene.scale(1, 1.5, 1); 
+        this.quad.display();
+        this.scene.popMatrix(); 
+
 
         //objects
         this.crane.display(); 

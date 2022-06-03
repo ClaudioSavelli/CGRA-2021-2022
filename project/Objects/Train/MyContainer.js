@@ -19,7 +19,7 @@ export class MyContainer extends CGFobject {
 
 	createTextures() {
 		this.defaultAppearance = new CGFappearance(this.scene);
-		this.defaultAppearance.setAmbient(3, 3, 3, 1);
+		this.defaultAppearance.setAmbient(2, 2, 2, 1);
 		this.defaultAppearance.setDiffuse(6, 6, 6, 1);
 		this.defaultAppearance.setSpecular(0, 0, 0, 1);
 		this.defaultAppearance.setShininess(500);

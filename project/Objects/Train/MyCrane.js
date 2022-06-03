@@ -29,7 +29,7 @@ export class MyCrane extends CGFobject {
 
         createTextures() {
                 this.metalTexture = new CGFappearance(this.scene);
-                this.metalTexture.setAmbient(3, 3, 3, 1);
+                this.metalTexture.setAmbient(2, 2, 2, 1);
 		this.metalTexture.setDiffuse(6, 6, 6, 1);
 		this.metalTexture.setSpecular(0, 0, 0, 1);
 		this.metalTexture.setShininess(500);
@@ -39,9 +39,9 @@ export class MyCrane extends CGFobject {
                 this.metalTexture.setTextureWrap('REPEAT', 'REPEAT');
 
                 this.blackTexture = new CGFappearance(this.scene);
-                this.blackTexture.setAmbient(3, 3, 3, 1);
-		this.blackTexture.setDiffuse(6, 6, 6, 1);
-		this.blackTexture.setSpecular(0, 0, 0, 1);
+                this.blackTexture.setAmbient(0.5, 0.5, 0.5, 1);
+                this.blackTexture.setDiffuse(1, 1, 1, 1);
+                this.blackTexture.setSpecular(0, 0, 0, 1);
 		this.blackTexture.setShininess(500);
         
                 this.texture = new CGFtexture(this.scene, "./images/black.png");
@@ -49,9 +49,9 @@ export class MyCrane extends CGFobject {
                 this.blackTexture.setTextureWrap('REPEAT', 'REPEAT');
 
                 this.redTexture = new CGFappearance(this.scene);
-                this.redTexture.setAmbient(3, 3, 3, 1);
-		this.redTexture.setDiffuse(6, 6, 6, 1);
-		this.redTexture.setSpecular(0, 0, 0, 1);
+                this.redTexture.setAmbient(0.5, 0.5, 0.5, 1);
+                this.redTexture.setDiffuse(1, 1, 1, 1);
+                this.redTexture.setSpecular(1, 1, 1, 1);
 		this.redTexture.setShininess(500);
         
                 this.texture = new CGFtexture(this.scene, "./images/metallic_red.jpg");

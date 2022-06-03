@@ -38,7 +38,7 @@ export class MySmoke extends CGFobject {
 
 	createTextures() {
 		this.defaultTexture = new CGFappearance(this.scene);
-		this.defaultTexture.setAmbient(5, 5, 5, 1);
+		this.defaultTexture.setAmbient(3, 3, 3, 1);
 		this.defaultTexture.setDiffuse(1, 1, 1, 1);
 		this.defaultTexture.setSpecular(0, 0, 0, 1);
 		this.defaultTexture.setShininess(100);

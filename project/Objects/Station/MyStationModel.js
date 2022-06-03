@@ -77,7 +77,7 @@ export class MyStationModel extends CGFobject {
             } 
 
             this.scene.pushMatrix(); 
-            this.scene.translate(70, -10, 30); 
+            this.scene.translate(70, -12, 30); 
             this.scene.scale(5,5,5)
             this.flag.display(); 
             this.scene.popMatrix(); 
