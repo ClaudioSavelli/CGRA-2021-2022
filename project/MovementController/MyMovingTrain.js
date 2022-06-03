@@ -13,14 +13,16 @@ export class MyMovingTrain extends CGFobject {
 		this.velocity = 0.01; 
 		this.isTrainJustStarted = 0; 
 		this.timeToArrive = 0; 
-		this.isStopped = false; 
+		this.isStopped = false;
+		this.gapForAngle = 500;  
 
 		this.flag = 0; //=0 if we want to load on train, =1 if we want to release in station
 
 		this.x2 = this.track.setOfPoints[0].x; 
 		this.z2 = this.track.setOfPoints[0].z;
 		
-		this.angle = this.angleBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2);
+		this.angle = this.track.getActualAngle();
+		this.angleVisualized = this.track.evaluateMiddleAngle(); 
 		this.x = this.x1; 
 		this.z = this.z1; 
 
@@ -39,6 +41,7 @@ export class MyMovingTrain extends CGFobject {
 					console.log("Entered in the if!"); 
 					this.isStopped = true; 
 					this.velocity = 0;
+					this.angleVisualized = this.angle; 
 					if(this.checkStopAtStation() == false){
 						console.log("entered in the checkStopAtStation if!"); 
 						this.departure(); 
@@ -52,10 +55,16 @@ export class MyMovingTrain extends CGFobject {
 
 			this.initialTime = t;
 			this.timeToArrive = this.initialTime+(this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2)/(this.velocity));
+			this.evaluateTimeToFinishTurning(t); 
 		}	
 
-		this.x += (this.velocity*(t-this.initialTime))*Math.cos(this.angle); 
-		this.z += (this.velocity*(t-this.initialTime))*Math.sin(this.angle); 
+
+
+		if(!this.isStopped){
+			this.smoothAngleTrain(t); 	
+			this.x += (this.velocity*(t-this.initialTime))*Math.cos(this.angle); 
+			this.z += (this.velocity*(t-this.initialTime))*Math.sin(this.angle); 
+		}
 
 		this.initialTime = t; 
         this.train.wheel.rotation(this.velocity*100); 
@@ -65,7 +74,7 @@ export class MyMovingTrain extends CGFobject {
 		this.scene.pushMatrix(); 
 		this.scene.translate(this.x, 0, this.z);
 		this.scene.rotate(Math.PI/2,0,1,0); 
-		this.scene.rotate(-this.angle,0,1,0); 
+		this.scene.rotate(-this.angleVisualized,0,1,0); 
 		this.train.display(); 
 		this.scene.popMatrix();
 	}
@@ -75,16 +84,52 @@ export class MyMovingTrain extends CGFobject {
 		this.z1 = this.z2;
 		this.x2 = this.track.setOfPoints[this.nextEdge].x; 
 		this.z2 = this.track.setOfPoints[this.nextEdge].z;
-		this.angle = this.angleBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2);
+		this.angle = this.track.getActualAngle();
+		//this.angleVisualized = this.track.evaluateMiddleAngle(); 
 
 		this.x = this.x1; 
 		this.z = this.z1; 
+		this.track.evaluateNextAngle(); 
 		this.actualEdge = this.nextEdge; 
 		this.nextEdge++; 
 		if(this.nextEdge==this.totalEdges){
 			this.nextEdge = 0; 
 		}
 	}
+
+	smoothAngleTrain(t){
+		//this.normalizeAngleVisualized(); 
+		if(t>=this.timeToArrive - this.gapForAngle){
+			if(this.angle != this.track.getActualAngle()){
+				this.angleVisualized += 0.1; 
+			} 
+			//console.log("The actual visualized angle is " + this.angleVisualized)
+			//console.log("The actual angle is " + this.track.getActualAngle()); 
+	}
+	else if(t<=this.timeToFinishTurning){
+		if(this.angleVisualized < this.angle || (this.angleVisualized>0 && this.angle<0)){
+			this.angleVisualized+=0.1		} 
+	} else {
+		this.angleVisualized = this.angle; 
+	}
+	}
+
+	evaluateTimeToFinishTurning(t){
+		this.timeToFinishTurning = t+this.gapForAngle; 
+		//console.log("time to finish turning = "+this.timeToFinishTurning)
+		//console.log("time to arrive = "+this.timeToArrive)
+
+		if(this.timeToFinishTurning > this.timeToArrive){
+			this.timeToFinishTurning = this.timeToArrive; 
+		}
+	}
+
+	/* TO ELIMINATE
+	normalizeAngleVisualized(){
+		if(this.angleVisualized>4){
+			this.angleVisualized -= 6.3; //this is necessary to keep the train in the interested range of the scene, that is, more or less -2<angle<4
+		}
+	}*/
 
 	checkStopAtStation(){
 		let station = this.track.getActualStation(); 
@@ -167,17 +212,5 @@ export class MyMovingTrain extends CGFobject {
         var dz = z1 - z2; 
         return Math.sqrt(Math.pow(dx, 2) + Math.pow(dz, 2)); 
     }
-
-    midpointEvaluation(c1, c2){
-        return ((c1+c2)/2); 
-    }
-
-    angleBetweenTwoPoints(x1, z1, x2, z2){
-    // angle in radians
-    return Math.atan2(z2 - z1, x2 - x1);
-
-	// angle in degree 
-	//return Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
-	} 
 }
 

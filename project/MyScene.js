@@ -23,6 +23,8 @@ export class MyScene extends CGFscene {
         this.initLights();
         const complexity = 30; 
 
+        this.testAngle = 0; 
+
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -51,18 +53,20 @@ export class MyScene extends CGFscene {
           ]*/
 
         
-          /*this.setOfPoints = [
+        /*  this.setOfPoints = [
             {x: -20, z: 15, type: 'simple'},
             {x: -20, z: -10, type: 'simple'},
+            {x: 0, z: -10, type: 'station', side:'left', hasLoad:true},
             {x: 20, z: -10, type: 'simple'},
             {x: 20, z: 15, type: 'simple'}, 
+            {x: 0, z: 15, type: 'station', side:'right', hasLoad:false},
         ]*/
         this.setOfPoints = [
             {x: -20, z: 15, type: 'simple', side:null},
             {x: -10, z: -10, type: 'simple', side:null},
             {x: 0, z: -10, type: 'station', side:'left', hasLoad:true}, //upper one
             {x: 10, z: -10, type: 'simple', side:null},
-            {x: 15, z: 2.5, type: 'simple', side:'left', hasLoad:false}, //station supposed to be on the angle 
+            //{x: 15, z: 2.5, type: 'simple', side:'left', hasLoad:false}, //station supposed to be on the angle 
             {x: 20, z: 15, type: 'simple', side:null}, 
             {x: 0, z: 15, type: 'station', side:'right', hasLoad:false}, //lower one
         ]
@@ -235,7 +239,11 @@ export class MyScene extends CGFscene {
 
         this.track.display(); 
 
+        this.pushMatrix(); 
+        this.rotate(this.testAngle, 0, 1, 0); 
         this.train.display(); 
+        this.popMatrix(); 
+
 
         this.movingTrain.display();  
         // ---- END Primitive drawing section
@@ -267,10 +275,20 @@ export class MyScene extends CGFscene {
                 this.movingTrain.departure(); 
         }
         if  (this.gui.isKeyPressed("KeyI")){
-            console.log("alfa = " + this.movingTrain.train.crane.alfa); 
-            console.log("beta = " + this.movingTrain.train.crane.beta); 
-            console.log("angle of train = " + this.movingTrain.angle)
+            //console.log("alfa = " + this.movingTrain.train.crane.alfa); 
+            //console.log("beta = " + this.movingTrain.train.crane.beta); 
+            //console.log("angle of train = " + this.movingTrain.angle)
+            console.log("vector of angles = " + this.track.angleArray); 
         }
+        if  (this.gui.isKeyPressed("KeyL")){
+            this.testAngle+=0.1; 
+            console.log(this.testAngle); 
+        }
+        if  (this.gui.isKeyPressed("KeyK")){
+            this.testAngle-=0.1; 
+            console.log(this.testAngle); 
+        }
+
   }
 
 

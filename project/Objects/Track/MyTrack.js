@@ -11,7 +11,7 @@ export class MyTrack extends CGFobject{
         this.stationArray = [];
 		this.scene = scene;
         this.setOfPoints = setOfPoints; 
-        this.actualStation = 0;
+        this.actualStation = 0; 
         this.createTextures();
         this.init(scene); 
     }
@@ -44,8 +44,9 @@ export class MyTrack extends CGFobject{
             const angle  = this.angleBetweenTwoPoints(x1, z1, x2, z2);
             const middleX = x2
             const middleZ = z2
-            console.log(i + " " + x2 + " " + z2);
-            console.log(this.setOfPoints[i].type == "station");
+            this.angleArray.push(angle); 
+            //console.log(i + " " + x2 + " " + z2);
+            //console.log(this.setOfPoints[i].type == "station");
             this.trackSegmentArray.push(new MyTrackSegment(scene, x1, z1, x2, z2, angle, 
                 this.setOfPoints[i].type == "station", middleX, middleZ,
                 this.setOfPoints[i].side, this.setOfPoints[i].hasLoad)); 
@@ -60,9 +61,15 @@ export class MyTrack extends CGFobject{
          x2 = this.setOfPoints[0].x; 
          z2 = this.setOfPoints[0].z; 
 
-         const angle  = this.angleBetweenTwoPoints(x1, z1, x2, z2);
+        const angle  = this.angleBetweenTwoPoints(x1, z1, x2, z2);
         const middleX = x2;
         const middleZ = z2;
+        this.angleArray.push(angle); 
+
+        this.previousAngle = this.angleArray.length-1; 
+        this.actualAngle = 0; 
+        this.nextAngle = 1;
+
         this.trackSegmentArray.push(new MyTrackSegment(scene, x1, z1, x2, z2, angle, 
             this.setOfPoints[this.setOfPoints.length-1].type == "station", middleX, middleZ, 
             this.setOfPoints[this.setOfPoints.length-1].side, this.setOfPoints[this.setOfPoints.length-1].hasLoad)); 
@@ -102,6 +109,42 @@ export class MyTrack extends CGFobject{
             this.actualStation = 0; 
         }
     }
+
+    getPreviousAngle(){
+        return this.angleArray[this.previousAngle]; 
+    }
+
+    getActualAngle(){
+        return this.angleArray[this.actualAngle]; 
+    }
+
+    getNextAngle(){
+        return this.angleArray[this.nextAngle]; 
+    }
+
+    evaluateNextAngle(){
+        this.previousAngle = this.actualAngle; 
+        this.actualAngle = this.nextAngle; 
+        this.nextAngle++; 
+        if(this.nextAngle>=this.angleArray.length){
+            this.nextAngle = 0; 
+        }
+    }
+
+    evaluateMiddleAngle(){
+		var res = (this.getPreviousAngle() + this.getActualAngle())/2;
+		//console.log("previous angle = " + this.getPreviousAngle()); 
+		//console.log("actual angle = " + this.getActualAngle()); 
+        if((this.getPreviousAngle() >= 0) && (this.getActualAngle() < 0) && ((this.getPreviousAngle()*(-1)) < this.getActualAngle())){
+            res = (-this.getPreviousAngle() + this.getActualAngle())/2; 
+        }
+        if((this.getPreviousAngle() < 0) && (this.getActualAngle() >= 0) && ((this.getPreviousAngle()) > this.getActualAngle()*(-1))){
+            res = (this.previousAngle() - this.getActualAngle())/2; 
+        }
+
+		//console.log("result = " + res); 
+		return res; 
+	}
 
     distanceBetweenTwoPoints(x1, z1, x2, z2){
         var dx = x1 - x2; 
