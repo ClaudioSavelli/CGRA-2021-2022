@@ -3,6 +3,7 @@ import {CGFobject, CGFappearance, CGFtexture} from '../../../lib/CGF.js';
 import { MyQuad } from '../../2D_Shapes/MyQuad.js';
 import { MyUnitCube } from '../../3D_Shapes/MyUnitCube.js';
 import { MyLoad } from '../Load/MyLoad.js';
+import { MyFlag } from './MyFlag.js';
 
 export class MyStationModel extends CGFobject {
 	constructor(scene, angle, x, z, hasLoad, side) {
@@ -13,6 +14,7 @@ export class MyStationModel extends CGFobject {
         this.z = z;
         this.hasLoad = hasLoad;
         this.side = side;
+        this.complexity = 30; 
         this.init(scene); 
         this.createTextures(scene); 
     }
@@ -22,7 +24,8 @@ export class MyStationModel extends CGFobject {
         this.modelCenter = new MyStationModelPiece(scene, 1.5);
         this.window = new MyQuad(scene);
         this.base = new MyUnitCube(scene);
-        this.load = new MyLoad(scene, 10);
+        this.load = new MyLoad(scene, this.complexity);
+        this.flag = new MyFlag(scene, this.complexity); 
     }
 
     createTextures(scene){
@@ -72,6 +75,12 @@ export class MyStationModel extends CGFobject {
                 this.load.display();
                 this.scene.popMatrix(); 
             } 
+
+            this.scene.pushMatrix(); 
+            this.scene.translate(70, -10, 30); 
+            this.scene.scale(5,5,5)
+            this.flag.display(); 
+            this.scene.popMatrix(); 
         
         this.scene.popMatrix();
 

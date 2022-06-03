@@ -8,10 +8,17 @@ export class MyStationModelPiece extends CGFobject {
 		super(scene);
         this.scene = scene;
         this.roofHeightScaleFactor = roofHeightScaleFactor;
+        this.init(scene); 
+        this.createTextures(scene); 
+    }
+
+    init(scene){
         this.prism = new MyTriangularPrism(scene);
         this.cube = new MyUnitCube(scene);
         this.door = new MyQuad(scene);
+    }
 
+    createTextures(scene){
         this.roofMaterial = new CGFappearance(scene);
         /*this.roofMaterial.setAmbient(0.8, 0.4, 0.1, 1.0);
         this.roofMaterial.setDiffuse(0.8, 0.4, 0.1, 1.0);
@@ -59,7 +66,6 @@ export class MyStationModelPiece extends CGFobject {
         this.doorTexture = new CGFtexture(scene, "./images/glassdoor.webp");
         this.doorMaterial.setTexture(this.doorTexture);
         this.doorMaterial.setTextureWrap('REPEAT', 'REPEAT');
-
     }
 
 

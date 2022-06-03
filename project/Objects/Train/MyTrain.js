@@ -31,6 +31,16 @@ export class MyTrain extends CGFobject {
 	}
 
         createTextures() {
+                this.black = new CGFappearance(this.scene);
+                this.black.setAmbient(1, 1, 1, 1);
+                this.black.setDiffuse(1, 1, 1, 1);
+                this.black.setSpecular(0, 0, 0, 1);
+                this.black.setShininess(120);
+        
+                this.texture = new CGFtexture(this.scene, "./images/metallic_black.jpg");
+                this.black.setTexture(this.texture);
+                this.black.setTextureWrap('REPEAT', 'REPEAT');
+
                 this.red = new CGFappearance(this.scene);
                 this.red.setAmbient(1, 1, 1, 1);
                 this.red.setDiffuse(1, 1, 1, 1);
@@ -44,38 +54,39 @@ export class MyTrain extends CGFobject {
 
 	display(){
 
+        this.black.apply(); 
+        
+         //front left wheel  
+         this.scene.pushMatrix(); 
+         this.scene.translate(1.35, 0.75, 3); 
+         this.wheel.display();
+         this.scene.popMatrix();  
+ 
+         //front right wheel  
+         this.scene.pushMatrix(); 
+         this.scene.translate(-1.35, 0.75, -3); 
+         this.wheel.display();
+         this.scene.popMatrix(); 
+ 
+         //back left wheel  
+         this.scene.pushMatrix(); 
+         this.scene.translate(1.35, 0.75, -3); 
+         this.wheel.display();
+         this.scene.popMatrix();  
+ 
+         //back right wheel  
+         this.scene.pushMatrix(); 
+         this.scene.translate(-1.35, 0.75, 3); 
+         this.wheel.display();
+         this.scene.popMatrix(); 
+        
         this.red.apply();
-
 
         //base parallelepiped
         this.scene.pushMatrix(); 
         this.scene.translate(0, 1.5, 0); 
         this.scene.scale(2.5, 1, 7.5); 
         this.cube.display();
-        this.scene.popMatrix(); 
-
-        //front left wheel  
-        this.scene.pushMatrix(); 
-        this.scene.translate(1.35, 0.75, 3); 
-        this.wheel.display();
-        this.scene.popMatrix();  
-
-        //front right wheel  
-        this.scene.pushMatrix(); 
-        this.scene.translate(-1.35, 0.75, -3); 
-        this.wheel.display();
-        this.scene.popMatrix(); 
-
-        //back left wheel  
-        this.scene.pushMatrix(); 
-        this.scene.translate(1.35, 0.75, -3); 
-        this.wheel.display();
-        this.scene.popMatrix();  
-
-        //back right wheel  
-        this.scene.pushMatrix(); 
-        this.scene.translate(-1.35, 0.75, 3); 
-        this.wheel.display();
         this.scene.popMatrix(); 
 
         //cabin 

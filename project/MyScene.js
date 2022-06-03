@@ -23,8 +23,6 @@ export class MyScene extends CGFscene {
         this.initLights();
         const complexity = 30; 
 
-        this.testAngle = 0; 
-
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -144,11 +142,17 @@ export class MyScene extends CGFscene {
       }
 
     initLights() {
-        this.lights[0].setPosition(5, 1, 3, 1);
+        this.lights[0].setPosition(10, 10, 6, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].setVisible(true);
         this.lights[0].enable();
         this.lights[0].update();
+
+        this.lights[1].setPosition(-10, 10, -6, 1);
+        this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[1].setVisible(true);
+        this.lights[1].enable();
+        this.lights[1].update();
     }
 
     initCameras() {
@@ -239,10 +243,8 @@ export class MyScene extends CGFscene {
 
         this.track.display(); 
 
-        this.pushMatrix(); 
-        this.rotate(this.testAngle, 0, 1, 0); 
-        this.train.display(); 
-        this.popMatrix(); 
+        //this.train.display(); 
+   
 
 
         this.movingTrain.display();  
@@ -280,15 +282,6 @@ export class MyScene extends CGFscene {
             //console.log("angle of train = " + this.movingTrain.angle)
             console.log("vector of angles = " + this.track.angleArray); 
         }
-        if  (this.gui.isKeyPressed("KeyL")){
-            this.testAngle+=0.1; 
-            console.log(this.testAngle); 
-        }
-        if  (this.gui.isKeyPressed("KeyK")){
-            this.testAngle-=0.1; 
-            console.log(this.testAngle); 
-        }
-
   }
 
 
