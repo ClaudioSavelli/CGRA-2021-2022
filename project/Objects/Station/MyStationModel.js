@@ -49,14 +49,17 @@ export class MyStationModel extends CGFobject {
     }
 
     display() {
-        //const zDisplace = this.z + (this.side == "left"? -8 : 8)
         const trackDistanceCorrection = 9;
-        const zDisplace = this.z + (this.side == "left"? -trackDistanceCorrection : trackDistanceCorrection);
-        const xDisplace = this.x;
+
         this.scene.pushMatrix()
 
-        this.scene.translate(xDisplace, 3.5, zDisplace);
-        this.scene.rotate(this.angle, 0, 1, 0);
+        const middleX = 0;
+        const middleZ = 9;
+        const middleXStart = Math.cos(-this.angle)*middleX + Math.sin(-this.angle)*middleZ
+        const middleZStart = -Math.sin(-this.angle)*middleX + Math.cos(-this.angle)*middleZ
+        
+        this.scene.translate(this.x - middleXStart, 3.5, this.z - middleZStart)
+        this.scene.rotate(-this.angle, 0, 1, 0);
         this.scene.scale(0.2, 0.2, 0.2);
 
             this.scene.pushMatrix();

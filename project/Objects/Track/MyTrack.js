@@ -95,7 +95,6 @@ export class MyTrack extends CGFobject{
         for(let i = 0; i < this.stationArray.length; i++){
             this.stationArray[i].display(); 
         }
-
         this.scene.setDefaultAppearance();
     }
 

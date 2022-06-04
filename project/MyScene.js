@@ -64,7 +64,7 @@ export class MyScene extends CGFscene {
             {x: -10, z: -10, type: 'simple', side:null},
             {x: 0, z: -10, type: 'station', side:'left', hasLoad:true}, //upper one
             {x: 10, z: -10, type: 'simple', side:null},
-            //{x: 15, z: 2.5, type: 'simple', side:'left', hasLoad:false}, //station supposed to be on the angle 
+            {x: 15, z: 2.5, type: 'station', side:'left', hasLoad:false}, //station supposed to be on the angle 
             {x: 20, z: 15, type: 'simple', side:null}, 
             {x: 0, z: 15, type: 'station', side:'right', hasLoad:false}, //lower one
         ]
