@@ -103,10 +103,7 @@ export class MyTrack extends CGFobject{
     }
 
     nextStation(){
-        this.actualStation++; 
-        if(this.actualStation>=this.stationArray.length){
-            this.actualStation = 0; 
-        }
+        this.actualStation = (this.actualStation+1)%this.stationArray.length;
     }
 
     getPreviousAngle(){

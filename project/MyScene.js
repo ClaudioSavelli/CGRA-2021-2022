@@ -6,7 +6,8 @@ import { MyTrack } from "./Objects/Track/MyTrack.js";
 import { MyTrain } from "./Objects/Train/MyTrain.js";
 import { MyCubeMap } from "./Objects/MyCubeMap.js";
 import { MyMovingTrain } from "./MovementController/MyMovingTrain.js";
-
+import {MyAwning} from "./Objects/Station/MyAwning.js"
+import { MyStationModel } from "./Objects/Station/MyStationModel.js";
 
 /**
 * MyScene
@@ -64,9 +65,9 @@ export class MyScene extends CGFscene {
             {x: -10, z: -10, type: 'simple', side:null},
             {x: 0, z: -10, type: 'station', side:'left', hasLoad:true}, //upper one
             {x: 10, z: -10, type: 'simple', side:null},
-            {x: 15, z: 2.5, type: 'station', side:'left', hasLoad:false}, //station supposed to be on the angle 
+            {x: 15, z: 2.5, type: 'station', side:'left', hasLoad:true}, //station supposed to be on the angle 
             {x: 20, z: 15, type: 'simple', side:null}, 
-            {x: 0, z: 15, type: 'station', side:'right', hasLoad:false}, //lower one
+            {x: 0, z: 15, type: 'station', side:'right', hasLoad:true}, //lower one
         ]
 
           /*this.setOfPoints = [
@@ -89,6 +90,8 @@ export class MyScene extends CGFscene {
         this.train = new MyTrain(this, complexity, false);
         this.cubeMap = new MyCubeMap(this); 
         this.movingTrain = new MyMovingTrain(this, this.train, this.track); 
+        this.awning = new MyAwning(this, 20);
+        this.model = new MyStationModel(this, 0, 0, 0, false, false);
 
         //this.cubeMap.setTexture(top, front, right, back, left, bottom);
         this.cubeMap.setTexture(
@@ -209,31 +212,17 @@ export class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-/*
-         this.pushMatrix();
-        this.scale(50,1,50);
-        this.rotate(-Math.PI*0.5, 1,0,0);
-        this.plane.display();
-        this.popMatrix();
-        this.track.display();*/
-        //this.train.display(); 
-        //this.crane.display(); 
-        //this.container.display(); 
 
-        //this.movingTrain.display(); 
+        this.setDefaultAppearance();
 
+        // ---- BEGIN Primitive drawing section
+        //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
         this.pushMatrix();
         this.translate(0, 13, 0)
         this.scale(50, 50, 50);
         this.cubeMap.display();
         this.popMatrix();
-
-        this.setDefaultAppearance();
-
-        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-
-        // ---- BEGIN Primitive drawing section
-        //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+        
         this.pushMatrix();
         this.scale(100,1,100); 
         this.rotate(-Math.PI*0.5, 1,0,0);
@@ -247,7 +236,9 @@ export class MyScene extends CGFscene {
    
 
 
-        this.movingTrain.display();  
+        this.movingTrain.display();
+        
+        
         // ---- END Primitive drawing section
     }
     checkKeys() {

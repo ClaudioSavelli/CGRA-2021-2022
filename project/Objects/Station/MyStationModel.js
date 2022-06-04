@@ -4,6 +4,7 @@ import { MyQuad } from '../../2D_Shapes/MyQuad.js';
 import { MyUnitCube } from '../../3D_Shapes/MyUnitCube.js';
 import { MyLoad } from '../Load/MyLoad.js';
 import { MyFlag } from './MyFlag.js';
+import { MyAwning } from './MyAwning.js';
 
 export class MyStationModel extends CGFobject {
 	constructor(scene, angle, x, z, hasLoad, side) {
@@ -25,7 +26,8 @@ export class MyStationModel extends CGFobject {
         this.window = new MyQuad(scene);
         this.base = new MyUnitCube(scene);
         this.load = new MyLoad(scene, this.complexity);
-        this.flag = new MyFlag(scene, this.complexity); 
+        this.flag = new MyFlag(scene, this.complexity);
+        this.awning = new MyAwning(scene, this.complexity);
     }
 
     createTextures(scene){
@@ -49,12 +51,10 @@ export class MyStationModel extends CGFobject {
     }
 
     display() {
-        const trackDistanceCorrection = 9;
-
         this.scene.pushMatrix()
 
         const middleX = 0;
-        const middleZ = 9;
+        const middleZ = 10.5; //9
         const middleXStart = Math.cos(-this.angle)*middleX + Math.sin(-this.angle)*middleZ
         const middleZStart = -Math.sin(-this.angle)*middleX + Math.cos(-this.angle)*middleZ
         
@@ -73,7 +73,7 @@ export class MyStationModel extends CGFobject {
 
             if (this.hasLoad) {
                 this.scene.pushMatrix();
-                this.scene.translate(-8, -11.5, 20)
+                this.scene.translate(-8, -11, 30)
                 this.scene.scale(5,5,5);
                 this.load.display();
                 this.scene.popMatrix(); 
@@ -84,7 +84,9 @@ export class MyStationModel extends CGFobject {
             this.scene.scale(5,5,5)
             this.flag.display(); 
             this.scene.popMatrix(); 
-        
+
+            this.displayAwning();
+
         this.scene.popMatrix();
 
     }
@@ -157,8 +159,18 @@ export class MyStationModel extends CGFobject {
     displayBase() {
         this.scene.pushMatrix();
         this.scene.translate(0, -14.5, 0);
-        this.scene.scale(170.0, 5.0, 60.0);
+        //this.scene.scale(170.0, 5.0, 60.0);
+        this.scene.scale(170.0, 5.0, 80.0);
         this.base.display();
+        this.scene.popMatrix();
+    }
+
+    displayAwning() {
+        this.scene.pushMatrix();
+
+        this.scene.translate(0, -15, 19);
+        this.scene.scale(4.0, 4.5, 5);
+        this.awning.display();
         this.scene.popMatrix();
     }
 }
