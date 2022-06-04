@@ -65,9 +65,9 @@ export class MyScene extends CGFscene {
             {x: -10, z: -10, type: 'simple', side:null},
             {x: 0, z: -10, type: 'station', side:'left', hasLoad:true}, //upper one
             {x: 10, z: -10, type: 'simple', side:null},
-            {x: 15, z: 2.5, type: 'station', side:'left', hasLoad:true}, //station supposed to be on the angle 
+            //{x: 15, z: 2.5, type: 'station', side:'left', hasLoad:true}, //station supposed to be on the angle 
             {x: 20, z: 15, type: 'simple', side:null}, 
-            {x: 0, z: 15, type: 'station', side:'right', hasLoad:true}, //lower one
+            {x: 0, z: 15, type: 'station', side:'right', hasLoad:false}, //lower one
         ]
 
           /*this.setOfPoints = [
@@ -213,16 +213,17 @@ export class MyScene extends CGFscene {
 
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
+        
+        this.pushMatrix();
+        this.translate(0, 13, 0)
+        this.scale(100, 100, 100);
+        this.cubeMap.display();
+        this.popMatrix();
+
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
         //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
-        this.pushMatrix();
-        this.translate(0, 13, 0)
-        this.scale(50, 50, 50);
-        this.cubeMap.display();
-        this.popMatrix();
-        
         this.pushMatrix();
         this.scale(100,1,100); 
         this.rotate(-Math.PI*0.5, 1,0,0);
@@ -232,7 +233,7 @@ export class MyScene extends CGFscene {
 
         this.track.display(); 
 
-        this.train.display(); 
+        //this.train.display(); 
    
 
 
