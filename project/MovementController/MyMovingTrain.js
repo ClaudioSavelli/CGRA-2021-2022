@@ -10,7 +10,9 @@ export class MyMovingTrain extends CGFobject {
 	}
 
 	init(){
-		this.velocity = 0.01; 
+		this.velocity = 0.01;
+		this.cruisingSpeed = 0.01;
+		this.acceleration = 0;
 		this.isTrainJustStarted = 0; 
 		this.timeToArrive = 0; 
 		this.isStopped = false;
@@ -33,6 +35,24 @@ export class MyMovingTrain extends CGFobject {
 
 	update(t){
 		this.smoke.update(t); 
+
+		this.distance = this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2);
+
+		
+		if (this.track.setOfPoints[this.nextEdge].type == 'station') {
+			console.log("decelerating");	
+			this.acceleration = -Math.pow(this.cruisingSpeed, 2)/ (2*this.distance);
+		}
+
+		console.log("x1 " + this.x1)
+		console.log("z1 " + this.z1)
+		console.log("x " + this.x)
+		console.log("z " + this.z)
+		console.log("t " + this.initialTime)
+		console.log(" d " + this.distance);
+		console.log(" a " + this.acceleration);
+		console.log(" v " + this.velocity);
+		
 		if(t>=this.timeToArrive && !this.isStopped){
 
 			if((this.track.setOfPoints[this.actualEdge].type == 'station')){
@@ -41,6 +61,7 @@ export class MyMovingTrain extends CGFobject {
 					console.log("Entered in the if!"); 
 					this.isStopped = true; 
 					this.velocity = 0;
+					this.acceleration = 0;
 					this.angleVisualized = this.angle; 
 					if(this.checkStopAtStation() == false){
 						console.log("entered in the checkStopAtStation if!"); 
@@ -48,22 +69,44 @@ export class MyMovingTrain extends CGFobject {
 					}
 					return; 
 				}
-				 this.isTrainJustStarted = 0; 
+				this.isTrainJustStarted = 0; 
 			}
 
 			this.evaluateNextPoint(); 
 
+			this.distance = this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2);
+
 			this.initialTime = t;
-			this.timeToArrive = this.initialTime+(this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2)/(this.velocity));
+			this.timeToArrive = this.initialTime + this.distance/this.velocity;
 			this.evaluateTimeToFinishTurning(t); 
 		}	
 
 
 
 		if(!this.isStopped){
-			this.smoothAngleTrain(t); 	
-			this.x += (this.velocity*(t-this.initialTime))*Math.cos(this.angle); 
-			this.z += (this.velocity*(t-this.initialTime))*Math.sin(this.angle); 
+			this.smoothAngleTrain(t);
+
+			if (this.acceleration < 0) {
+				this.velocity = Math.max(this.velocity - this.acceleration * (t-this.initialTime), 
+							0);
+				
+				if (this.velocity == 0) {
+					this.acceleration = 0;
+				}
+
+			} else if (this.acceleration > 0){
+				this.velocity = Math.min(this.velocity + this.acceleration * (t-this.initialTime), 
+							this.cruisingSpeed);
+				if (this.velocity == this.cruisingSpeed) {
+					this.acceleration = 0;
+				}
+			}
+
+									
+			const dt = t-this.initialTime;
+
+			this.x += this.velocity*dt*Math.cos(this.angle) + 0.5*this.acceleration*Math.pow(dt,2)*Math.cos(this.angle); 
+			this.z += this.velocity*dt*Math.sin(this.angle) + 0.5*this.acceleration*Math.pow(dt,2)*Math.sin(this.angle); 
 		}
 
 		this.initialTime = t; 
@@ -91,10 +134,7 @@ export class MyMovingTrain extends CGFobject {
 		this.z = this.z1; 
 		this.track.evaluateNextAngle(); 
 		this.actualEdge = this.nextEdge; 
-		this.nextEdge++; 
-		if(this.nextEdge==this.totalEdges){
-			this.nextEdge = 0; 
-		}
+		this.nextEdge = (this.nextEdge+1)%this.totalEdges;
 	}
 
 	smoothAngleTrain(t){
@@ -105,13 +145,13 @@ export class MyMovingTrain extends CGFobject {
 			} 
 			//console.log("The actual visualized angle is " + this.angleVisualized)
 			//console.log("The actual angle is " + this.track.getActualAngle()); 
-	}
-	else if(t<=this.timeToFinishTurning){
-		if(this.angleVisualized < this.angle || (this.angleVisualized>0 && this.angle<0)){
-			this.angleVisualized+=0.1		} 
-	} else {
-		this.angleVisualized = this.angle; 
-	}
+		}
+		else if(t<=this.timeToFinishTurning){
+			if(this.angleVisualized < this.angle || (this.angleVisualized>0 && this.angle<0)){
+				this.angleVisualized+=0.1		} 
+		} else {
+			this.angleVisualized = this.angle; 
+		}
 	}
 
 	evaluateTimeToFinishTurning(t){
@@ -124,13 +164,6 @@ export class MyMovingTrain extends CGFobject {
 		}
 	}
 
-	/* TO ELIMINATE
-	normalizeAngleVisualized(){
-		if(this.angleVisualized>4){
-			this.angleVisualized -= 6.3; //this is necessary to keep the train in the interested range of the scene, that is, more or less -2<angle<4
-		}
-	}*/
-
 	checkStopAtStation(){
 		let station = this.track.getActualStation(); 
 
@@ -140,10 +173,12 @@ export class MyMovingTrain extends CGFobject {
 
 	departure(){
 		if(this.isStopped){
-			this.velocity = 0.01; 
+			//this.velocity = 0.01;
 			this.isStopped = false; 
 			this.timeToArrive = 0; 
 			this.isTrainJustStarted = 1; 
+			this.acceleration = Math.pow(this.cruisingSpeed, 2)/ (2*(this.distance));
+			
 			this.track.nextStation(); 
 		}
 	}
