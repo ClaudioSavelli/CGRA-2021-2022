@@ -179,12 +179,14 @@ export class MyMovingTrain extends CGFobject {
 	}
 
 	departure(){
+		if(this.isStopped){
 			//this.velocity = 0.01;
 			this.isStopped = false; 
 			this.timeToArrive = 0; 
 			this.isTrainJustStarted = 1;
 			this.haveToAccelerate = 1; 
 			this.track.nextStation(); 
+		}
 	}
 
 	interact(){

@@ -108,7 +108,7 @@ export class MyTrack extends CGFobject{
         if(this.actualStation>=this.stationArray.length){
             this.actualStation = 0; 
         }
-        this.actualStation = (this.actualStation+1)%this.stationArray.length;
+        console.log("THE NEW ACTUAL STATION IS " + this.actualStation); 
     }
 
     nextPointHasStation(){
