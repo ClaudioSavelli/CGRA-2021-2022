@@ -4,17 +4,17 @@ import { MyLoad } from '../Load/MyLoad.js';
 
 
 export class MyContainer extends CGFobject {
-	constructor(scene, N, hasLoad) {
+	constructor(scene, complexity, hasLoad) {
 		super(scene);
 		this.scene = scene; 
-		this.init(scene, N);
+		this.init(scene, complexity);
 		this.createTextures(); 
 		this.hasLoad = hasLoad; 
 	}
 	
-	init(scene, N) {
-		this.quad = new MyQuad(this.scene); 
-		this.load = new MyLoad(this.scene, N); 
+	init(scene, complexity) {
+		this.quad = new MyQuad(scene); 
+		this.load = new MyLoad(scene, complexity); 
 	}
 
 	createTextures() {
@@ -80,11 +80,6 @@ export class MyContainer extends CGFobject {
 		}
 
 		this.scene.popMatrix();		 
-	}
-
-	updateBuffers() {
-		this.initBuffers(); 
-		this.initNormalVizBuffers(); 
 	}
 }
 

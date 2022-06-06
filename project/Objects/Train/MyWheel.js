@@ -1,20 +1,19 @@
-import {CGFobject, CGFappearance} from '../../../lib/CGF.js';
+import {CGFobject} from '../../../lib/CGF.js';
 import { MyCilinder } from '../../3D_Shapes/MyCilinder.js';
 import { MyCircle } from '../../2D_Shapes/MyCircle.js';
 
 
 //It is just a closed cilinder 
 export class MyWheel extends CGFobject {
-	constructor(scene, N) {
-		//N is the number of triangles/sides/points 
+	constructor(scene, complexity) {
 		super(scene);
 		this.scene = scene; 
-		this.init(scene, N);
+		this.init(scene, complexity);
 	}
 	
-	init(scene, N) {
-		this.cilinder = new MyCilinder(scene, N); 
-		this.circle = new MyCircle(scene, N); 
+	init(scene, complexity) {
+		this.cilinder = new MyCilinder(scene, complexity); 
+		this.circle = new MyCircle(scene, complexity); 
 
 		this.wheelRadius = 0.75; 
 		this.wheelCircumference = 2*Math.PI*this.wheelRadius; 
@@ -49,11 +48,6 @@ export class MyWheel extends CGFobject {
 
 	rotation(velocity){
 		this.alfa += velocity / this.wheelCircumference;  
-	}
-
-	updateBuffers() {
-		this.initBuffers(); 
-		this.initNormalVizBuffers(); 
 	}
 }
 

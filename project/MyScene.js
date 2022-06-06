@@ -82,6 +82,7 @@ export class MyScene extends CGFscene {
         this.selectedCubeMapTexture = 0;
         this.cubeMapTextureIds = { 'Yokohama': 0, 'Sunny hills': 1, 'Demo': 2 };
         this.cubeMapTextures = [this.YokohamaCubeMap, this.sunnyHillsCubeMap, this.testCubeMap];
+        
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new MyPlane(this, 20, 0,10,0,10);

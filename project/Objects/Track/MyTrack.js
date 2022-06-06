@@ -50,7 +50,6 @@ export class MyTrack extends CGFobject{
                 this.setOfPoints[i].type == "station", middleX, middleZ,
                 this.setOfPoints[i].side, this.setOfPoints[i].hasLoad)); 
 
-        
              //Coordinates of the next previous point
              x1 = x2; 
              z1 = z2; 
@@ -70,11 +69,10 @@ export class MyTrack extends CGFobject{
         this.nextAngle = 1;
 
         this.trackSegmentArray.push(new MyTrackSegment(scene, x1, z1, x2, z2, angle, 
-            this.setOfPoints[this.setOfPoints.length-1].type == "station", middleX, middleZ, 
-            this.setOfPoints[this.setOfPoints.length-1].side, this.setOfPoints[this.setOfPoints.length-1].hasLoad)); 
+        this.setOfPoints[this.setOfPoints.length-1].type == "station", middleX, middleZ, 
+        this.setOfPoints[this.setOfPoints.length-1].side, this.setOfPoints[this.setOfPoints.length-1].hasLoad)); 
 
-
-         //Creation of stationArray
+        //Creation of stationArray
         for (const segment of this.trackSegmentArray) {
             if (segment.hasStation) {
                 this.stationArray.push(new MyStationModel(this.scene, segment.angle,
@@ -82,7 +80,6 @@ export class MyTrack extends CGFobject{
             }
         }
         this.stationArray.pop()
-        console.log(this.stationArray)
     }
 
     display(){
@@ -168,11 +165,6 @@ export class MyTrack extends CGFobject{
     angleBetweenTwoPoints(x1, z1, x2, z2){
     // angle in radians
     return Math.atan2(z2 - z1, x2 - x1);
-    }
-
-    
-    textureFactor(x1, z1, x2, z2) {
-        return 1/Math.sqrt(Math.pow(x2-x1, 2)+ Math.pow(z2-z1, 2))
     }
 }
 

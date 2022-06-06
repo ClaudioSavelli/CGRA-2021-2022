@@ -6,13 +6,12 @@ export class MyFlag extends CGFobject {
 	constructor(scene, complexity) {
 		super(scene);
         this.scene = scene;
-        this.complexity = complexity; 
-        this.init(scene); 
+        this.init(scene, complexity); 
         this.createTextures(scene); 
     }
 
-    init(scene){
-        this.cilinder = new MyCilinder(scene, this.complexity); 
+    init(scene, complexity){
+        this.cilinder = new MyCilinder(scene, complexity); 
         this.flag = new MyUnitCube(scene); 
     }
 
@@ -36,16 +35,6 @@ export class MyFlag extends CGFobject {
         this.japanFlagTexture = new CGFtexture(scene, "./images/japan_flag.png");
         this.japanFlag.setTexture(this.japanFlagTexture);
         this.japanFlag.setTextureWrap('REPEAT', 'REPEAT');
-
-        this.doorMaterial = new CGFappearance(scene);
-        this.doorMaterial.setAmbient(0.5, 0.5, 0.5, 1);
-        this.doorMaterial.setDiffuse(0.5, 0.5, 0.5, 0.7);
-        this.doorMaterial.setSpecular(0.0, 0.0, 0.0, 1);
-        this.doorMaterial.setEmission(1.0, 1.0, 1.0, 1.0);
-
-        this.doorTexture = new CGFtexture(scene, "./images/glassdoor.webp");
-        this.doorMaterial.setTexture(this.doorTexture);
-        this.doorMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
 
 

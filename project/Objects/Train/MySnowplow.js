@@ -64,10 +64,5 @@ export class MySnowplow extends CGFobject {
 		this.scene.popMatrix();
 	 
 	}
-
-	updateBuffers() {
-		this.initBuffers(); 
-		this.initNormalVizBuffers(); 
-	}
 }
 

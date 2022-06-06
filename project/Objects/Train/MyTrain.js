@@ -155,10 +155,5 @@ export class MyTrain extends CGFobject {
         this.smoke.display();
         this.snowplow.display(); 
 	}
-
-	updateBuffers() {
-		this.initBuffers(); 
-		this.initNormalVizBuffers(); 
-	}
 }
 

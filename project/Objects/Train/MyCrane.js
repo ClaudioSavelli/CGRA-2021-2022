@@ -38,6 +38,7 @@ export class MyCrane extends CGFobject {
                 this.metalTexture.setTexture(this.texture);
                 this.metalTexture.setTextureWrap('REPEAT', 'REPEAT');
 
+
                 this.blackTexture = new CGFappearance(this.scene);
                 this.blackTexture.setAmbient(0.5, 0.5, 0.5, 1);
                 this.blackTexture.setDiffuse(1, 1, 1, 1);
@@ -47,6 +48,7 @@ export class MyCrane extends CGFobject {
                 this.texture = new CGFtexture(this.scene, "./images/black.png");
                 this.blackTexture.setTexture(this.texture);
                 this.blackTexture.setTextureWrap('REPEAT', 'REPEAT');
+
 
                 this.redTexture = new CGFappearance(this.scene);
                 this.redTexture.setAmbient(0.5, 0.5, 0.5, 1);
@@ -95,7 +97,6 @@ export class MyCrane extends CGFobject {
 
         //cable
         this.scene.pushMatrix(); 
-        //this.scene.translate(0, 5*Math.sin(this.beta-this.defaultBeta)+3, 2*Math.sin(this.beta-this.defaultBeta)-4.1);
         this.scene.translate(0,5*Math.cos(this.beta)+0.4,5*Math.sin(this.beta)+0.2); 
         this.scene.scale(0.1, 5, 0.1); 
         this.cable.display();
@@ -137,10 +138,5 @@ export class MyCrane extends CGFobject {
                 this.alfa = this.defaultAlfa; 
                 this.beta = this.defaultBeta; 
         }
-
-	updateBuffers() {
-		this.initBuffers(); 
-		this.initNormalVizBuffers(); 
-	}
 }
 

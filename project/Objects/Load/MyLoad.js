@@ -3,14 +3,14 @@ import { MyWood } from './MyWood.js';
 
 
 export class MyLoad extends CGFobject {
-	constructor(scene, N) {
+	constructor(scene, complexity) {
 		super(scene);
 		this.scene = scene; 
-		this.init(scene, N);
+		this.init(scene, complexity);
 	}
 	
-	init(scene, N) {
-		this.wood = new MyWood(scene, N); 
+	init(scene, complexity) {
+		this.wood = new MyWood(scene, complexity); 
 	}
 
 	display(){
@@ -30,11 +30,6 @@ export class MyLoad extends CGFobject {
 			this.scene.popMatrix();
 		}
 		
-	}
-
-	updateBuffers() {
-		this.initBuffers(); 
-		this.initNormalVizBuffers(); 
 	}
 }
 

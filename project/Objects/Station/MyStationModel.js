@@ -54,7 +54,7 @@ export class MyStationModel extends CGFobject {
         this.scene.pushMatrix()
 
         const middleX = 0;
-        const middleZ = 10.5; //9
+        const middleZ = 10.5; 
         const middleXStart = Math.cos(-this.angle)*middleX + Math.sin(-this.angle)*middleZ
         const middleZStart = -Math.sin(-this.angle)*middleX + Math.cos(-this.angle)*middleZ
         
@@ -114,22 +114,6 @@ export class MyStationModel extends CGFobject {
         this.displayWindows();
 
         this.scene.popMatrix();
-        /*
-        this.scene.pushMatrix();
-        this.scene.scale(2, 2, 2)
-        this.modelCenter.display();
-
-        this.scene.pushMatrix();
-        this.scene.translate(-10, 0, 0);
-        this.modelCenter.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.translate(10, 0, 0);
-        this.modelCenter.display();
-        this.scene.popMatrix();
-
-        this.scene.popMatrix();*/
     }
 
     displaySide(xTranslation) {
@@ -159,7 +143,6 @@ export class MyStationModel extends CGFobject {
     displayBase() {
         this.scene.pushMatrix();
         this.scene.translate(0, -14.5, 0);
-        //this.scene.scale(170.0, 5.0, 60.0);
         this.scene.scale(170.0, 5.0, 80.0);
         this.base.display();
         this.scene.popMatrix();

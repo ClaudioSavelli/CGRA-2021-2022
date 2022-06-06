@@ -5,6 +5,7 @@ export class MyCubeMap extends CGFobject {
 	constructor(scene) {
 		super(scene);
 		this.quad = new MyQuad(scene);
+        
         this.cubeMaterial = new CGFappearance(scene);
         this.cubeMaterial.setAmbient(0.0, 0.0, 0.0, 1);
         this.cubeMaterial.setDiffuse(0.0, 0.0, 0.0, 1);
@@ -20,10 +21,10 @@ export class MyCubeMap extends CGFobject {
         this.leftTexture = left;
         this.bottomTexture = bottom;
     }
+
     display() {
         this.scene.pushMatrix();
         this.scene.translate(0, 0, 0.5);
-        //this.scene.rotate(Math.PI/2, 1, 0, 0);
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.cubeMaterial.setTexture(this.frontTexture);
         this.cubeMaterial.apply();
@@ -93,7 +94,6 @@ export class MyCubeMap extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.translate(0, -0.5, 0);
-        //this.scene.rotate(Math.PI, 1, 0, 0);
         this.cubeMaterial.setTexture(this.bottomTexture);
         this.cubeMaterial.apply();
         this.scene.gl.texParameteri(

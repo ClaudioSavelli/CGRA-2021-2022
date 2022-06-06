@@ -42,15 +42,12 @@ export class MyAwning extends CGFobject {
 
     displayCover() {
         this.scene.pushMatrix();
-        //this.scene.translate(0, 10, -18.5);
         this.scene.translate(0, 5, 0);
         this.scene.rotate(0.1, 1, 0, 0);
-        //this.scene.scale(16, 0.1, 2.0);
         this.scene.scale(20, 0.1, 2.0);
         this.roofMaterial.apply();
         this.cover.display();
         this.scene.popMatrix();
-        //this.scene.setDefaultAppearance();
     }
 
     displayPillars() {

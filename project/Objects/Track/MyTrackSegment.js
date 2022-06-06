@@ -13,7 +13,7 @@ export class MyTrackSegment extends CGFobject{
         this.middleZ = middleZ;
         this.side = side;
         this.hasLoad = hasLoad;
-        this.init(scene, x1, z1, x2, z2); 
+        this.init(x1, z1, x2, z2); 
         this.createTextures();
     }
 
@@ -29,7 +29,7 @@ export class MyTrackSegment extends CGFobject{
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
     }
 
-    init(scene, x1, z1, x2, z2){         
+    init(x1, z1, x2, z2){         
             this.x1 = x1; 
             this.z1 = z1; 
             this.x2 = x2; 
@@ -40,7 +40,6 @@ export class MyTrackSegment extends CGFobject{
                 0, 0,
                 this.length/3, 0]);
             console.log(this.quad.texCoords);
-            //this.scene.defaultAppearance.apply()
         } 
 
 
@@ -52,7 +51,6 @@ export class MyTrackSegment extends CGFobject{
             this.appearance.apply();
             this.quad.display(); 
             this.scene.popMatrix();
-            //this.scene.defaultAppearance.apply()
         }
 
     distanceBetweenTwoPoints(x1, z1, x2, z2){
@@ -68,9 +66,6 @@ export class MyTrackSegment extends CGFobject{
     angleBetweenTwoPoints(x1, z1, x2, z2){
     // angle in radians
     return Math.atan2(z2 - z1, x2 - x1);
-
-    // angle in degrees
-    // angleDeg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
     }
 
 }

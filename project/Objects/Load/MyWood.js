@@ -5,16 +5,16 @@ import { MyCircle } from '../../2D_Shapes/MyCircle.js';
 
 
 export class MyWood extends CGFobject {
-	constructor(scene, N) {
+	constructor(scene, complexity) {
 		super(scene);
 		this.scene = scene; 
-		this.init(scene, N);
+		this.init(scene, complexity);
 		this.createTextures(); 
 	}
 	
-	init(scene, N) {
-		this.cilinder = new MyCilinder(scene, N); 
-		this.circle = new MyCircle(scene, N); 
+	init(scene, complexity) {
+		this.cilinder = new MyCilinder(scene, complexity); 
+		this.circle = new MyCircle(scene, complexity); 
 	}
 
 	createTextures() {
@@ -56,11 +56,6 @@ export class MyWood extends CGFobject {
 		
 
 		this.scene.popMatrix();		 
-	}
-
-	updateBuffers() {
-		this.initBuffers(); 
-		this.initNormalVizBuffers(); 
 	}
 }
 
