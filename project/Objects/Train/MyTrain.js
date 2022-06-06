@@ -35,16 +35,6 @@ export class MyTrain extends CGFobject {
 	}
 
         createTextures() {
-                this.black = new CGFappearance(this.scene);
-                this.black.setAmbient(0.5, 0.5, 0.5, 1);
-                this.black.setDiffuse(1, 1, 1, 1);
-                this.black.setSpecular(0, 0, 0, 1);
-                this.black.setShininess(120);
-        
-                this.texture = new CGFtexture(this.scene, "./images/metallic_black.jpg");
-                this.black.setTexture(this.texture);
-                this.black.setTextureWrap('REPEAT', 'REPEAT');
-
                 this.red = new CGFappearance(this.scene);
                 this.red.setAmbient(0.5, 0.5, 0.5, 1);
                 this.red.setDiffuse(1, 1, 1, 1);
@@ -66,10 +56,7 @@ export class MyTrain extends CGFobject {
                 this.glass.setTextureWrap('REPEAT', 'REPEAT');
             }
 
-	display(){
-
-        this.black.apply(); 
-        
+	display(){        
          //front left wheel  
          this.scene.pushMatrix(); 
          this.scene.translate(1.35, 0.75, 3); 

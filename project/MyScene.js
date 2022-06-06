@@ -8,6 +8,7 @@ import { MyCubeMap } from "./Objects/MyCubeMap.js";
 import { MyMovingTrain } from "./MovementController/MyMovingTrain.js";
 import {MyAwning} from "./Objects/Station/MyAwning.js"
 import { MyStationModel } from "./Objects/Station/MyStationModel.js";
+import { MyCircle } from "./2D_Shapes/MyCircle.js";
 
 /**
 * MyScene
@@ -35,6 +36,8 @@ export class MyScene extends CGFscene {
         this.setUpdatePeriod(50);
         
         this.enableTextures(true);
+
+        this.createTextures(); 
 
         this.defaultAppearance = new CGFappearance(this)
         this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0)
@@ -93,6 +96,7 @@ export class MyScene extends CGFscene {
         this.movingTrain = new MyMovingTrain(this, this.train, this.track); 
         this.awning = new MyAwning(this, 20);
         this.model = new MyStationModel(this, 0, 0, 0, false, false);
+        this.circle = new MyCircle(this, 6); 
 
         this.cubeMap.setTexture(
                                 this.YokohamaCubeMap.top, 
@@ -178,9 +182,6 @@ export class MyScene extends CGFscene {
         this.movingTrain.update(t); 
     }
 
-    updateTexCoords() {
-    }
-
     //Function that resets selected texture in quadMaterial
     updateAppliedTexture() {
         this.cubeMap.setTexture(                                
@@ -232,11 +233,19 @@ export class MyScene extends CGFscene {
 
         this.track.display(); 
 
-        //this.train.display(); 
-   
-
+        this.train.display(); 
 
         this.movingTrain.display();
+
+        this.testAppaerance.apply();
+
+        this.pushMatrix(); 
+        this.translate(0, 5, 0);
+        this.rotate(Math.PI/2, 1, 0, 0); 
+        this.scale(2, 2, 2); 
+        this.circle.display();
+        this.popMatrix();  
+
         
         
         // ---- END Primitive drawing section
@@ -267,6 +276,17 @@ export class MyScene extends CGFscene {
                 this.movingTrain.departure(); 
         }
   }
+
+  createTextures() {
+    this.testAppaerance = new CGFappearance(this);
+    this.testAppaerance.setAmbient(1, 1, 1, 1);
+    this.testAppaerance.setDiffuse(1, 1, 1, 1);
+    this.testAppaerance.setSpecular(0, 0, 0, 1);
+
+    this.texture = new CGFtexture(this, "./images/window.jpg");
+    this.testAppaerance.setTexture(this.texture);
+    this.testAppaerance.setTextureWrap('REPEAT', 'REPEAT');
+}
 
 
 }
