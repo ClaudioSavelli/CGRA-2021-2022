@@ -131,7 +131,7 @@ export class MyMovingTrain extends CGFobject {
 		}
 		else if(t<=this.timeToFinishTurning){
 			if(this.angleVisualized < this.angle || (this.angleVisualized>0 && this.angle<0)){
-				this.angleVisualized+=0.1		} 
+				this.angleVisualized+=0.1		} 	
 		} else {
 			this.angleVisualized = this.angle; 
 		}

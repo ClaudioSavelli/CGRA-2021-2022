@@ -36,8 +36,13 @@ export class MyCilinder extends CGFobject {
 
 		//now we have a matrix of 2N vertices, now generates the triangles
 		for(let i=0; i<N; i++){
+			//exterior part
 			this.indices.push(i,i+1,N+i+1); 
 			this.indices.push(i+1,N+i+2,N+i+1); 
+
+			//interior part
+			this.indices.push(i,N+i+1,i+1); 
+			this.indices.push(i+1,N+i+1,N+i+2); 
 		}
 
 

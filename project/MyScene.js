@@ -6,8 +6,6 @@ import { MyEarth } from "./Objects/MyEarth.js";
 import { MyTrain } from "./Objects/Train/MyTrain.js";
 import { MyCubeMap } from "./Objects/MyCubeMap.js";
 import { MyMovingTrain } from "./MovementController/MyMovingTrain.js";
-import {MyAwning} from "./Objects/Station/MyAwning.js"
-import { MyStationModel } from "./Objects/Station/MyStationModel.js";
 import { MyCircle } from "./2D_Shapes/MyCircle.js";
 
 /**
@@ -46,40 +44,17 @@ export class MyScene extends CGFscene {
         this.defaultAppearance.setEmission(0, 0, 0, 1)
         this.defaultAppearance.setShininess(120)
         this.loadTextures();
-        /*
-        this.setOfPoints = [
-            {x: -5, z: 10, type: 'simple'},
-            {x: 0, z: 0, type: 'station'},
-            {x: 10, z: 0, type: 'simple'},
-            {x: 15, z: 10, type: 'station'}
-          ]*/
 
-        
-        /*  this.setOfPoints = [
-            {x: -20, z: 15, type: 'simple'},
-            {x: -20, z: -10, type: 'simple'},
-            {x: 0, z: -10, type: 'station', side:'left', hasLoad:true},
-            {x: 20, z: -10, type: 'simple'},
-            {x: 20, z: 15, type: 'simple'}, 
-            {x: 0, z: 15, type: 'station', side:'right', hasLoad:false},
-        ]*/
-        this.setOfPoints = [
-            {x: -20, z: 15, type: 'simple', side:null},
-            {x: -10, z: -10, type: 'simple', side:null},
-            {x: 0, z: -10, type: 'station', side:'left', hasLoad:true}, //upper one
-            {x: 10, z: -10, type: 'simple', side:null},
-            //{x: 15, z: 2.5, type: 'station', side:'left', hasLoad:true}, //station supposed to be on the angle 
-            {x: 20, z: 15, type: 'simple', side:null}, 
-            {x: 0, z: 15, type: 'station', side:'right', hasLoad:false}, //lower one
+          this.setOfPoints = [
+            {x: -25, z: 20, type: 'simple', side:null},
+            {x: -15, z: -15, type: 'simple', side:null},
+            {x: 0, z: -15, type: 'station', side:'left', hasLoad:true}, //upper one
+            {x: 15, z: -15, type: 'simple', side:null},
+            {x: 20, z: 2.5, type: 'station', side:'left', hasLoad:true}, //station supposed to be on the angle 
+            {x: 25, z: 20, type: 'simple', side:null}, 
+            {x: 0, z: 20, type: 'station', side:'right', hasLoad:false}, //lower one
         ]
-
-          /*this.setOfPoints = [
-            {x: -10, z: 10, type: 'simple'},
-            {x: -5, z: 0, type: 'station'},
-            {x: 10, z: 0, type: 'simple'},
-            {x: 15, z: 10, type: 'station'}
-  
-          ]*/
+        
         this.linear = true;
         this.scaleFactor = 0.5;
         this.selectedCubeMapTexture = 0;
@@ -92,11 +67,8 @@ export class MyScene extends CGFscene {
         this.track = new MyTrack(this, this.setOfPoints); 
         this.earth = new MyEarth(this);
         this.train = new MyTrain(this, complexity, false);
-        this.cilinder = new MyCilinder(this, 20);
         this.cubeMap = new MyCubeMap(this); 
         this.movingTrain = new MyMovingTrain(this, this.train, this.track); 
-        this.awning = new MyAwning(this, 20);
-        this.model = new MyStationModel(this, 0, 0, 0, false, false);
         this.circle = new MyCircle(this, 6); 
 
         this.cubeMap.setTexture(
@@ -169,9 +141,7 @@ export class MyScene extends CGFscene {
     }
 
     initCameras() {
-        //this.camera = new CGFcamera2(0.4, 0.1, 500, vec3.fromValues(30,30,30), vec3.fromValues(0, 0, 0));
         this.camera = new CGFcamera2(1.5, 0.1, 500, vec3.fromValues(2,2,2), vec3.fromValues(0, 2, 0));
-    
     }
 
     setDefaultAppearance() {
@@ -215,7 +185,6 @@ export class MyScene extends CGFscene {
         if (this.displayAxis)
             this.axis.display();
 
-        this.setDefaultAppearance();
 
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
@@ -267,8 +236,7 @@ export class MyScene extends CGFscene {
         if (this.displayMovingTrain) {
             this.movingTrain.display();
         }
-          
-        
+
         // ---- END Primitive drawing section
     }
     checkKeys() {
