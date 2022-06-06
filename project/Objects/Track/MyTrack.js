@@ -46,8 +46,6 @@ export class MyTrack extends CGFobject{
             const middleX = x2
             const middleZ = z2
             this.angleArray.push(angle); 
-            //console.log(i + " " + x2 + " " + z2);
-            //console.log(this.setOfPoints[i].type == "station");
             this.trackSegmentArray.push(new MyTrackSegment(scene, x1, z1, x2, z2, angle, 
                 this.setOfPoints[i].type == "station", middleX, middleZ,
                 this.setOfPoints[i].side, this.setOfPoints[i].hasLoad)); 
@@ -108,7 +106,6 @@ export class MyTrack extends CGFobject{
         if(this.actualStation>=this.stationArray.length){
             this.actualStation = 0; 
         }
-        console.log("THE NEW ACTUAL STATION IS " + this.actualStation); 
     }
 
     nextPointHasStation(){
@@ -148,8 +145,6 @@ export class MyTrack extends CGFobject{
 
     evaluateMiddleAngle(){
 		var res = (this.getPreviousAngle() + this.getActualAngle())/2;
-		//console.log("previous angle = " + this.getPreviousAngle()); 
-		//console.log("actual angle = " + this.getActualAngle()); 
         if((this.getPreviousAngle() >= 0) && (this.getActualAngle() < 0) && ((this.getPreviousAngle()*(-1)) < this.getActualAngle())){
             res = (-this.getPreviousAngle() + this.getActualAngle())/2; 
         }
@@ -157,7 +152,6 @@ export class MyTrack extends CGFobject{
             res = (this.previousAngle() - this.getActualAngle())/2; 
         }
 
-		//console.log("result = " + res); 
 		return res; 
 	}
 
@@ -174,9 +168,6 @@ export class MyTrack extends CGFobject{
     angleBetweenTwoPoints(x1, z1, x2, z2){
     // angle in radians
     return Math.atan2(z2 - z1, x2 - x1);
-
-    // angle in degrees
-    // angleDeg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
     }
 
     

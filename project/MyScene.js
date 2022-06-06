@@ -93,7 +93,6 @@ export class MyScene extends CGFscene {
         this.awning = new MyAwning(this, 20);
         this.model = new MyStationModel(this, 0, 0, 0, false, false);
 
-        //this.cubeMap.setTexture(top, front, right, back, left, bottom);
         this.cubeMap.setTexture(
                                 this.YokohamaCubeMap.top, 
                                 this.YokohamaCubeMap.front, 
@@ -103,7 +102,7 @@ export class MyScene extends CGFscene {
                                 this.YokohamaCubeMap.bottom
                                 );
         //Objects connected to MyInterface
-        this.displayAxis = true;
+        this.displayAxis = false;
     }
 
     loadTextures() {
@@ -174,7 +173,6 @@ export class MyScene extends CGFscene {
 
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
-        //to be done
         this.checkKeys(); 
         this.movingTrain.update(t); 
     }
@@ -263,16 +261,9 @@ export class MyScene extends CGFscene {
         }
         if (this.gui.isKeyPressed("KeyP"))  {
             this.movingTrain.interact(); 
-
         }
         if (this.gui.isKeyPressed("KeyC"))          {
                 this.movingTrain.departure(); 
-        }
-        if  (this.gui.isKeyPressed("KeyI")){
-            //console.log("alfa = " + this.movingTrain.train.crane.alfa); 
-            //console.log("beta = " + this.movingTrain.train.crane.beta); 
-            //console.log("angle of train = " + this.movingTrain.angle)
-            console.log("vector of angles = " + this.track.angleArray); 
         }
   }
 

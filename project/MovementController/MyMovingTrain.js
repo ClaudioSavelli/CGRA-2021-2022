@@ -38,30 +38,17 @@ export class MyMovingTrain extends CGFobject {
 		this.smoke.update(t); 
 
 		this.distance = this.distanceBetweenTwoPoints(this.x1, this.z1, this.x2, this.z2);
-
-		//console.log("x1 " + this.x1)
-		//console.log("z1 " + this.z1)
-		//console.log("x " + this.x)
-		//console.log("z " + this.z)
-		//console.log("t " + this.initialTime)
-		//console.log(" d " + this.distance);
-		//console.log(" a " + this.acceleration);
-		//console.log(" v " + this.velocity);
 		
 		if(t>=this.timeToArrive && !this.isStopped){
 
 			if((this.track.setOfPoints[this.actualEdge].type == 'station')){
 				console.log("I'm on a station!"); 
 				if(this.isTrainJustStarted == 0){
-					//console.log("Entered in the if!"); 
 					this.isStopped = true; 
-					this.x = this.x2; 
-					this.z = this.z2; 
 					this.velocity = 0;
 					this.acceleration = 0;
 					this.angleVisualized = this.angle; 
 					if(this.checkStopAtStation() == false){
-						//console.log("entered in the checkStopAtStation if!"); 
 						this.departure(); 
 					}
 					return; 
@@ -110,8 +97,8 @@ export class MyMovingTrain extends CGFobject {
 									
 			const dt = t-this.initialTime;
 
-			this.x += this.velocity*dt*Math.cos(this.angle) //+ 0.5*this.acceleration*Math.pow(dt,2)*Math.cos(this.angle); 
-			this.z += this.velocity*dt*Math.sin(this.angle) //+ 0.5*this.acceleration*Math.pow(dt,2)*Math.sin(this.angle); 
+			this.x += this.velocity*dt*Math.cos(this.angle) 
+			this.z += this.velocity*dt*Math.sin(this.angle) 
 		}
 
 		this.initialTime = t; 
@@ -133,7 +120,6 @@ export class MyMovingTrain extends CGFobject {
 		this.x2 = this.track.setOfPoints[this.nextEdge].x; 
 		this.z2 = this.track.setOfPoints[this.nextEdge].z;
 		this.angle = this.track.getActualAngle();
-		//this.angleVisualized = this.track.evaluateMiddleAngle(); 
 
 		this.x = this.x1; 
 		this.z = this.z1; 
@@ -144,13 +130,10 @@ export class MyMovingTrain extends CGFobject {
 	}
 
 	smoothAngleTrain(t){
-		//this.normalizeAngleVisualized(); 
 		if(t>=this.timeToArrive - this.gapForAngle){
 			if(this.angle != this.track.getActualAngle()){
 				this.angleVisualized += 0.1; 
 			} 
-			//console.log("The actual visualized angle is " + this.angleVisualized)
-			//console.log("The actual angle is " + this.track.getActualAngle()); 
 		}
 		else if(t<=this.timeToFinishTurning){
 			if(this.angleVisualized < this.angle || (this.angleVisualized>0 && this.angle<0)){
@@ -162,8 +145,6 @@ export class MyMovingTrain extends CGFobject {
 
 	evaluateTimeToFinishTurning(t){
 		this.timeToFinishTurning = t+this.gapForAngle; 
-		//console.log("time to finish turning = "+this.timeToFinishTurning)
-		//console.log("time to arrive = "+this.timeToArrive)
 
 		if(this.timeToFinishTurning > this.timeToArrive){
 			this.timeToFinishTurning = this.timeToArrive; 
@@ -179,7 +160,6 @@ export class MyMovingTrain extends CGFobject {
 
 	departure(){
 		if(this.isStopped){
-			//this.velocity = 0.01;
 			this.isStopped = false; 
 			this.timeToArrive = 0; 
 			this.isTrainJustStarted = 1;
@@ -194,7 +174,6 @@ export class MyMovingTrain extends CGFobject {
 			let station = this.track.getActualStation(); 
 
 			console.log("trying to interact!"); 
-			//Interact with the container in the Train 
 			if(this.train.crane.alfa >= -0.3 && this.train.crane.alfa <= 0.3 && this.train.crane.beta >= -0.6){
 				console.log("catched!"); 
 				if((this.train.crane.hasLoad && !this.train.container.hasLoad) || (!this.train.crane.hasLoad && this.train.container.hasLoad)){
@@ -204,7 +183,6 @@ export class MyMovingTrain extends CGFobject {
 			}
 
 
-			//Interact with the container in the station 
 			else if (station.side == "left" && this.angle<=0 || station.side == "right" && this.angle > 0){
 				if(this.train.crane.alfa <= -1.5 && this.train.crane.beta <= -1.3){
 				console.log("catched!"); 
