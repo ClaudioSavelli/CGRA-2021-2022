@@ -75,7 +75,7 @@ export class MyMovingTrain extends CGFobject {
 			} else {
 				this.timeToArrive = this.initialTime + Math.abs(this.cruisingSpeed/this.acceleration); 
 			}
-			
+
 			this.evaluateTimeToFinishTurning(t); 
 		}	
 
@@ -94,7 +94,7 @@ export class MyMovingTrain extends CGFobject {
 			this.x += this.velocity*dt*Math.cos(this.angle) 
 			this.z += this.velocity*dt*Math.sin(this.angle) 
 		}
-
+ 
 		this.initialTime = t; 
         this.train.wheel.rotation(this.velocity*100); 
 	}
@@ -131,7 +131,7 @@ export class MyMovingTrain extends CGFobject {
 		}
 		else if(t<=this.timeToFinishTurning){
 			if(this.angleVisualized < this.angle || (this.angleVisualized>0 && this.angle<0)){
-				this.angleVisualized+=0.1		} 	
+				this.angleVisualized+=0.1		} 
 		} else {
 			this.angleVisualized = this.angle; 
 		}
@@ -170,28 +170,18 @@ export class MyMovingTrain extends CGFobject {
 			console.log("trying to interact!"); 
 			if(this.train.crane.alfa >= -0.3 && this.train.crane.alfa <= 0.3 && this.train.crane.beta >= -0.6){
 				console.log("catched!"); 
-				if((this.train.crane.hasLoad && !this.train.container.hasLoad) || (!this.train.crane.hasLoad && this.train.container.hasLoad)){
+				if((this.train.crane.hasLoad && !this.train.container.hasLoad && this.flag == 0) || (!this.train.crane.hasLoad && this.train.container.hasLoad && this.flag == 1)){
 					console.log("exchanced!"); 
 					this.exchangeLoad(this.train.crane, this.train.container); 
 				} 
 			}
 
-
-			else if (station.side == "left" && this.angle<=0 || station.side == "right" && this.angle > 0){
-				if(this.train.crane.alfa <= -1.5 && this.train.crane.beta <= -1.3){
+			else if(this.train.crane.alfa <= -1.5 && this.train.crane.beta <= -1.3){
 				console.log("catched!"); 
-				if((this.train.crane.hasLoad && !station.hasLoad) || (!this.train.crane.hasLoad && station.hasLoad)){
+				if((this.train.crane.hasLoad && !station.hasLoad && this.flag == 1) || (!this.train.crane.hasLoad && station.hasLoad && this.flag == 0)){
 					console.log("exchanced!"); 
 					this.exchangeLoad(this.train.crane, station);
-				}}}
-
-			else{
-				if(this.train.crane.alfa >= 1.5 && this.train.crane.beta <= -1.3){
-					console.log("catched!"); 
-					if((this.train.crane.hasLoad && !station.hasLoad) || (!this.train.crane.hasLoad && station.hasLoad)){
-						console.log("exchanced!"); 
-						this.exchangeLoad(this.train.crane, station);
-					}}}
+				}}
 
 			this.checkIfWeCanGo(station); 
 		}

@@ -45,16 +45,17 @@ export class MyScene extends CGFscene {
         this.defaultAppearance.setShininess(120)
         this.loadTextures();
 
-          this.setOfPoints = [
+        this.setOfPoints = [
             {x: -25, z: 20, type: 'simple', side:null},
+            //{x: -20, z: 2.5, type: 'station', side:'right', hasLoad:false}, //station supposed to be on the angle 
             {x: -15, z: -15, type: 'simple', side:null},
             {x: 0, z: -15, type: 'station', side:'left', hasLoad:true}, //upper one
             {x: 15, z: -15, type: 'simple', side:null},
-            {x: 20, z: 2.5, type: 'station', side:'left', hasLoad:true}, //station supposed to be on the angle 
+            //{x: 20, z: 2.5, type: 'station', side:'left', hasLoad:true}, //station supposed to be on the angle 
             {x: 25, z: 20, type: 'simple', side:null}, 
             {x: 0, z: 20, type: 'station', side:'right', hasLoad:false}, //lower one
         ]
-        
+
         this.linear = true;
         this.scaleFactor = 0.5;
         this.selectedCubeMapTexture = 0;
@@ -244,25 +245,25 @@ export class MyScene extends CGFscene {
         // Check for key codes eg in https://keycode.info/
 
         if (this.gui.isKeyPressed("KeyW")) {
-                this.train.crane.tilt(0.1); 
+            this.train.crane.tilt(0.1); 
         }
         if (this.gui.isKeyPressed("KeyS"))        {
-                this.train.crane.tilt(-0.1); 
+            this.train.crane.tilt(-0.1); 
         }
         if (this.gui.isKeyPressed("KeyA")) {
-                this.train.crane.turn(-0.1); 
+            this.train.crane.turn(-0.1); 
     }
         if (this.gui.isKeyPressed("KeyD"))        {
-                this.train.crane.turn(0.1); 
+            this.train.crane.turn(0.1); 
         }
         if (this.gui.isKeyPressed("KeyR"))        {
-                this.train.crane.reset(); 
+            this.train.crane.reset(); 
         }
         if (this.gui.isKeyPressed("KeyP"))  {
             this.movingTrain.interact(); 
         }
         if (this.gui.isKeyPressed("KeyC"))          {
-                this.movingTrain.departure(); 
+            this.movingTrain.departure(); 
         }
   }
 
