@@ -2,7 +2,7 @@ import { CGFscene, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
 import { CGFcamera2 } from "../lib/CGFcamera2.js";
 import { MyTrack } from "./Objects/Track/MyTrack.js";
-//import { MyEarth } from "./Objects/MyEarth.js";
+import { MyEarth } from "./Objects/MyEarth.js";
 import { MyTrain } from "./Objects/Train/MyTrain.js";
 import { MyCubeMap } from "./Objects/MyCubeMap.js";
 import { MyMovingTrain } from "./MovementController/MyMovingTrain.js";
@@ -87,7 +87,7 @@ export class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.plane = new MyPlane(this, 20, 0,10,0,10);
         this.track = new MyTrack(this, this.setOfPoints); 
-        //this.earth = new MyEarth(this);
+        this.earth = new MyEarth(this);
         this.train = new MyTrain(this, complexity, false);
         this.cubeMap = new MyCubeMap(this); 
         this.movingTrain = new MyMovingTrain(this, this.train, this.track); 
@@ -104,6 +104,9 @@ export class MyScene extends CGFscene {
                                 );
         //Objects connected to MyInterface
         this.displayAxis = false;
+        this.displayEarth = false;
+        this.displayTrain = false;
+        this.displayMovingTrain = true;
     }
 
     loadTextures() {
@@ -232,12 +235,21 @@ export class MyScene extends CGFscene {
 
         this.track.display(); 
 
-        //this.train.display(); 
-   
+        if (this.displayTrain) {
+            this.train.display();
+        }
 
+        if (this.displayEarth) {
+            this.pushMatrix();
+            this.translate(0, 5.0, 0);
+            this.scale(2.0, 2.0, 2.0);
+            this.earth.display();
+            this.popMatrix();
+        }
 
-        this.movingTrain.display();
-        
+        if (this.displayMovingTrain) {
+            this.movingTrain.display();
+        }
         
         // ---- END Primitive drawing section
     }
