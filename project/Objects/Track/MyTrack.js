@@ -12,6 +12,7 @@ export class MyTrack extends CGFobject{
 		this.scene = scene;
         this.setOfPoints = setOfPoints; 
         this.actualStation = 0; 
+        this.nextPoint = 2; 
         this.createTextures();
         this.init(scene); 
     }
@@ -108,6 +109,20 @@ export class MyTrack extends CGFobject{
             this.actualStation = 0; 
         }
         this.actualStation = (this.actualStation+1)%this.stationArray.length;
+    }
+
+    nextPointHasStation(){
+        if(this.setOfPoints[this.nextPoint].type == 'station'){
+            return true; 
+        }
+        return false; 
+    }
+
+    evaluateNextPoint(){
+        this.nextPoint++; 
+        if(this.nextPoint>=this.setOfPoints.length){
+            this.nextPoint = 0; 
+        }
     }
 
     getPreviousAngle(){
