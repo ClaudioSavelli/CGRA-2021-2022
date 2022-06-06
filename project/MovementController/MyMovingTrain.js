@@ -55,6 +55,8 @@ export class MyMovingTrain extends CGFobject {
 				if(this.isTrainJustStarted == 0){
 					//console.log("Entered in the if!"); 
 					this.isStopped = true; 
+					this.x = this.x2; 
+					this.z = this.z2; 
 					this.velocity = 0;
 					this.acceleration = 0;
 					this.angleVisualized = this.angle; 
@@ -77,9 +79,9 @@ export class MyMovingTrain extends CGFobject {
 				console.log("accelerating")
 				this.acceleration = Math.pow(this.cruisingSpeed, 2) / (2*(this.distance));
 				this.haveToAccelerate = 0; 
-			//} else if (this.track.setOfPoints[this.actualEdge].type == 'station') {
-				//console.log("decelerating");	
-				//this.acceleration = -Math.pow(this.cruisingSpeed, 2)/ (2*this.distance);
+			} else if (this.track.setOfPoints[this.actualEdge].type == 'station') {
+				console.log("decelerating");	
+				this.acceleration = -Math.pow(this.cruisingSpeed, 2)/ (2*this.distance);
 			} else {
 				console.debug("cruiseSpeed"); 
 				this.acceleration = 0; 
