@@ -8,7 +8,7 @@ import { MyCubeMap } from "./Objects/MyCubeMap.js";
 import { MyMovingTrain } from "./MovementController/MyMovingTrain.js";
 import {MyAwning} from "./Objects/Station/MyAwning.js"
 import { MyStationModel } from "./Objects/Station/MyStationModel.js";
-import { MyCilinder } from "./3D_Shapes/MyCilinder.js";
+import { MyCircle } from "./2D_Shapes/MyCircle.js";
 
 /**
 * MyScene
@@ -36,6 +36,8 @@ export class MyScene extends CGFscene {
         this.setUpdatePeriod(50);
         
         this.enableTextures(true);
+
+        this.createTextures(); 
 
         this.defaultAppearance = new CGFappearance(this)
         this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0)
@@ -95,6 +97,7 @@ export class MyScene extends CGFscene {
         this.movingTrain = new MyMovingTrain(this, this.train, this.track); 
         this.awning = new MyAwning(this, 20);
         this.model = new MyStationModel(this, 0, 0, 0, false, false);
+        this.circle = new MyCircle(this, 6); 
 
         this.cubeMap.setTexture(
                                 this.YokohamaCubeMap.top, 
@@ -106,6 +109,7 @@ export class MyScene extends CGFscene {
                                 );
         //Objects connected to MyInterface
         this.displayAxis = false;
+        this.displayExagon = false; 
         this.displayEarth = false;
         this.displayTrain = false;
         this.displayMovingTrain = true;
@@ -184,9 +188,6 @@ export class MyScene extends CGFscene {
         this.movingTrain.update(t); 
     }
 
-    updateTexCoords() {
-    }
-
     //Function that resets selected texture in quadMaterial
     updateAppliedTexture() {
         this.cubeMap.setTexture(                                
@@ -228,7 +229,7 @@ export class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-        //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+
         this.pushMatrix();
         this.scale(100,1,100); 
         this.rotate(-Math.PI*0.5, 1,0,0);
@@ -238,6 +239,17 @@ export class MyScene extends CGFscene {
 
         if (this.displayTrack) {
             this.track.display();
+        }
+
+        if(this.displayExagon){
+            this.testAppaerance.apply();
+
+            this.pushMatrix(); 
+            this.translate(0, 5, 0);
+            this.rotate(Math.PI/2, 1, 0, 0); 
+            this.scale(2, 2, 2); 
+            this.circle.display();
+            this.popMatrix();
         }
 
         if (this.displayTrain) {
@@ -255,6 +267,7 @@ export class MyScene extends CGFscene {
         if (this.displayMovingTrain) {
             this.movingTrain.display();
         }
+          
         
         // ---- END Primitive drawing section
     }
@@ -284,6 +297,17 @@ export class MyScene extends CGFscene {
                 this.movingTrain.departure(); 
         }
   }
+
+  createTextures() {
+    this.testAppaerance = new CGFappearance(this);
+    this.testAppaerance.setAmbient(1, 1, 1, 1);
+    this.testAppaerance.setDiffuse(1, 1, 1, 1);
+    this.testAppaerance.setSpecular(0, 0, 0, 1);
+
+    this.texture = new CGFtexture(this, "./images/window.jpg");
+    this.testAppaerance.setTexture(this.texture);
+    this.testAppaerance.setTextureWrap('REPEAT', 'REPEAT');
+}
 
 
 }
