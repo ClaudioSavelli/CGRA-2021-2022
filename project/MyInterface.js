@@ -23,6 +23,7 @@ export class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayTrain').name('Display Train');
         this.gui.add(this.scene, 'displayMovingTrain').name('Display Moving Train');
         this.gui.add(this.scene, 'displayEarth').name('Display Earth');
+        this.gui.add(this.scene, 'displayTrack').name('Display Track');
         this.gui.add(this.scene, 'linear').name('Linear Int.');
         this.gui.add(this.scene, 'scaleFactor', 0.1, 10.0).name('Scale');
 

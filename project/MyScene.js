@@ -8,6 +8,7 @@ import { MyCubeMap } from "./Objects/MyCubeMap.js";
 import { MyMovingTrain } from "./MovementController/MyMovingTrain.js";
 import {MyAwning} from "./Objects/Station/MyAwning.js"
 import { MyStationModel } from "./Objects/Station/MyStationModel.js";
+import { MyCilinder } from "./3D_Shapes/MyCilinder.js";
 
 /**
 * MyScene
@@ -89,6 +90,7 @@ export class MyScene extends CGFscene {
         this.track = new MyTrack(this, this.setOfPoints); 
         this.earth = new MyEarth(this);
         this.train = new MyTrain(this, complexity, false);
+        this.cilinder = new MyCilinder(this, 20);
         this.cubeMap = new MyCubeMap(this); 
         this.movingTrain = new MyMovingTrain(this, this.train, this.track); 
         this.awning = new MyAwning(this, 20);
@@ -107,6 +109,7 @@ export class MyScene extends CGFscene {
         this.displayEarth = false;
         this.displayTrain = false;
         this.displayMovingTrain = true;
+        this.displayTrack = true;
     }
 
     loadTextures() {
@@ -233,7 +236,9 @@ export class MyScene extends CGFscene {
         this.plane.display();
         this.popMatrix();
 
-        this.track.display(); 
+        if (this.displayTrack) {
+            this.track.display();
+        }
 
         if (this.displayTrain) {
             this.train.display();
