@@ -1,6 +1,6 @@
 # CGRA 2021/2022
 
-## Group T01G07
+## Group T07G01
 Pedro Silva - up201907523
 
 Claudio Savelli - up202111375
