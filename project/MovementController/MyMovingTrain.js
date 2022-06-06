@@ -81,7 +81,7 @@ export class MyMovingTrain extends CGFobject {
 				this.haveToAccelerate = 0; 
 			} else if (this.track.setOfPoints[this.actualEdge].type == 'station') {
 				console.log("decelerating");	
-				this.acceleration = -Math.pow(this.cruisingSpeed, 2)/ (2*this.distance);
+				this.acceleration = - (Math.pow(this.cruisingSpeed, 2)/ (2*this.distance));
 			} else {
 				console.debug("cruiseSpeed"); 
 				this.acceleration = 0; 
@@ -103,10 +103,7 @@ export class MyMovingTrain extends CGFobject {
 		if(!this.isStopped){
 			this.smoothAngleTrain(t);
 
-			if (this.acceleration < 0 && this.velocity > 0) {
-				this.velocity -= this.acceleration * (t-this.initialTime); 
-
-			} else if (this.acceleration > 0 && this.velocity < this.cruisingSpeed){
+			if (this.acceleration != 0 && (this.velocity >= 0 && this.velocity <= this.cruisingSpeed)){
 				this.velocity += this.acceleration * (t-this.initialTime); 
 			}
 
