@@ -108,6 +108,7 @@ export class MyScene extends CGFscene {
                                 );
         //Objects connected to MyInterface
         this.displayAxis = false;
+        this.displayExagon = false; 
         this.displayEarth = false;
         this.displayTrain = false;
         this.displayMovingTrain = true;
@@ -226,7 +227,7 @@ export class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-        //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+
         this.pushMatrix();
         this.scale(100,1,100); 
         this.rotate(-Math.PI*0.5, 1,0,0);
@@ -235,6 +236,17 @@ export class MyScene extends CGFscene {
         this.popMatrix();
 
         this.track.display(); 
+
+        if(this.displayExagon){
+            this.testAppaerance.apply();
+
+            this.pushMatrix(); 
+            this.translate(0, 5, 0);
+            this.rotate(Math.PI/2, 1, 0, 0); 
+            this.scale(2, 2, 2); 
+            this.circle.display();
+            this.popMatrix();
+        }
 
         if (this.displayTrain) {
             this.train.display();
@@ -251,15 +263,7 @@ export class MyScene extends CGFscene {
         if (this.displayMovingTrain) {
             this.movingTrain.display();
         }
-
-        this.testAppaerance.apply();
-
-        this.pushMatrix(); 
-        this.translate(0, 5, 0);
-        this.rotate(Math.PI/2, 1, 0, 0); 
-        this.scale(2, 2, 2); 
-        this.circle.display();
-        this.popMatrix();  
+          
         
         // ---- END Primitive drawing section
     }
