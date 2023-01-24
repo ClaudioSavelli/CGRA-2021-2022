@@ -1,4 +1,6 @@
 # CGRA 2021/2022
+Laboratories and project of the course of Computer Graphics at FEUP 
+
 
 ## Group T07G01
 | Name             | Number    | E-Mail             |
@@ -14,6 +16,3 @@
   - [tp4](tp4/README.md)
   - [tp5](tp5/README.md)
   - [Project](proj/README.md)
-
-
-Laboratories and project of the course of Computer Graphics at FEUP 
